@@ -2,10 +2,13 @@ import pygame
 
 pygame.init()
 
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 400
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+background = pygame.image.load("C:/Users/avery/Downloads/Test Map/simplified/AutoLayers_advanced_demo/_composite.png").convert()
+background = pygame.transform.scale(background, screen.get_size())
+
 pygame.display.set_caption("Working on First Screen")
 
 class image:
@@ -15,22 +18,22 @@ class image:
         self.flipped_surf = pygame.transform.flip(self.original_surf, True, False)
 
 # Default rat surfs
-DefaultStandingRat_1 = image("graphics/default/standing rat-1.png", (100, 100))
-DefaultStandingRat_2 = image("graphics/default/standing rat-2.png", (100, 100))
-DefaultWalkingRat_1 = image("graphics/default/walking rat-1.png", (100, 100))
-DefaultWalkingRat_2 = image("graphics/default/walking rat-2.png", (100, 100))
+DefaultStandingRat_1 = image("graphics/player/default/standing rat-1.png", (50, 50))
+DefaultStandingRat_2 = image("graphics/player/default/standing rat-2.png", (50, 50))
+DefaultWalkingRat_1 = image("graphics/player/default/walking rat-1.png", (50, 50))
+DefaultWalkingRat_2 = image("graphics/player/default/walking rat-2.png", (50, 50))
 
 # Chef rat surfs
-ChefStandingRat_1 = image("graphics/chef/standing chef rat-1.png", (100, 100))
-ChefStandingRat_2 = image("graphics/chef/standing chef rat-2.png", (100, 100))
-ChefWalkingRat_1 = image("graphics/chef/walking chef rat-1.png", (100, 100))
-ChefWalkingRat_2 = image("graphics/chef/walking chef rat-2.png", (100, 100))
+ChefStandingRat_1 = image("graphics/player/chef/standing chef rat-1.png", (50, 50))
+ChefStandingRat_2 = image("graphics/player/chef/standing chef rat-2.png", (50, 50))
+ChefWalkingRat_1 = image("graphics/player/chef/walking chef rat-1.png", (50, 50))
+ChefWalkingRat_2 = image("graphics/player/chef/walking chef rat-2.png", (50, 50))
 
 # Santa rat surfs
-SantaStandingRat_1 = image("graphics/santa/standing santa rat-1.png", (100, 100))
-SantaStandingRat_2 = image("graphics/santa/standing santa rat-2.png", (100, 100))
-SantaWalkingRat_1 = image("graphics/santa/walking santa rat-1.png", (100, 100))
-SantaWalkingRat_2 = image("graphics/santa/walking santa rat-2.png", (100, 100))
+SantaStandingRat_1 = image("graphics/player/santa/standing santa rat-1.png", (50, 50))
+SantaStandingRat_2 = image("graphics/player/santa/standing santa rat-2.png", (50, 50))
+SantaWalkingRat_1 = image("graphics/player/santa/walking santa rat-1.png", (50, 50))
+SantaWalkingRat_2 = image("graphics/player/santa/walking santa rat-2.png", (50, 50))
 
 i = 0
 
@@ -176,7 +179,9 @@ while game_active:
 
     i += 0.075
 
-    screen.fill((255, 255, 255))
+    # screen.fill((255, 255, 255))
+    screen.fill((0, 0, 0))
+    screen.blit(background, (0, 0))
     screen.blit(rat.image, rat.rect)
 
     pygame.time.Clock().tick(60)
