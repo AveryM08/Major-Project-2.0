@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="125">
- <tileset firstgid="1" source="MP2 Tileset_scaled_64x.tsx"/>
- <tileset firstgid="385" source="Super-Pirate-World-main/Super-Pirate-World-main/data/tilesets/platforms.tsx"/>
- <tileset firstgid="393" source="MP2 Ground Tileset.tsx"/>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="134">
+ <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
+ <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
+ <tileset firstgid="475" source="../tilesets/scaled standing rat 1.tsx"/>
  <layer id="1" name="BG" width="20" height="80">
   <data encoding="csv">
 4,4,5,4,1,1,4,4,4,4,4,4,4,4,4,4,4,4,5,2,
@@ -89,48 +89,48 @@
  </layer>
  <layer id="2" name="Terrain" width="20" height="80">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,399,400,401,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,391,392,393,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-393,394,395,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-396,397,398,0,0,0,0,0,0,0,0,0,0,0,0,393,394,394,394,395,
-399,400,401,0,0,0,17,0,0,0,0,0,0,0,0,396,397,397,397,405,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,399,400,403,397,397,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,399,400,400,
-2147483668,2147483667,19,19,19,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,
+386,386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,389,390,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,386,386,
+392,392,393,0,0,0,401,0,0,0,0,0,0,0,0,388,389,389,389,389,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,395,389,389,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,
+2147483668,2147483667,19,19,19,0,0,0,0,0,401,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,393,394,394,395,27,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,399,400,400,401,27,0,
-0,0,0,0,0,0,0,393,395,0,0,0,0,0,0,0,0,0,0,0,
-2147483668,20,0,0,0,0,0,396,398,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,396,398,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,396,398,0,0,0,0,0,0,0,0,0,0,31,
-0,0,0,0,0,0,0,396,398,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,396,398,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,2147483668,20,396,398,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,399,401,0,0,0,115,115,17,17,115,115,17,17,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,387,27,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,393,27,0,
+0,0,0,0,0,0,0,385,387,0,0,0,0,0,0,0,0,0,0,0,
+2147483668,20,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,31,
+0,0,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,2147483668,20,388,390,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,391,393,0,0,0,115,115,17,17,115,115,17,17,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2147483668,19,19,0,0,0,52,19,19,115,0,0,0,0,0,0,0,0,0,31,
-0,0,0,0,0,0,64,0,0,0,0,0,0,0,19,19,19,0,0,0,
-0,0,0,0,0,0,64,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,408,409,410,0,0,0,0,0,0,0,0,0,0,0,0,0,31,
-0,409,409,0,0,413,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,416,0,0,0,0,0,0,0,0,19,19,19,0,0,0,
+2147483668,19,19,0,0,0,430,431,431,115,0,0,0,0,0,0,0,0,0,31,
+0,0,0,0,0,0,433,0,0,0,0,0,0,0,19,19,19,0,0,0,
+0,0,0,0,0,0,433,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,400,401,402,0,0,0,0,0,0,0,0,0,0,0,0,0,31,
+0,401,401,0,0,405,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,408,0,0,0,0,0,0,0,0,19,19,19,0,0,0,
 0,0,0,0,16,0,17,17,17,17,0,0,0,0,0,0,0,0,0,0,
 0,16,17,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,
-0,28,0,0,393,394,394,394,394,394,394,395,0,0,0,0,0,0,0,43,
-0,28,0,0,396,397,397,397,397,397,397,398,0,0,0,0,0,0,0,43,
-0,28,0,0,399,400,400,400,400,400,400,401,0,0,0,0,0,0,0,43,
+0,28,0,0,385,386,386,386,386,386,386,387,0,0,0,0,0,0,0,43,
+0,28,0,0,388,389,389,389,389,389,389,390,0,0,0,0,0,0,0,43,
+0,28,0,0,391,392,392,392,392,392,392,393,0,0,0,0,0,0,0,43,
 0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,
 0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,
 17,28,0,0,0,0,0,0,9,2147483679,0,0,0,0,0,0,0,0,31,9,
-394,394,395,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
-397,397,398,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
-397,397,398,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
-397,397,398,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
-400,400,401,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,
+386,386,387,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
+389,389,390,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
+389,389,390,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
+389,389,390,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,
+392,392,393,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,
 0,0,0,0,0,0,0,9,2147483679,0,0,0,0,0,0,0,0,31,9,9,
 0,0,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,0,
 0,0,0,0,0,0,0,0,2147483691,0,0,0,0,0,0,0,0,43,0,0,
@@ -147,94 +147,30 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-393,395,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-396,398,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-399,401,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+392,393,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,38,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-395,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-401,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+393,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,26,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,38,
-393,395,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-396,398,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-396,398,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-396,398,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-399,401,17,0,0,17,17,0,0,0,0,0,0,0,0,0,0,0,0,0,
+386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+392,393,17,0,0,17,17,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,393,395,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,398,
-394,394,394,395,0,0,0,0,0,0,0,393,394,395,0,0,393,394,406,405
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,386,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,389,
+386,386,386,387,0,0,0,0,0,0,0,385,386,387,0,0,385,386,398,389
 </data>
  </layer>
- <objectgroup id="3" name="Moving Objects">
-  <object id="1" name="Wind" x="1088" y="769.5" width="64" height="384"/>
-  <object id="3" name="Wind" x="1024" y="770" width="64" height="384"/>
-  <object id="4" name="Wind" x="832.25" y="769.5" width="64" height="384"/>
-  <object id="5" name="Wind" x="769.25" y="769.25" width="64" height="384"/>
-  <object id="24" name="Wind" x="576" y="958" width="64" height="384"/>
-  <object id="26" name="Frog Tongue" x="959" y="1278" width="256" height="64"/>
-  <object id="27" name="Frog Tongue" x="960" y="1468" width="256" height="64"/>
-  <object id="28" name="Frog Tongue" x="68" y="1278" width="256" height="64"/>
-  <object id="29" name="Frog Tongue" x="128" y="1022" width="256" height="64"/>
-  <object id="30" name="Frog Tongue" x="65" y="702" width="256" height="64"/>
-  <object id="31" name="Frog Tongue" x="66" y="383" width="256" height="64"/>
-  <object id="32" name="Frog Tongue" x="958" y="831" width="256" height="64"/>
-  <object id="33" name="Frog Tongue" x="451" y="1662" width="256" height="64"/>
-  <object id="41" name="Frog Tongue" x="896" y="2239" width="256" height="64"/>
-  <object id="42" name="Frog Tongue" x="640" y="2239" width="256" height="64"/>
-  <object id="44" name="Frog Tongue" x="576" y="2624" width="256" height="64"/>
-  <object id="45" name="Frog Tongue" x="766" y="3007" width="256" height="64"/>
-  <object id="46" name="Frog Tongue" x="511" y="3007" width="256" height="64"/>
-  <object id="47" name="Frog Tongue" x="960" y="1855" width="256" height="64"/>
-  <object id="55" name="Frog Tongue" x="256" y="2238.67" width="256" height="64"/>
-  <object id="57" name="Frog Tongue" x="126.667" y="3008" width="256" height="64"/>
-  <object id="58" name="Frog Tongue" x="125.333" y="3392.67" width="256" height="64"/>
-  <object id="59" name="Wind" x="1.33333" y="3069.33" width="64" height="384"/>
-  <object id="60" name="Wind" x="64" y="3069.33" width="64" height="384"/>
-  <object id="61" name="Wind" x="1.33333" y="2685.33" width="64" height="384"/>
-  <object id="62" name="Wind" x="64" y="2685.33" width="64" height="384"/>
-  <object id="64" name="Helicopter" x="128.667" y="3778" width="1023" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="65" name="Helicopter" x="129.5" y="4201" width="1023" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="66" name="Helicopter" x="258.5" y="5032" width="445" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="67" name="Helicopter" x="257.5" y="4718" width="1023" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="76" name="Frog Tongue" x="895" y="3840" width="256" height="64"/>
-  <object id="77" name="Frog Tongue" x="128" y="3646" width="256" height="64"/>
-  <object id="81" name="Helicopter" x="129.5" y="4541" width="1023" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="94" name="Frog Tongue" x="67" y="4095" width="256" height="64"/>
-  <object id="119" name="Frog Tongue" x="897" y="4288" width="256" height="64"/>
-  <object id="120" name="Frog Tongue" x="129" y="4478" width="256" height="64"/>
-  <object id="121" name="Frog Tongue" x="831.667" y="4992" width="256" height="64"/>
- </objectgroup>
  <objectgroup id="4" name="Objects">
   <object id="6" name="Spike" x="961.333" y="1088" width="64" height="64"/>
   <object id="10" name="Spike" x="1088.67" y="704.667" width="64" height="64"/>
@@ -269,7 +205,6 @@
   <object id="85" name="Spike" x="320" y="4735" width="64" height="64"/>
   <object id="86" name="Spike" x="384" y="4735" width="64" height="64"/>
   <object id="87" name="Npc" x="130.667" y="4986" width="64" height="64"/>
-  <object id="89" name="Player" x="1204" y="121" width="64" height="64"/>
   <object id="90" name="Spike" x="641" y="383" width="64" height="64"/>
   <object id="91" name="Spike" x="384" y="190" width="64" height="64"/>
   <object id="92" name="Frog" x="1" y="4095" width="64" height="64"/>
@@ -294,6 +229,77 @@
   <object id="118" name="Portal" x="13.3333" y="4965.33" width="25.3333" height="88">
    <properties>
     <property name="isOpen" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="132" name="Player" gid="475" x="1203.13" y="191.5" width="64" height="60"/>
+ </objectgroup>
+ <objectgroup id="3" name="Moving Objects">
+  <object id="1" name="Wind" x="1088" y="769.5" width="64" height="384"/>
+  <object id="3" name="Wind" x="1024" y="770" width="64" height="384"/>
+  <object id="4" name="Wind" x="832.25" y="769.5" width="64" height="384"/>
+  <object id="5" name="Wind" x="769.25" y="769.25" width="64" height="384"/>
+  <object id="24" name="Wind" x="576" y="958" width="64" height="384"/>
+  <object id="26" name="Frog Tongue" x="959" y="1278" width="256" height="64"/>
+  <object id="27" name="Frog Tongue" x="960" y="1468" width="256" height="64"/>
+  <object id="28" name="Frog Tongue" x="68" y="1278" width="256" height="64"/>
+  <object id="29" name="Frog Tongue" x="128" y="1022" width="256" height="64"/>
+  <object id="30" name="Frog Tongue" x="65" y="702" width="256" height="64"/>
+  <object id="31" name="Frog Tongue" x="66" y="383" width="256" height="64"/>
+  <object id="32" name="Frog Tongue" x="958" y="831" width="256" height="64"/>
+  <object id="33" name="Frog Tongue" x="451" y="1662" width="256" height="64"/>
+  <object id="41" name="Frog Tongue" x="896" y="2239" width="256" height="64"/>
+  <object id="42" name="Frog Tongue" x="640" y="2239" width="256" height="64"/>
+  <object id="44" name="Frog Tongue" x="576" y="2624" width="256" height="64"/>
+  <object id="45" name="Frog Tongue" x="766" y="3007" width="256" height="64"/>
+  <object id="46" name="Frog Tongue" x="511" y="3007" width="256" height="64"/>
+  <object id="47" name="Frog Tongue" x="960" y="1855" width="256" height="64"/>
+  <object id="55" name="Frog Tongue" x="256" y="2238.67" width="256" height="64"/>
+  <object id="57" name="Frog Tongue" x="126.667" y="3008" width="256" height="64"/>
+  <object id="58" name="Frog Tongue" x="125.333" y="3392.67" width="256" height="64"/>
+  <object id="59" name="Wind" x="1.33333" y="3069.33" width="64" height="384"/>
+  <object id="60" name="Wind" x="64" y="3069.33" width="64" height="384"/>
+  <object id="61" name="Wind" x="1.33333" y="2685.33" width="64" height="384"/>
+  <object id="62" name="Wind" x="64" y="2685.33" width="64" height="384"/>
+  <object id="64" name="Helicopter" x="128.667" y="3778" width="1023" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="65" name="Helicopter" x="129.5" y="4201" width="1023" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="66" name="Helicopter" x="258.5" y="5032" width="445" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="67" name="Helicopter" x="257.5" y="4718" width="1023" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="76" name="Frog Tongue" x="895" y="3840" width="256" height="64"/>
+  <object id="77" name="Frog Tongue" x="128" y="3646" width="256" height="64"/>
+  <object id="81" name="Helicopter" x="129.5" y="4541" width="1023" height="16">
+   <properties>
+    <property name="Terrain" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="94" name="Frog Tongue" x="67" y="4095" width="256" height="64"/>
+  <object id="119" name="Frog Tongue" x="897" y="4288" width="256" height="64"/>
+  <object id="120" name="Frog Tongue" x="129" y="4478" width="256" height="64"/>
+  <object id="121" name="Frog Tongue" x="831.667" y="4992" width="256" height="64"/>
+  <object id="133" name="Helicopter" x="497.5" y="261" width="368" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="100"/>
    </properties>
   </object>
  </objectgroup>
