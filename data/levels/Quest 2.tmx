@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="3">
- <tileset firstgid="1" source="MP2 Tileset_scaled_64x.tsx"/>
- <tileset firstgid="385" source="../Purple tile.tsx"/>
+ <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
+ <tileset firstgid="385" source="../tilesets/Purple tile.tsx"/>
  <layer id="4" name="BG" width="30" height="30">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
