@@ -3,16 +3,23 @@ from level import Level
 from pytmx.util_pygame import load_pygame
 from os.path import join
 
+from support import *
+
 class Game:
     def __init__(self):
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Rat Adventure")
         self.clock = pygame.time.Clock()
+        self.import_assets()
 
         self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx'))}
+        self.current_stage = Level(self.tmx_maps[0], self.level_frames)
 
-        self.current_stage = Level(self.tmx_maps[0])
+    def import_assets(self):
+        self.level_frames = {
+            'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
+        }
 
     def run(self):
         while True:
