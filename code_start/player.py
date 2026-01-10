@@ -3,14 +3,24 @@ from timer import Timer
 from os.path import join
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames):
+        #general setup
         super().__init__(groups)
-        self.image = pygame.image.load(join('..', 'graphics', 'player', 'default', 'scaled standing rat 1.png')).convert_alpha()
         self.z = Z_LAYERS['main']
+
+        #image
+        self.frames, self.frame_index = frames, 0
+        self.state, self.facing_right = 'idle', True
+        self.image = self.frames[self.state][self.frame_index]
 
         #rects
         self.rect = self.image.get_frect(topleft = pos)
-        self.hitbox_rect = self.rect.inflate(0, 0)
+        self.hitbox_idle_inflate = (-180, 0) # -46
+        self.hitbox_run_inflate = (-124, 0) # -24, then -6 on top
+
+        self.hitbox_rect = self.rect.inflate(self.hitbox_idle_inflate)
+        self.hitbox_rect.midbottom = self.rect.midbottom
+
         self.old_rect = self.hitbox_rect.copy()
 
         # movement
@@ -39,9 +49,10 @@ class Player(pygame.sprite.Sprite):
         if not self.timers['wall jump'].active:
             if keys[pygame.K_a] or keys[pygame.K_LEFT]:
                 input_vector.x -= 1
-                
+                self.facing_right = False
             if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
                 input_vector.x += 1
+                self.facing_right = True
             if keys[pygame.K_s] or keys[pygame.K_DOWN]:
                 self.timers['platform skip'].activate()
 
@@ -136,10 +147,55 @@ class Player(pygame.sprite.Sprite):
         for timer in self.timers.values():
             timer.update()
 
+    def animate(self, dt):
+        self.frame_index += ANIMATION_SPEED * dt
+        self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
+        self.image = self.image if self.facing_right else pygame.transform.flip(self.image, True, False)
+
+    def get_state(self):
+        if self.on_surface['floor']:
+            self.state = 'idle' if self.direction.x == 0 else 'run'
+        else:
+            if any((self.on_surface['left'], self.on_surface['right'])):
+                self.state = 'idle' # wall
+            else:
+                self.state = 'idle' if self.direction.y < 0 else 'idle' # jump / fall
+
+    def update_hitbox(self):
+        if self.state == 'idle':
+            inflate_values = self.hitbox_idle_inflate
+        elif self.state == 'run':
+            inflate_values = self.hitbox_run_inflate
+        else:
+            inflate_values = self.hitbox_idle_inflate
+
+        current_midbottom = self.hitbox_rect.midbottom
+        self.hitbox_rect = self.rect.inflate(inflate_values)
+        self.hitbox_rect.midbottom = current_midbottom
+
     def update(self, dt):
-        self.old_rect = self.hitbox_rect.copy()
+        # self.old_rect = self.hitbox_rect.copy()
+        # self.update_timers()
+
+        # self.input()
+        # self.move(dt)
+        # self.platform_move(dt)
+        # self.check_contact()
+
+        # self.get_state()
+        # self.animate(dt)
+
         self.update_timers()
         self.input()
+
+        self.get_state()
+        self.update_hitbox()
+        self.old_rect = self.hitbox_rect.copy()
+
         self.move(dt)
         self.platform_move(dt)
         self.check_contact()
+
+        self.animate(dt)
+
+        self.rect.midbottom = self.hitbox_rect.midbottom

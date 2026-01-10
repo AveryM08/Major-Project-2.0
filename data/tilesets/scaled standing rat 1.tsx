@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="scaled standing rat 1" tilewidth="64" tileheight="60" tilecount="1" columns="1">
- <image source="../../graphics/player/default/scaled standing rat 1.png" width="64" height="60"/>
+<tileset version="1.10" tiledversion="1.11.2" name="scaled standing rat 1" tilewidth="64" tileheight="56" tilecount="1" columns="1">
+ <grid orientation="orthogonal" width="64" height="60"/>
+ <image source="../../graphics/old_player/scaled standing rat 1.png.png" width="64" height="56"/>
 </tileset>

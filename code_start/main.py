@@ -19,6 +19,7 @@ class Game:
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
+            'player': import_sub_folders('..', 'graphics', 'player', 'default')
         }
 
     def run(self):
