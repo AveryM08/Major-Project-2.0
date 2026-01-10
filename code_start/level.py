@@ -29,7 +29,12 @@ class Level:
         #objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == "Player":
-                self.player = Player((obj.x, obj.y), self.all_sprites, self.collision_sprites, self.semi_collision_sprites)
+                self.player = Player(
+                    pos = (obj.x, obj.y), 
+                    groups = self.all_sprites, 
+                    collision_sprites = self.collision_sprites,
+                    semi_collision_sprites = self.semi_collision_sprites,
+                    frames = level_frames['player'])
             else:
                 if obj.name == 'floor_spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="192">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="194">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled standing rat 1.tsx"/>
@@ -352,7 +352,6 @@
     <property name="isOpen" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="132" name="Player" gid="475" x="1203.13" y="191.5" width="64" height="60"/>
   <object id="183" name="floor_spikes" gid="476" x="640" y="448" width="64" height="64"/>
   <object id="184" name="floor_spikes" gid="476" x="384" y="256" width="64" height="64"/>
   <object id="185" name="floor_spikes" gid="476" x="896" y="1152" width="64" height="64"/>
@@ -361,6 +360,7 @@
   <object id="188" name="floor_spikes" gid="476" x="832" y="3456" width="64" height="64"/>
   <object id="189" name="floor_spikes" gid="476" x="128" y="4800" width="64" height="64"/>
   <object id="190" name="floor_spikes" gid="476" x="0" y="2304" width="64" height="64"/>
+  <object id="193" name="Player" gid="2147484123" x="1024" y="192" width="64" height="56"/>
  </objectgroup>
  <objectgroup id="3" name="Moving Objects">
   <object id="1" name="Wind" x="1088" y="769.5" width="64" height="384"/>
