@@ -19,7 +19,10 @@ class Game:
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default')
+            'player': import_sub_folders('..', 'graphics', 'player', 'default'),
+            'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
+            'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
+            'Frog Tongue': import_folder('..', 'graphics', 'enemies', 'frog') # importing frog not only frog tongue
         }
 
     def run(self):

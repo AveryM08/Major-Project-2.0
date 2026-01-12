@@ -18,13 +18,9 @@ class AnimatedSprite(Sprite):
         self.frame_index += self.animation_speed * dt
         self.image = self.frames[int(self.frame_index) % len(self.frames)]
 
-    def update(self, dt):
-        self.animate(dt)
-
-class MovingSprite(Sprite):
-    def __init__(self, groups, start_pos, end_pos, move_dir, speed):
-        surf = pygame.Surface((200, 50)) # Placeholder size
-        super().__init__(start_pos, surf, groups)
+class MovingSprite(AnimatedSprite):
+    def __init__(self, frames, groups, start_pos, end_pos, move_dir, speed):
+        super().__init__(start_pos, frames, groups)
         if move_dir == 'x':
             self.rect.midleft = start_pos
         else:
@@ -58,3 +54,5 @@ class MovingSprite(Sprite):
         self.old_rect = self.rect.copy()
         self.rect.topleft += self.direction * self.speed * dt
         self.check_boarder()
+
+        self.animate(dt)
