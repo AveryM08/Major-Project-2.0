@@ -1,18 +1,25 @@
 from settings import *
-from sprites import Sprite, AnimatedSprite, MovingSprite
+from sprites import Sprite, AnimatedSprite, MovingSprite, ParticleEffectSprite
 from player import Player
 from groups import AllSprites
+from enemies import Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames):
+    def __init__(self, tmx_map, level_frames, data):
         self.display_surface = pygame.display.get_surface()
+        self.data = data
 
         #groups
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
+        self.damage_sprites = pygame.sprite.Group()
+        self.boss_bullets = pygame.sprite.Group()
 
         self.setup(tmx_map, level_frames)
+
+        #frames
+        self.particle_frames = level_frames['particle']
 
     def setup(self, tmx_map, level_frames):
         #tiles
@@ -61,7 +68,38 @@ class Level:
                 speed = obj.properties['speed']
                 MovingSprite(frames, groups, start_pos, end_pos, move_dir, speed)
 
+        #enemies
+        for obj in tmx_map.get_layer_by_name("Enemies"):
+            if obj.name == "boss":
+                Boss(
+                    pos = (obj.x, obj.y),
+                    frames = level_frames['boss'],
+                    groups = (self.all_sprites, self.collision_sprites, self.boss_bullets),
+                    player = self.player,
+                )
+    def hit_collision(self):
+        for sprite in self.damage_sprites:
+            if sprite.rect.colliderect(self.player.hitbox_rect):
+                self.player.take_damage(1)  # temporary damage value and method
+
+    def attack_collision(self):
+        for target in self.boss_sprites.sprites(): # + any other attackable sprites
+            facing_target = (self.player.rect.centerx < target.rect.centerx and not self.player.facing_right) or (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right)
+            if target.rect.colliderect(self.player.rect) and self.player.attacking and facing_target:
+                
+
     def run(self, dt):
         self.display_surface.fill('black')
         self.all_sprites.update(dt)
+        self.boss_bullets.update(dt)
+        self.boss_bullets.draw(self.display_surface)
+        
+        hits = pygame.sprite.spritecollide(self.player, self.boss_bullets, dokill=True)
+        for bullet in hits:
+            ParticleEffectSprite((sprite.rect.center), self.particle_frames, self.all_sprites)
+            self.player.take_damage(1)   # temporary damage value and method
+
+        self.hit_collision()
+        self.attack_collision()
+
         self.all_sprites.draw(self.player.hitbox_rect.center)

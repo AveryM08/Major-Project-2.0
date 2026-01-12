@@ -1,12 +1,15 @@
+
 from settings import *
 from timer import Timer
 from os.path import join
+from math import sin
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data, frames):
         #general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
+        self.data = data
 
         #image
         self.frames, self.frame_index = frames, 0
@@ -41,8 +44,8 @@ class Player(pygame.sprite.Sprite):
         self.timers = {
             'wall jump': Timer(400),
             'wall slide block': Timer(250),
-            'platform skip': Timer(100),
-            'attack block': Timer(500)
+            'platform skip': Timer(100)
+            'hit': Timer(400)
         }
 
     def input(self):
@@ -197,6 +200,18 @@ class Player(pygame.sprite.Sprite):
         self.hitbox_rect = self.rect.inflate(inflate_values)
         self.hitbox_rect.midbottom = current_midbottom
 
+    def take_damage(self):
+        if not self.timers['hit'].active:
+            self.data['health'] -= 1
+            self.timers['hit'].activate()
+
+    def flicker(self):
+        if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
+            white_mask = pygame.mask.from_surface(self.image)
+            white_surf = white_mask.to_surface
+            white_surf.set_colorkey('black')
+            self.image = white_surf
+
     def update(self, dt):
         # self.old_rect = self.hitbox_rect.copy()
         # self.update_timers()
@@ -219,7 +234,50 @@ class Player(pygame.sprite.Sprite):
         self.move(dt)
         self.platform_move(dt)
         self.check_contact()
-
+        
+        self.flicker()
         self.animate(dt)
 
         self.rect.midbottom = self.hitbox_rect.midbottom
+
+class Quest2Player(Player):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data):     
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, data)
+        self.base_image = self.image
+        try:
+            self.flipped_image = pygame.transform.flip(self.base_image, True, False)
+        except Exception:
+            self.flipped_image = self.base_image
+        self.facing_right = True
+        self.gravity = 0
+        self.jump = False
+        self.jump_height = 0
+
+    def input(self):
+        keys = pygame.key.get_pressed()
+        input_vector = vector(0, 0)
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            input_vector.x = -1
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            input_vector.x = 1
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
+            input_vector.y = -1
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            input_vector.y = 1
+        if input_vector.x != 0 or input_vector.y != 0:
+            input_vector = input_vector.normalize()
+
+        self.direction = input_vector
+
+    def move(self, dt):
+        self.hitbox_rect.x += self.direction.x * self.speed * dt
+        self.collision('horizontal')
+        self.hitbox_rect.y += self.direction.y * self.speed * dt
+        self.collision('vertical')
+        self.rect.center = self.hitbox_rect.center
+        if self.direction.x < 0:
+            self.image = self.flipped_image
+            self.facing_right = False
+        elif self.direction.x > 0:
+            self.image = self.base_image
+            self.facing_right = True
