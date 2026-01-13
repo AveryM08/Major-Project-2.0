@@ -18,6 +18,20 @@ class AnimatedSprite(Sprite):
         self.frame_index += self.animation_speed * dt
         self.image = self.frames[int(self.frame_index) % len(self.frames)]
 
+class ParticleEffectSprite(AnimatedSprite):
+    def __init__(self, pos, frames, groups):
+        super().__init__(pos, frames, groups)
+        self.rect.center = pos
+        self.z = Z_LAYERS['fg']
+    def update(self, dt):
+        self.frame_index += self.animation_speed * dt
+        if self.frame_index < len(self.frames):
+            self.image = self.frames[int(self.frame_index)]
+        else:
+            self.kill()
+            
+
+
 class MovingSprite(AnimatedSprite):
     def __init__(self, frames, groups, start_pos, end_pos, move_dir, speed):
         super().__init__(start_pos, frames, groups)

@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
 
         # movement
         self.direction = vector()
-        self.speed = 200
+        self.speed = 300
         self.gravity = 2000
         self.jump = False
         self.jump_height = 900
@@ -196,6 +196,18 @@ class Player(pygame.sprite.Sprite):
         current_midbottom = self.hitbox_rect.midbottom
         self.hitbox_rect = self.rect.inflate(inflate_values)
         self.hitbox_rect.midbottom = current_midbottom
+
+    def take_damage(self):
+        if not self.timers['hit'].active:
+            self.data['health'] -= 1
+            self.timers['hit'].activate()
+
+    def flicker(self):
+        if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
+            white_mask = pygame.mask.from_surface(self.image)
+            white_surf = white_mask.to_surface
+            white_surf.set_colorkey('black')
+            self.image = white_surf
 
     def update(self, dt):
         # self.old_rect = self.hitbox_rect.copy()
