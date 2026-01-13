@@ -17,13 +17,12 @@ class Game:
         self.import_assets()
 
         self.ui = UI(self.font, self.ui_frames)
-        self.data = Data()
-        self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx'))}
-        self.tmx_quest_1 = load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
-
-        #self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
-        self.current_stage = Boss_fight(self.tmx_quest_1, self.data, self.quest_2_frames)
-
+        self.data = Data(self.ui)
+        self.tmx_maps = {
+            0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
+            1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
+            }
+        self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
     #animations
     def import_assets(self):
         self.level_frames = {

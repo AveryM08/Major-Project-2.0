@@ -5,7 +5,7 @@ from os.path import join
 from math import sin
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data, frames):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data):
         #general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.timers = {
             'wall jump': Timer(400),
             'wall slide block': Timer(250),
-            'platform skip': Timer(100)
+            'platform skip': Timer(100),
             'hit': Timer(400)
         }
 
