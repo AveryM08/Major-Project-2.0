@@ -1,5 +1,5 @@
 from settings import *
-from sprites import Sprite, AnimatedSprite, MovingSprite
+from sprites import Sprite, AnimatedSprite, MovingSprite, Item
 from player import Player
 from groups import AllSprites
 from enemies import Rat, Frog, Boss
@@ -7,6 +7,7 @@ from enemies import Rat, Frog, Boss
 class Level:
     def __init__(self, tmx_map, level_frames):
         self.display_surface = pygame.display.get_surface()
+        self.data = data
 
         #groups
         self.all_sprites = AllSprites()
@@ -14,6 +15,7 @@ class Level:
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
+        self.item_sprites = pygame.sprite.Group()
 
         self.setup(tmx_map, level_frames)
 
@@ -83,6 +85,13 @@ class Level:
                     reverse = obj.properties['reverse'],
                     player  = self.player
                 )
+            else:
+                pass
+
+        # # items 
+        # for obj in tmx_map.get_layer_by_name('Items'):
+        #     Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
+
 
     # def hit_collision(self):
     #     for sprite in self.damage_sprites:

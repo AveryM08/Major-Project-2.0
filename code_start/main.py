@@ -2,7 +2,7 @@ from settings import *
 from level import Level
 from pytmx.util_pygame import load_pygame
 from os.path import join
-
+from data import Data
 from support import *
 
 class Game:
@@ -13,6 +13,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.import_assets()
 
+        self.data = Data(self.ui)
         self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx'))}
         self.current_stage = Level(self.tmx_maps[0], self.level_frames)
 
@@ -22,7 +23,8 @@ class Game:
             'player': import_sub_folders('..', 'graphics', 'player', 'default'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
-            'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog')
+            'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
+            'items': import_sub_folders('..', 'graphics', 'items'),
         }
 
     def run(self):
