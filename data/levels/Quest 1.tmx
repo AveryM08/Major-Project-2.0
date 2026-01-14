@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="194">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="219">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled standing rat 1.tsx"/>
  <tileset firstgid="476" source="../tilesets/floor_spikes.tsx"/>
+ <tileset firstgid="477" source="../tilesets/scaled idle frog.tsx"/>
  <layer id="1" name="BG" width="20" height="80">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -145,8 +146,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,
 2147483668,2147483667,19,19,19,0,0,0,0,0,401,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,387,27,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,393,27,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,387,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,393,0,0,
 0,0,0,0,0,0,0,385,387,0,0,0,0,0,0,0,0,0,0,0,
 2147483668,20,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,388,390,0,0,0,0,0,0,0,0,0,0,0,
@@ -305,30 +306,7 @@
  <objectgroup id="4" name="Objects">
   <object id="10" name="ceiling_spike" x="1088.67" y="704.667" width="64" height="64"/>
   <object id="9" name="ceiling_spike" x="1024" y="704.667" width="64" height="64"/>
-  <object id="15" name="Frog" x="1216" y="830.667" width="64" height="64"/>
-  <object id="16" name="Frog" x="0" y="702" width="64" height="64"/>
-  <object id="17" name="Frog" x="385" y="1022" width="64" height="64"/>
-  <object id="19" name="Frog" x="2" y="383" width="64" height="64"/>
-  <object id="21" name="Frog" x="1216" y="1278" width="64" height="64"/>
-  <object id="22" name="Frog" x="1218" y="1469" width="64" height="64"/>
-  <object id="23" name="Frog" x="1" y="1278" width="64" height="64"/>
-  <object id="25" name="Frog" x="386" y="1662" width="64" height="64"/>
-  <object id="34" name="Frog" x="1216" y="1854" width="64" height="64"/>
-  <object id="35" name="Frog" x="1153" y="2239" width="64" height="64"/>
-  <object id="37" name="Frog" x="575" y="2238" width="64" height="64"/>
-  <object id="38" name="Frog" x="514" y="2623" width="64" height="64"/>
-  <object id="39" name="Frog" x="1024" y="3006" width="64" height="64"/>
-  <object id="40" name="Frog" x="449" y="3008" width="64" height="64"/>
-  <object id="50" name="Frog" x="384" y="3008" width="64" height="64"/>
-  <object id="51" name="Frog" x="382.667" y="3392" width="64" height="64"/>
-  <object id="53" name="Frog" x="512.667" y="2238.67" width="64" height="64"/>
-  <object id="71" name="Frog" x="1153" y="3839" width="64" height="64"/>
-  <object id="72" name="Frog" x="1153" y="4288" width="64" height="64"/>
-  <object id="73" name="Frog" x="64" y="4478" width="64" height="64"/>
-  <object id="74" name="Frog" x="62" y="3646" width="64" height="64"/>
-  <object id="75" name="Frog" x="1088" y="4992" width="64" height="64"/>
   <object id="87" name="Npc" x="130.667" y="4986" width="64" height="64"/>
-  <object id="92" name="Frog" x="1" y="4095" width="64" height="64"/>
   <object id="97" name="Cure 1" x="272.667" y="1654.67" width="30.6667" height="29.3333"/>
   <object id="98" name="Cure 1" x="1198" y="4864" width="30.6667" height="29.3333"/>
   <object id="99" name="Coin" x="298" y="4658.67" width="30.6667" height="29.3333"/>
@@ -374,7 +352,7 @@
   <object id="29" name="Frog Tongue" x="128" y="1022" width="256" height="64"/>
   <object id="30" name="Frog Tongue" x="65" y="702" width="256" height="64"/>
   <object id="31" name="Frog Tongue" x="66" y="383" width="256" height="64"/>
-  <object id="32" name="Frog Tongue" x="958" y="831" width="256" height="64"/>
+  <object id="32" name="Frog Tongue" x="960" y="832" width="256" height="64"/>
   <object id="33" name="Frog Tongue" x="451" y="1662" width="256" height="64"/>
   <object id="41" name="Frog Tongue" x="896" y="2239" width="256" height="64"/>
   <object id="42" name="Frog Tongue" x="640" y="2239" width="256" height="64"/>
@@ -429,6 +407,123 @@
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Enemies">
+  <object id="196" name="Frog" gid="2147484125" x="1216" y="896" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="197" name="Frog" gid="2147484125" x="1216" y="1344" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="198" name="Frog" gid="2147484125" x="1216" y="1536" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="199" name="Frog" gid="2147484125" x="1216" y="1920" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="200" name="Frog" gid="2147484125" x="1152" y="2304" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="201" name="Frog" gid="2147484125" x="1024" y="3072" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="202" name="Frog" gid="2147484125" x="512" y="2304" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="203" name="Frog" gid="2147484125" x="384" y="3072" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="204" name="Frog" gid="2147484125" x="384" y="3456" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="205" name="Frog" gid="2147484125" x="1152" y="3904" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="206" name="Frog" gid="2147484125" x="1152" y="4352" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="207" name="Frog" gid="2147484125" x="1088" y="5056" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="208" name="Frog" gid="2147484125" x="384" y="1088" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="209" name="Frog" gid="477" x="0" y="448" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="210" name="Frog" gid="477" x="0" y="768" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="211" name="Frog" gid="477" x="0" y="1344" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="212" name="Frog" gid="477" x="384" y="1728" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="213" name="Frog" gid="477" x="576" y="2304" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="214" name="Frog" gid="477" x="512" y="2688" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="215" name="Frog" gid="477" x="448" y="3072" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="216" name="Frog" gid="477" x="64" y="3712" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="217" name="Frog" gid="477" x="0" y="4160" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="218" name="Frog" gid="477" x="64" y="4544" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

@@ -14,9 +14,9 @@ class Boss_fight:
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
         
-        self.setup(tmx_map, quest_2_frames)
+        self.setup(tmx_map, frames)
 
-    def setup(self, tmx_map, quest_2_frames):
+    def setup(self, tmx_map, frames):
         #tiles
         for layer in ['BG', 'Terrain']:
             for x,y, surf in tmx_map.get_layer_by_name(layer).tiles():
@@ -28,7 +28,7 @@ class Boss_fight:
         #objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                self.player = Quest2Player((obj.x, obj.y), (self.all_sprites,), self.collision_sprites, self.semi_collision_sprites)
+                self.player = Quest2Player((obj.x, obj.y), (self.all_sprites,), self.collision_sprites, self.semi_collision_sprites, self.frames, self.data)
 
     def run(self, dt):
         self.all_sprites.update(dt)

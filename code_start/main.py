@@ -5,7 +5,6 @@ from os.path import join
 from quest2 import Boss_fight
 from data import Data
 from ui import UI
-
 from support import *
 
 class Game:
@@ -22,7 +21,12 @@ class Game:
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
             }
-        self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
+        
+        self.current_stage = Level(self.tmx_maps[1], self.quest_2_frames, self.data, map_index=1)
+        #if debug_running:
+            #self.current_stage = Boss_fight(debug_running, self.data, self.quest_2_frames)
+        #else:
+            #self.current_stage = Level(debug_running, self.level_frames, self.data)
     #animations
     def import_assets(self):
         self.level_frames = {
@@ -30,18 +34,20 @@ class Game:
             'player': import_sub_folders('..', 'graphics', 'player', 'default'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
-            'Frog Tongue': import_folder('..', 'graphics', 'enemies', 'frog'), # importing frog not only frog tongue
-            'boss': import_sub_folders('..', 'graphics', 'enemies', 'boss'),
+            'Frog Tongue': import_folder('..', 'graphics', 'enemies', 'frog'), # importing frog including frog tongue
+            'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particles'),
         }
 
-        self.font = pygame.font.Font(join('..', 'graphics', 'ui', 'runescape_uf.ttf'), 40)
+        self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 40)
         self.ui_frames = {
             'heart': import_folder('..', 'graphics', 'ui', 'heart'),
             'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
         self.quest_2_frames = {
             'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
+            'particle': import_sub_folders('..', 'graphics', 'effects', 'particles'),
+            'player': import_sub_folders('..', 'graphics', 'player', 'default')
         }
 
     def run(self):
@@ -56,8 +62,6 @@ class Game:
             self.ui.update(dt)
 
             pygame.display.update()
-
-            print(self.data.health) #test health display
 
 if __name__ == "__main__":
     game = Game()

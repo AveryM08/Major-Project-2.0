@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
 
         # movement
         self.direction = vector()
-        self.speed = 200
+        self.speed = 300
         self.gravity = 2000
         self.jump = False
         self.jump_height = 900

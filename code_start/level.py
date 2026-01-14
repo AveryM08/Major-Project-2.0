@@ -1,28 +1,30 @@
 from settings import *
 from sprites import Sprite, AnimatedSprite, MovingSprite, ParticleEffectSprite
-from player import Player
+from player import Player, Quest2Player
 from groups import AllSprites
-from enemies import Boss
+from enemies import Rat, Frog, Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames, data):
+    def __init__(self, tmx_map, level_frames, data, map_index=None):
         self.display_surface = pygame.display.get_surface()
         self.data = data
+        self.map_index = map_index
 
         #groups
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
         self.boss_sprites = pygame.sprite.Group()
 
-        self.setup(tmx_map, level_frames)
+        self.setup(tmx_map, level_frames, self.map_index)
 
         #frames
         self.particle_frames = level_frames['particle']
 
-    def setup(self, tmx_map, level_frames):
+    def setup(self, tmx_map, level_frames, map_index):
         #tiles
         for layer in ['BG', 'Terrain', 'Platforms']:
             for x,y, surf in tmx_map.get_layer_by_name(layer).tiles():
@@ -37,13 +39,24 @@ class Level:
         #objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == "Player":
-                self.player = Player(
-                    pos = (obj.x, obj.y), 
-                    groups = self.all_sprites, 
-                    collision_sprites = self.collision_sprites,
-                    semi_collision_sprites = self.semi_collision_sprites,
-                    frames = level_frames['player'],
-                    data = self.data,)
+                if map_index == 1:
+                    self.player = Quest2Player(
+                        pos = (obj.x, obj.y),
+                        groups = (self.all_sprites,),
+                        collision_sprites = self.collision_sprites,
+                        semi_collision_sprites = self.semi_collision_sprites,
+                        frames = level_frames['player'],
+                        data = self.data,
+                    )
+                else: #set another map_index for other levels later
+                    self.player = Player(
+                        pos = (obj.x, obj.y), 
+                        groups = self.all_sprites, 
+                        collision_sprites = self.collision_sprites,
+                        semi_collision_sprites = self.semi_collision_sprites,
+                        frames = level_frames['player'],
+                        data = self.data,
+                    )
             else:
                 if obj.name == 'floor_spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
@@ -73,16 +86,28 @@ class Level:
         #enemies
         for obj in tmx_map.get_layer_by_name("Enemies"):
             if obj.name == "boss":
+                print("Creating boss at:", (obj.x, obj.y))
                 self.boss = Boss(
                     pos = (obj.x, obj.y),
                     frames = level_frames['boss'],
                     groups = (self.all_sprites, self.collision_sprites, self.boss_bullets, self.boss_sprites),
-                    player = self.player,
+                    player = self.player
                 )
                 try:
                     self.data.ui.hit_boss(0) 
                 except Exception:
                     pass
+            elif obj.name == 'rat':
+                Rat((obj.x, obj.y), level_frames['rat'], (self.all_sprites, self.damage_sprites, self.rat_sprites), self.collision_sprites)
+            elif obj.name == 'Frog':
+                Frog(
+                    pos = (obj.x, obj.y),
+                    frames = level_frames['Frog'],
+                    groups = (self.all_sprites, self.collision_sprites),
+                    reverse = obj.properties['reverse'],
+                    player = self.player
+                )
+        
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
@@ -111,5 +136,5 @@ class Level:
 
         self.hit_collision()
         self.attack_collision()
-
+        self.boss_sprites.draw(self.display_surface)
         self.all_sprites.draw(self.player.hitbox_rect.center)

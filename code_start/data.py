@@ -5,6 +5,7 @@ class Data:
         self._health = 5
         self.ui.create_hearts(self._health)
         self._boss_health = 21 
+        self.ui.create_boss_healthbar()
 
     @property
     def health(self):
