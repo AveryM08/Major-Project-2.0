@@ -22,7 +22,6 @@ class Game:
             'player': import_sub_folders('..', 'graphics', 'player', 'default'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
-            'Frog Tongue': import_folder('..', 'graphics', 'enemies', 'frog'), # importing frog including frog tongue
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog')
         }
 

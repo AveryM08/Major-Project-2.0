@@ -37,7 +37,6 @@ class Frog(pygame.sprite.Sprite):
     def __init__(self, pos, frames, groups, reverse, player):
         super().__init__(groups)
 
-
         if reverse:
             self.frames = {}
             for key, surfs in frames.items():
@@ -52,6 +51,7 @@ class Frog(pygame.sprite.Sprite):
         self.image = self.frames[self.state][self.frame_index]
         self.rect = self.image.get_rect(topleft = pos)
         self.old_rect = self.rect.copy()
+
         self.z = Z_LAYERS['main']
         self.player = player
         self.shoot_timer = Timer(3000)
@@ -61,9 +61,10 @@ class Frog(pygame.sprite.Sprite):
         player_pos, frog_pos = vector(self.player.hitbox_rect.center), vector(self.rect.center)
         player_near = frog_pos.distance_to(player_pos) < 500
         player_front = frog_pos.x < player_pos.x if self.tongue_direction > 0 else frog_pos.x > player_pos.x
-        player_level = abs(frog_pos.y - player_pos.y < 30)
+        # player_level = abs(frog_pos.y - player_pos.y < 30)
 
-        if player_near and player_front and player_level and not self.shoot_timer.active:
+        if player_near and player_front and not self.shoot_timer.active:
+        # if player_near and player_front and player_level and not self.shoot_timer.active:
             self.state = 'attack'
             self.frame_index = 0
             self.shoot_timer.activate()
@@ -74,18 +75,86 @@ class Frog(pygame.sprite.Sprite):
 
         # animate / shoot tongue
         self.frame_index += ANIMATION_SPEED * dt
+
+        # check if animation is complete
         if self.frame_index >= len(self.frames[self.state]):
-            self.image = self.frames[self.state][int(self.frame_index)]
-
-            # attack
-            if self.state == 'attack' and int(self.frame_index) == 3 and not self.has_attacked:
-                self.has_attacked = True
-
-        else:
-            self.frame_index = 0
             if self.state == 'attack':
                 self.state = 'idle'
                 self.has_attacked = False
+                # remove tongue sprite after attack
+            self.frame_index = 0
+
+        self.image = self.frames[self.state][int(self.frame_index)]
+
+        # if self.frame_index >= len(self.frames[self.state]):
+        #     self.image = self.frames[self.state][int(self.frame_index)]
+
+        # attack
+        if self.state == 'attack' and not self.has_attacked: # later update to have it involve self.frame_index
+            # if self.state == 'attack' and int(self.frame_index) == 3 and not self.has_attacked:
+            self.has_attacked = True
+            mouth_offset_x = 12 * self.tongue_direction
+            mouth_offset_y = 2
+            mouth_pos = (self.rect.centerx + mouth_offset_x, self.rect.centery + mouth_offset_y)
+            max_reach = 272
+
+            self.current_tongue = FrogTongue(
+                pos        = mouth_pos, 
+                direction  = self.tongue_direction, 
+                max_length = max_reach,
+                groups     = self.groups(),
+                speed = 400
+            )
+
+class FrogTongue(pygame.sprite.Sprite):
+    def __init__(self, pos, direction, max_length, groups, speed):
+        super().__init__(groups)
+        self.start_pos = vector(pos)
+        self.direction = direction
+        self.max_length = max_length
+        self.speed = speed
+
+        self.z = Z_LAYERS['main']
+        self.image = pygame.Surface((0, 0), pygame.SRCALPHA)
+        self.rect = self.image.get_rect(center = pos)
+        self.old_rect = self.rect.copy()
+
+        self.current_length = 0
+        self.state = 'extending'
+
+    def update(self, dt):
+        self.old_rect = self.rect.copy()
+
+        if self.state == 'extending':
+            self.current_length += self.speed * dt
+            if self.current_length >= self.max_length:
+                self.current_length = self.max_length
+                self.state = 'retracting'
+
+            # needs collision detection logic for walls/platforms
+
+        elif self.state == 'retracting':
+            self.current_length -= self.speed * 1.5 * dt # retract faster
+            if self.current_length <= 0:
+                self.kill() # remove tongue sprite when fully retracted
+
+        self.draw_tongue()
+
+    def draw_tongue(self):
+        end_x = self.start_pos.x + self.current_length * self.direction
+        end_pos = (end_x, self.start_pos.y)
+
+        width = abs(end_x - self.start_pos.x) or 1
+        height = 4 # tongue thickness
+
+        if self.direction < 0:
+            topleft = (end_x, self.start_pos.y - height / 2)
+        else:
+            topleft = (self.start_pos.x, self.start_pos.y - height /2)
+
+        self.image = pygame.Surface((width, height), pygame.SRCALPHA)
+        pygame.draw.rect(self.image, (255, 100, 100), (0, 0, width, height))
+        self.rect = self.image.get_rect(topleft = topleft)
 
 class Boss(pygame.sprite.Sprite):
     def __init__(self, pos, frames, groups, player):

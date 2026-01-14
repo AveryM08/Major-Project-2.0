@@ -15,8 +15,9 @@ class Player(pygame.sprite.Sprite):
 
         #rects
         self.rect = self.image.get_frect(topleft = pos)
-        self.hitbox_idle_inflate = (-180, 0) # -46
-        self.hitbox_run_inflate = (-124, 0) # -24, then -6 on top
+        self.hitbox_idle_inflate = (-180, 0) # 10 pxl wide
+        self.hitbox_run_inflate = (-124, 0) # 24 pxl wide, then -6 on top
+        self.hitbox_wall_inflate = (-176, 0) # 11 pxl wide
 
         self.hitbox_rect = self.rect.inflate(self.hitbox_idle_inflate)
         self.hitbox_rect.midbottom = self.rect.midbottom
@@ -181,7 +182,7 @@ class Player(pygame.sprite.Sprite):
                 self.state = 'idle' # air attack
             else:
                 if any((self.on_surface['left'], self.on_surface['right'])):
-                    self.state = 'idle' # wall
+                    self.state = 'wall'
                 else:
                     self.state = 'idle' if self.direction.y < 0 else 'idle' # jump / fall
 
@@ -221,12 +222,12 @@ class Player(pygame.sprite.Sprite):
         # self.get_state()
         # self.animate(dt)
 
+        self.old_rect = self.hitbox_rect.copy()
         self.update_timers()
         self.input()
 
         self.get_state()
         self.update_hitbox()
-        self.old_rect = self.hitbox_rect.copy()
 
         self.move(dt)
         self.platform_move(dt)

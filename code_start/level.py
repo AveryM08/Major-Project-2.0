@@ -50,7 +50,7 @@ class Level:
             frames = level_frames[obj.name]
             groups = (self.all_sprites, self.semi_collision_sprites) # if obj.properties['Platform'] else (self.all_sprites, self.damage_sprites)
             
-            if obj.name == "Wind" or obj.name == "Frog Tongue":
+            if obj.name == "Wind":
                 pass
             elif obj.name == 'Helicopter':
                 if obj.width > obj.height:
@@ -68,7 +68,7 @@ class Level:
         for obj in tmx_map.get_layer_by_name('Enemies'):
             if obj.name == 'boss':
                 Boss(
-                    pos = (obj.x, obj.y),
+                    pos    = (obj.x, obj.y),
                     frames = level_frames['boss'],
                     groups = (self.all_sprites, self.collision_sprites, self.boss_bullets),
                     player = self.player,
@@ -77,11 +77,11 @@ class Level:
                 Rat((obj.x, obj.y), level_frames['rat'], (self.all_sprites, self.damage_sprites, self.rat_sprites), self.collision_sprites)
             elif obj.name == 'Frog':
                 Frog(
-                    pos = (obj.x, obj.y),
-                    frames = level_frames['Frog'],
-                    groups = (self.all_sprites, self.collision_sprites),
+                    pos     = (obj.x, obj.y),
+                    frames  = level_frames['Frog'],
+                    groups  = (self.all_sprites, self.collision_sprites),
                     reverse = obj.properties['reverse'],
-                    player = self.player
+                    player  = self.player
                 )
 
     # def hit_collision(self):
