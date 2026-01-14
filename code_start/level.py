@@ -15,6 +15,7 @@ class Level:
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
+        self.boss_sprites = pygame.sprite.Group()
 
         self.setup(tmx_map, level_frames)
 
@@ -41,7 +42,8 @@ class Level:
                     groups = self.all_sprites, 
                     collision_sprites = self.collision_sprites,
                     semi_collision_sprites = self.semi_collision_sprites,
-                    frames = level_frames['player'])
+                    frames = level_frames['player'],
+                    data = self.data,)
             else:
                 if obj.name == 'floor_spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
@@ -71,12 +73,16 @@ class Level:
         #enemies
         for obj in tmx_map.get_layer_by_name("Enemies"):
             if obj.name == "boss":
-                Boss(
+                self.boss = Boss(
                     pos = (obj.x, obj.y),
                     frames = level_frames['boss'],
-                    groups = (self.all_sprites, self.collision_sprites, self.boss_bullets),
+                    groups = (self.all_sprites, self.collision_sprites, self.boss_bullets, self.boss_sprites),
                     player = self.player,
                 )
+                try:
+                    self.data.ui.hit_boss(0) 
+                except Exception:
+                    pass
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
@@ -84,9 +90,13 @@ class Level:
 
     def attack_collision(self):
         for target in self.boss_sprites.sprites(): # + any other attackable sprites
-            facing_target = (self.player.rect.centerx < target.rect.centerx and not self.player.facing_right) or (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right)
-            if target.rect.colliderect(self.player.rect) and self.player.attacking and facing_target:
-                
+            facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
+                             (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
+            if target.rect.colliderect(self.player.rect) and getattr(self.player, 'attacking', False) and facing_target:
+                target.health -= 1
+                self.data.boss_health -= 1
+                self.data.ui.hit_boss(1)
+                self.player.attacking = False
 
     def run(self, dt):
         self.display_surface.fill('black')
@@ -96,7 +106,7 @@ class Level:
         
         hits = pygame.sprite.spritecollide(self.player, self.boss_bullets, dokill=True)
         for bullet in hits:
-            ParticleEffectSprite((sprite.rect.center), self.particle_frames, self.all_sprites)
+            ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
             self.player.take_damage(1)   # temporary damage value and method
 
         self.hit_collision()
