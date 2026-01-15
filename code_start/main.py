@@ -3,6 +3,7 @@ from level import Level
 from pytmx.util_pygame import load_pygame
 from os.path import join
 from data import Data
+from ui import UI
 from support import *
 
 class Game:
@@ -13,9 +14,10 @@ class Game:
         self.clock = pygame.time.Clock()
         self.import_assets()
 
+        self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
         self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx'))}
-        self.current_stage = Level(self.tmx_maps[0], self.level_frames)
+        self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
 
     def import_assets(self):
         self.level_frames = {
@@ -25,6 +27,16 @@ class Game:
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
+        }
+
+        self.font = pygame.font.Font(join('..', 'graphics', 'ui', 'runescape_uf.ttf'), 40)
+        self.ui_frames = {
+            'heart': import_folder('..', 'graphics', 'ui', 'heart'),
+            'coin':import_image('..', 'graphics', 'ui', 'coin'),
+            'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
+        }
+        self.quest_2_frames = {
+            'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
         }
 
     def run(self):

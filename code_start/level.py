@@ -5,7 +5,7 @@ from groups import AllSprites
 from enemies import Rat, Frog, Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames):
+    def __init__(self, tmx_map, level_frames, data):
         self.display_surface = pygame.display.get_surface()
         self.data = data
 
@@ -88,9 +88,9 @@ class Level:
             else:
                 pass
 
-        # # items 
-        # for obj in tmx_map.get_layer_by_name('Items'):
-        #     Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
+        # items 
+        for obj in tmx_map.get_layer_by_name('Items'):
+            Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
 
 
     # def hit_collision(self):
