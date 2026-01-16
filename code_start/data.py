@@ -4,7 +4,8 @@ class Data:
         self._coins = 0
         self._health = 5
         self.ui.create_hearts(self._health)
-        self._boss_health = 21
+        self._boss_health = 21 
+        self.ui.create_boss_healthbar()
 
         self.unlocked_level = 0
         self.current_level = 0

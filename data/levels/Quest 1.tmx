@@ -4,9 +4,9 @@
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled standing rat 1.tsx"/>
  <tileset firstgid="476" source="../tilesets/floor_spikes.tsx"/>
- <tileset firstgid="477" source="../tilesets/scaled idle frog.tsx"/>
- <tileset firstgid="478" source="../tilesets/coin.tsx"/>
- <tileset firstgid="479" source="../tilesets/Everything.tsx"/>
+ <tileset firstgid="510" source="../tilesets/scaled idle frog.tsx"/>
+ <tileset firstgid="511" source="../tilesets/coin.tsx"/>
+ <tileset firstgid="512" source="../tilesets/Everything.tsx"/>
  <layer id="1" name="BG" width="20" height="80">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -230,54 +230,54 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2147484146,497,497,497,497,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2147484179,530,530,530,530,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2147484146,498,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2147484179,531,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,509,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,2147484146,498,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2147484146,497,497,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,509,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,497,497,497,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,509,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,497,497,497,0,0,0,
+0,0,0,0,0,2147484179,531,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,509,
+2147484179,530,530,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,530,530,530,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,530,530,530,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,498,2147484157,0,0,0,0,0,0,0,0,509,2147484146,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,498,2147484157,0,0,0,0,0,0,0,0,509,0,0,
+0,0,0,0,0,0,0,0,531,2147484190,0,0,0,0,0,0,0,0,542,2147484179,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,498,2147484157,0,0,0,0,0,0,0,0,509,0,0,0,
+0,0,0,0,0,0,0,531,2147484190,0,0,0,0,0,0,0,0,542,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,2147484135,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,531,2147484190,0,0,0,0,0,0,0,0,542,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,2147484168,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -375,134 +375,134 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="Items">
-  <object id="221" name="coin" gid="478" x="495" y="663" width="30" height="30"/>
-  <object id="222" name="coin" gid="478" x="271.5" y="1505.5" width="30" height="30"/>
-  <object id="223" name="coin" gid="478" x="478.25" y="1301.75" width="30" height="30"/>
-  <object id="224" name="coin" gid="478" x="67.5" y="86.75" width="30" height="30"/>
-  <object id="225" name="coin" gid="478" x="989.25" y="1621.5" width="30" height="30"/>
-  <object id="226" name="coin" gid="478" x="1126.25" y="2660.5" width="30" height="30"/>
-  <object id="227" name="coin" gid="478" x="643.25" y="2838.25" width="30" height="30"/>
-  <object id="228" name="coin" gid="478" x="298.25" y="4688.25" width="30" height="30"/>
-  <object id="229" name="coin" gid="478" x="1036.75" y="4687.5" width="30" height="30"/>
-  <object id="230" name="coin" gid="478" x="743.25" y="5020.25" width="30" height="30"/>
-  <object id="231" name="coin" gid="478" x="722.75" y="3435.75" width="30" height="30"/>
-  <object id="232" name="coin" gid="478" x="266.75" y="3234.5" width="30" height="30"/>
-  <object id="233" name="coin" gid="478" x="272" y="2837" width="30" height="30"/>
-  <object id="234" name="coin" gid="478" x="354.5" y="2464.25" width="30" height="30"/>
-  <object id="235" name="coin" gid="478" x="998.5" y="2455" width="30" height="30"/>
+  <object id="221" name="coin" gid="511" x="495" y="663" width="30" height="30"/>
+  <object id="222" name="coin" gid="511" x="271.5" y="1505.5" width="30" height="30"/>
+  <object id="223" name="coin" gid="511" x="478.25" y="1301.75" width="30" height="30"/>
+  <object id="224" name="coin" gid="511" x="67.5" y="86.75" width="30" height="30"/>
+  <object id="225" name="coin" gid="511" x="989.25" y="1621.5" width="30" height="30"/>
+  <object id="226" name="coin" gid="511" x="1126.25" y="2660.5" width="30" height="30"/>
+  <object id="227" name="coin" gid="511" x="643.25" y="2838.25" width="30" height="30"/>
+  <object id="228" name="coin" gid="511" x="298.25" y="4688.25" width="30" height="30"/>
+  <object id="229" name="coin" gid="511" x="1036.75" y="4687.5" width="30" height="30"/>
+  <object id="230" name="coin" gid="511" x="743.25" y="5020.25" width="30" height="30"/>
+  <object id="231" name="coin" gid="511" x="722.75" y="3435.75" width="30" height="30"/>
+  <object id="232" name="coin" gid="511" x="266.75" y="3234.5" width="30" height="30"/>
+  <object id="233" name="coin" gid="511" x="272" y="2837" width="30" height="30"/>
+  <object id="234" name="coin" gid="511" x="354.5" y="2464.25" width="30" height="30"/>
+  <object id="235" name="coin" gid="511" x="998.5" y="2455" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="9" name="Enemies">
-  <object id="196" name="Frog" gid="2147484125" x="1216" y="896" width="64" height="40">
+  <object id="196" name="Frog" gid="2147484158" x="1216" y="896" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="197" name="Frog" gid="2147484125" x="1216" y="1344" width="64" height="40">
+  <object id="197" name="Frog" gid="2147484158" x="1216" y="1344" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="198" name="Frog" gid="2147484125" x="1216" y="1536" width="64" height="40">
+  <object id="198" name="Frog" gid="2147484158" x="1216" y="1536" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="199" name="Frog" gid="2147484125" x="1216" y="1920" width="64" height="40">
+  <object id="199" name="Frog" gid="2147484158" x="1216" y="1920" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="200" name="Frog" gid="2147484125" x="1152" y="2304" width="64" height="40">
+  <object id="200" name="Frog" gid="2147484158" x="1152" y="2304" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="201" name="Frog" gid="2147484125" x="1024" y="3072" width="64" height="40">
+  <object id="201" name="Frog" gid="2147484158" x="1024" y="3072" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="202" name="Frog" gid="2147484125" x="512" y="2304" width="64" height="40">
+  <object id="202" name="Frog" gid="2147484158" x="512" y="2304" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="203" name="Frog" gid="2147484125" x="384" y="3072" width="64" height="40">
+  <object id="203" name="Frog" gid="2147484158" x="384" y="3072" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="204" name="Frog" gid="2147484125" x="384" y="3456" width="64" height="40">
+  <object id="204" name="Frog" gid="2147484158" x="384" y="3456" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="205" name="Frog" gid="2147484125" x="1152" y="3904" width="64" height="40">
+  <object id="205" name="Frog" gid="2147484158" x="1152" y="3904" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="206" name="Frog" gid="2147484125" x="1152" y="4352" width="64" height="40">
+  <object id="206" name="Frog" gid="2147484158" x="1152" y="4352" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="207" name="Frog" gid="2147484125" x="1088" y="5056" width="64" height="40">
+  <object id="207" name="Frog" gid="2147484158" x="1088" y="5056" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="208" name="Frog" gid="2147484125" x="384" y="1088" width="64" height="40">
+  <object id="208" name="Frog" gid="2147484158" x="384" y="1088" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="209" name="Frog" gid="477" x="0" y="448" width="64" height="40">
+  <object id="209" name="Frog" gid="510" x="0" y="448" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="210" name="Frog" gid="477" x="0" y="768" width="64" height="40">
+  <object id="210" name="Frog" gid="510" x="0" y="768" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="211" name="Frog" gid="477" x="0" y="1344" width="64" height="40">
+  <object id="211" name="Frog" gid="510" x="0" y="1344" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="212" name="Frog" gid="477" x="384" y="1728" width="64" height="40">
+  <object id="212" name="Frog" gid="510" x="384" y="1728" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="213" name="Frog" gid="477" x="576" y="2304" width="64" height="40">
+  <object id="213" name="Frog" gid="510" x="576" y="2304" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="214" name="Frog" gid="477" x="512" y="2688" width="64" height="40">
+  <object id="214" name="Frog" gid="510" x="512" y="2688" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="215" name="Frog" gid="477" x="448" y="3072" width="64" height="40">
+  <object id="215" name="Frog" gid="510" x="448" y="3072" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="216" name="Frog" gid="477" x="64" y="3712" width="64" height="40">
+  <object id="216" name="Frog" gid="510" x="64" y="3712" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="217" name="Frog" gid="477" x="0" y="4160" width="64" height="40">
+  <object id="217" name="Frog" gid="510" x="0" y="4160" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="218" name="Frog" gid="477" x="64" y="4544" width="64" height="40">
+  <object id="218" name="Frog" gid="510" x="64" y="4544" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>

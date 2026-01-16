@@ -49,8 +49,6 @@ class ParticleEffectSprite(AnimatedSprite):
         else:
             self.kill()
             
-
-
 class MovingSprite(AnimatedSprite):
     def __init__(self, frames, groups, start_pos, end_pos, move_dir, speed):
         super().__init__(start_pos, frames, groups)

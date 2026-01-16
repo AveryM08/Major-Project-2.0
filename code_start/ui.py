@@ -18,6 +18,11 @@ class UI:
         self.coin_timer = Timer(1000)
         self.coin_surf = frames['coin']
 
+        # coins 
+        self.coin_amount = 0
+        self.coin_timer = Timer(1000)
+        self.coin_surf = frames['coin']
+
         # boss healthbar
         self.boss_healthbar_frames = frames['boss_healthbar']
         self.create_boss_healthbar()
@@ -27,7 +32,7 @@ class UI:
         y = 10
         Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
 
-    def hit_boss(self, amount=1):
+    def hit_boss(self, amount = 1):
         for sprite in self.sprites:
             if isinstance(sprite, Boss_HealthBar):
                 sprite.show()
@@ -42,6 +47,10 @@ class UI:
             x = 10 + heart * (self.heart_surf_width + self.heart_padding)
             y = 10
             Heart((x,y), self.heart_frames, self.sprites)
+
+    def show_coins(self, amount):
+        self.coin_amount = amount
+        self.coin_timer.activate()
 
     def show_coins(self, amount):
         self.coin_amount = amount
