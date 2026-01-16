@@ -46,7 +46,7 @@ class Game:
         }
         self.quest_2_frames = {
             'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
-            'particle': import_sub_folders('..', 'graphics', 'effects', 'particles'),
+            'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
             'player': import_sub_folders('..', 'graphics', 'player', 'default')
         }
 

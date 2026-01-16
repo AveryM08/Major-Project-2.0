@@ -109,14 +109,7 @@ class Boss(pygame.sprite.Sprite):
 
         # groups passed in by level: (all_sprites, collision_sprites, boss_bullets)
         #remove bugs
-        ##try:
-            #self.all_sprites = groups[0]
-        #except Exception:
-            #self.all_sprites = None
-        #try:
-           # self.boss_bullets = groups[2]
-        #except Exception:
-            #self.boss_bullets = pygame.sprite.Group()
+        self.boss_bullets = pygame.sprite.Group()
 
     def check_stage(self):
         for stage, data in self.stage_management.items():
@@ -139,6 +132,7 @@ class Boss(pygame.sprite.Sprite):
         if now - self.last_shot > cooldown:
             self.last_shot = now
             if self.stage == 0:
+                print("single")
                 self.pattern_single()
             elif self.stage == 1:
                 self.pattern_spread()
@@ -202,8 +196,6 @@ class BossBullet(pygame.sprite.Sprite):
         self.vx = vx
         self.vy = vy
         self.z = Z_LAYERS['main']
-
-
 
     def update(self, dt):
         self.rect.x += self.vx * dt

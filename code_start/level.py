@@ -5,7 +5,7 @@ from groups import AllSprites
 from enemies import Rat, Frog, Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames, data, map_index=None):
+    def __init__(self, tmx_map, level_frames, data, map_index = None):
         self.display_surface = pygame.display.get_surface()
         self.data = data
         self.map_index = map_index
@@ -16,9 +16,9 @@ class Level:
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
+        self.item_sprites = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
         self.boss_sprites = pygame.sprite.Group()
-
         self.setup(tmx_map, level_frames, self.map_index)
 
         #frames
@@ -85,7 +85,7 @@ class Level:
 
         #enemies
         for obj in tmx_map.get_layer_by_name("Enemies"):
-            if obj.name == "boss":
+            if obj.name == "Boss":
                 print("Creating boss at:", (obj.x, obj.y))
                 self.boss = Boss(
                     pos = (obj.x, obj.y),
@@ -130,9 +130,9 @@ class Level:
         self.boss_bullets.draw(self.display_surface)
         
         hits = pygame.sprite.spritecollide(self.player, self.boss_bullets, dokill=True)
-        for bullet in hits:
-            ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
-            self.player.take_damage(1)   # temporary damage value and method
+        # for bullet in hits:
+        #     ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
+        #     self.player.take_damage(1)   # temporary damage value and method
 
         self.hit_collision()
         self.attack_collision()
