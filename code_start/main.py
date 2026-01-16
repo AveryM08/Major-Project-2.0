@@ -21,27 +21,25 @@ class Game:
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
             }
-        
-        self.current_stage = Level(self.tmx_maps[1], self.quest_2_frames, self.data, map_index=1)
-        #if debug_running:
-            #self.current_stage = Boss_fight(debug_running, self.data, self.quest_2_frames)
-        #else:
-            #self.current_stage = Level(debug_running, self.level_frames, self.data)
-    #animations
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
+        # self.current_stage = Level(self.tmx_maps[1], self.quest_2_frames, self.data, map_index = 1)
+
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default'),
+            'default_player': import_sub_folders('..', 'graphics', 'player', 'default'),
+            'propeller_player': import_sub_folders('..', 'graphics', 'player', 'propeller'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
-            'Frog Tongue': import_folder('..', 'graphics', 'enemies', 'frog'), # importing frog including frog tongue
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
+            'items': import_sub_folders('..', 'graphics', 'items'),
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particles'),
         }
 
         self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 40)
         self.ui_frames = {
             'heart': import_folder('..', 'graphics', 'ui', 'heart'),
+            'coin':import_image('..', 'graphics', 'ui', 'coin'),
             'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
         self.quest_2_frames = {

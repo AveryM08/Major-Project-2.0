@@ -1,6 +1,6 @@
-import os
 from settings import *
 from sprites import AnimatedSprite
+from timer import Timer
 
 class UI:
     def __init__(self, font, frames):
@@ -10,9 +10,18 @@ class UI:
         
         # hearts
         self.heart_frames = frames['heart']
-    
         self.heart_surf_width = self.heart_frames[0].get_width()
         self.heart_padding = 5
+
+        # coins 
+        self.coin_amount = 0
+        self.coin_timer = Timer(1000)
+        self.coin_surf = frames['coin']
+
+        # coins 
+        self.coin_amount = 0
+        self.coin_timer = Timer(1000)
+        self.coin_surf = frames['coin']
 
         # boss healthbar
         self.boss_healthbar_frames = frames['boss_healthbar']
@@ -23,14 +32,13 @@ class UI:
         y = 10
         Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
 
-    def hit_boss(self, amount=1):
+    def hit_boss(self, amount = 1):
         for sprite in self.sprites:
             if isinstance(sprite, Boss_HealthBar):
                 sprite.show()
                 if amount > 0:
                     sprite.hit(amount)
                 return
-
 
     def create_hearts(self, num_hearts):
         for sprite in self.sprites:
@@ -39,8 +47,17 @@ class UI:
             x = 10 + heart * (self.heart_surf_width + self.heart_padding)
             y = 10
             Heart((x,y), self.heart_frames, self.sprites)
+
+    def show_coins(self, amount):
+        self.coin_amount = amount
+        self.coin_timer.activate()
+
+    def show_coins(self, amount):
+        self.coin_amount = amount
+        self.coin_timer.activate()
     
     def update(self, dt):
+        self.coin_timer.update()
         self.sprites.update(dt)
         #draw only active sprites
         for sprite in self.sprites:

@@ -5,10 +5,11 @@ from os.path import join
 from math import sin
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):
         #general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
+        self.hitbox_config = hitbox_config
         self.data = data
 
         #image
@@ -17,19 +18,17 @@ class Player(pygame.sprite.Sprite):
         self.image = self.frames[self.state][self.frame_index]
 
         #rects
-        self.rect = self.image.get_frect(topleft = pos)
-        self.hitbox_idle_inflate = (-180, 0) # -46
-        self.hitbox_run_inflate = (-124, 0) # -24, then -6 on top
-
-        self.hitbox_rect = self.rect.inflate(self.hitbox_idle_inflate)
-        self.hitbox_rect.midbottom = self.rect.midbottom
+        self.rect = self.image.get_frect(midbottom = pos)
+        self.hitbox_rect = self.rect.inflate(self.hitbox_config[self.state])
+        self.hitbox_rect.midbottom = pos
+        self.rect.midbottom = self.hitbox_rect.midbottom
 
         self.old_rect = self.hitbox_rect.copy()
 
         # movement
         self.direction = vector()
-        self.speed = 300
-        self.gravity = 2000
+        self.speed = 250
+        self.gravity = 1300
         self.jump = False
         self.jump_height = 900
         self.attacking = False
@@ -105,7 +104,6 @@ class Player(pygame.sprite.Sprite):
         
         self.collision('vertical')
         self.semi_collision()
-        self.rect.center = self.hitbox_rect.center
 
     def platform_move(self, dt):
         if self.platform:
@@ -184,21 +182,17 @@ class Player(pygame.sprite.Sprite):
                 self.state = 'idle' # air attack
             else:
                 if any((self.on_surface['left'], self.on_surface['right'])):
-                    self.state = 'idle' # wall
+                    self.state = 'wall'
                 else:
                     self.state = 'idle' if self.direction.y < 0 else 'idle' # jump / fall
 
     def update_hitbox(self):
-        if self.state == 'idle':
-            inflate_values = self.hitbox_idle_inflate
-        elif self.state == 'run':
-            inflate_values = self.hitbox_run_inflate
-        else:
-            inflate_values = self.hitbox_idle_inflate
+        offset = self.hitbox_config.get(self.state, self.hitbox_config['idle'])
 
-        current_midbottom = self.hitbox_rect.midbottom
-        self.hitbox_rect = self.rect.inflate(inflate_values)
-        self.hitbox_rect.midbottom = current_midbottom
+        self.rect.center = self.hitbox_rect.center        
+        self.hitbox_rect = self.rect.inflate(offset)
+        
+        self.hitbox_rect.bottom = self.old_rect.bottom
 
     def take_damage(self):
         if not self.timers['hit'].active:
@@ -224,12 +218,12 @@ class Player(pygame.sprite.Sprite):
         # self.get_state()
         # self.animate(dt)
 
+        self.old_rect = self.hitbox_rect.copy()
         self.update_timers()
         self.input()
 
         self.get_state()
         self.update_hitbox()
-        self.old_rect = self.hitbox_rect.copy()
 
         self.move(dt)
         self.platform_move(dt)
@@ -238,11 +232,62 @@ class Player(pygame.sprite.Sprite):
         self.flicker()
         self.animate(dt)
 
-        self.rect.midbottom = self.hitbox_rect.midbottom
+        self.rect.center = self.hitbox_rect.center
+
+class PropellerPlayer(Player):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data)
+
+        self.fall_speed = 200
+
+    def input(self):
+        super().input()
+        
+        if not self.on_surface['floor']:
+            keys = pygame.key.get_pressed()
+            input_vector = vector(0, 0)
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+                input_vector.x -= 1
+                self.facing_right = False
+
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+                input_vector.x += 1
+                self.facing_right = True
+
+            self.direction.x = input_vector.normalize().x if input_vector else 0
+
+    def move(self, dt):
+        if self.on_surface['floor']:
+            super().move(dt)
+        else:
+            # horizontal air drift
+            self.hitbox_rect.x += self.direction.x * (self.speed * 0.6) * dt
+            self.collision('horizontal')
+
+            if self.jump:
+                pass
+
+            if self.direction.y < 0:
+                self.direction.y += self.gravity * dt
+            else:
+                self.direction.y = self.fall_speed
+            
+            self.hitbox_rect.y += self.direction.y * dt
+
+            self.collision('vertical')
+            self.semi_collision()
+            self.rect.center = self.hitbox_rect.center
+
+            self.jump = False
+
+    def get_state(self):
+        super().get_state()
+        if not self.on_surface['floor']:
+            self.state = 'freefall'
 
 class Quest2Player(Player):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, data):     
-        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, data)
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):     
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data)
         self.base_image = self.image
         try:
             self.flipped_image = pygame.transform.flip(self.base_image, True, False)
