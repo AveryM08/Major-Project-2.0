@@ -1,3 +1,4 @@
+import os
 from settings import *
 from sprites import AnimatedSprite
 
@@ -9,6 +10,7 @@ class UI:
         
         # hearts
         self.heart_frames = frames['heart']
+    
         self.heart_surf_width = self.heart_frames[0].get_width()
         self.heart_padding = 5
 
