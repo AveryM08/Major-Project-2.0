@@ -1,6 +1,6 @@
 from settings import *
 from sprites import Sprite, AnimatedSprite, MovingSprite, Item
-from player import Player
+from player import Player, PropellerPlayer
 from groups import AllSprites
 from enemies import Rat, Frog, Boss
 
@@ -8,13 +8,28 @@ class Level:
     def __init__(self, tmx_map, level_frames, data):
         self.display_surface = pygame.display.get_surface()
         self.data = data
+        
+        # level data
+        self.level_width = tmx_map.width * TILE_SIZE
+        self.level_bottom = tmx_map.height * TILE_SIZE
+        tmx_level_properties = tmx_map.get_layer_by_name('Data')[0].properties
+        self.level_unlock = tmx_level_properties['level_unlock']
+        if tmx_level_properties['bg']:
+            bg_tile = level_frames['bg_tiles'][tmx_level_properties['bg']]
+        else:
+            bg_tile = None
 
         #groups
-        self.all_sprites = AllSprites()
+        self.all_sprites = AllSprites(
+            width = tmx_map.width, 
+			height = tmx_map.height,
+			bg_tile = bg_tile, 
+			top_limit = tmx_level_properties['top_limit'],)
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
+        self.rat_sprites = pygame.sprite.Group()
         self.item_sprites = pygame.sprite.Group()
 
         self.setup(tmx_map, level_frames)
@@ -34,12 +49,13 @@ class Level:
         #objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == "Player":
-                self.player = Player(
+                self.player = PropellerPlayer(
                     pos = (obj.x, obj.y), 
                     groups = self.all_sprites, 
                     collision_sprites = self.collision_sprites,
                     semi_collision_sprites = self.semi_collision_sprites,
-                    frames = level_frames['player'])
+                    frames = level_frames['propeller_player'],
+                    hitbox_config = HITBOX_CONFIGS['propeller'])
             else:
                 if obj.name == 'floor_spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
@@ -103,6 +119,17 @@ class Level:
     #         facing_target = (self.player.rect.centerx < target.rect.centerx and not self.player.facing_right) or (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right)
     #         if target.rect.colliderect(self.player.rect) and self.player.attacking and facing_target:
     #             pass
+
+    def check_constraint(self):
+		# left right
+        if self.player.hitbox_rect.left <= 0:
+            self.player.hitbox_rect.left = 0
+        if self.player.hitbox_rect.right >= self.level_width:
+            self.player.hitbox_rect.right = self.level_width
+
+        # # bottom border 
+        # if self.player.hitbox_rect.bottom > self.level_bottom:
+        #     self.switch_stage('overworld', -1)
 
     def run(self, dt):
         self.display_surface.fill('black')

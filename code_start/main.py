@@ -17,12 +17,13 @@ class Game:
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
         self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx'))}
-        self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data)
 
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default'),
+            'default_player': import_sub_folders('..', 'graphics', 'player', 'default'),
+            'propeller_player': import_sub_folders('..', 'graphics', 'player', 'propeller'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),

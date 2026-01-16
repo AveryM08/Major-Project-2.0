@@ -12,3 +12,18 @@ Z_LAYERS = {
     'bg details': 2,
     'main': 3
 }
+
+HITBOX_CONFIGS = {
+    'default': {
+        'idle': (-180, 0), # 10 pxl wide
+        'run': (-124, 0), # 24 pxl wide, then -6 on top
+        'wall': (-176, 0) # 11 pxl wide
+        # 'fall': (-176, 0)
+    },
+    'propeller': {
+        'idle': (-180, -72), # 14 pxl tall
+        'run': (-124, -72), # diff height but testing with old
+        'wall': (-176, 0),
+        'freefall': (-176, -48) # The special freefall box
+    }
+}
