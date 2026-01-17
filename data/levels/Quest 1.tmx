@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="238">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="249">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled standing rat 1.tsx"/>
- <tileset firstgid="476" source="../tilesets/floor_spikes.tsx"/>
+ <tileset firstgid="476" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="510" source="../tilesets/scaled idle frog.tsx"/>
  <tileset firstgid="511" source="../tilesets/coin.tsx"/>
  <tileset firstgid="512" source="../tilesets/Everything.tsx"/>
@@ -92,50 +92,50 @@
 </data>
  </layer>
  <objectgroup id="8" name="BG details">
-  <object id="139" gid="66" x="576" y="768" width="64" height="64"/>
-  <object id="140" gid="66" x="384" y="768" width="64" height="64"/>
-  <object id="141" gid="66" x="512" y="384" width="64" height="64"/>
-  <object id="142" gid="66" x="896" y="256" width="64" height="64"/>
-  <object id="143" gid="66" x="192" y="192" width="64" height="64"/>
-  <object id="144" gid="66" x="768" y="1472" width="64" height="64"/>
-  <object id="145" gid="66" x="64" y="1472" width="64" height="64"/>
-  <object id="146" gid="66" x="256" y="1856" width="64" height="64"/>
-  <object id="147" gid="66" x="704" y="1856" width="64" height="64"/>
-  <object id="148" gid="66" x="1088" y="2112" width="64" height="64"/>
-  <object id="149" gid="66" x="1216" y="2432" width="64" height="64"/>
-  <object id="150" gid="66" x="512" y="2432" width="64" height="64"/>
-  <object id="151" gid="66" x="448" y="2816" width="64" height="64"/>
-  <object id="152" gid="66" x="384" y="3200" width="64" height="64"/>
-  <object id="153" gid="66" x="1088" y="3200" width="64" height="64"/>
-  <object id="154" gid="66" x="1152" y="2816" width="64" height="64"/>
-  <object id="155" gid="66" x="1216" y="3648" width="64" height="64"/>
-  <object id="156" gid="66" x="1216" y="4160" width="64" height="64"/>
-  <object id="157" gid="66" x="0" y="4032" width="64" height="64"/>
-  <object id="158" gid="66" x="0" y="4416" width="64" height="64"/>
-  <object id="159" gid="66" x="64" y="4928" width="64" height="64"/>
-  <object id="160" gid="66" x="1216" y="4672" width="64" height="64"/>
-  <object id="161" gid="78" x="1216" y="4736" width="64" height="64"/>
-  <object id="162" gid="78" x="1216" y="4224" width="64" height="64"/>
-  <object id="163" gid="78" x="0" y="4480" width="64" height="64"/>
-  <object id="164" gid="78" x="64" y="4992" width="64" height="64"/>
-  <object id="165" gid="78" x="0" y="4096" width="64" height="64"/>
-  <object id="166" gid="78" x="1216" y="3712" width="64" height="64"/>
-  <object id="167" gid="78" x="1088" y="3264" width="64" height="64"/>
-  <object id="168" gid="78" x="384" y="3264" width="64" height="64"/>
-  <object id="169" gid="78" x="448" y="2880" width="64" height="64"/>
-  <object id="170" gid="78" x="1152" y="2880" width="64" height="64"/>
-  <object id="171" gid="78" x="1216" y="2496" width="64" height="64"/>
-  <object id="172" gid="78" x="512" y="2496" width="64" height="64"/>
-  <object id="173" gid="78" x="1088" y="2176" width="64" height="64"/>
-  <object id="174" gid="78" x="256" y="1920" width="64" height="64"/>
-  <object id="175" gid="78" x="704" y="1920" width="64" height="64"/>
-  <object id="176" gid="78" x="64" y="1536" width="64" height="64"/>
-  <object id="177" gid="78" x="768" y="1536" width="64" height="64"/>
-  <object id="178" gid="78" x="576" y="832" width="64" height="64"/>
-  <object id="179" gid="78" x="384" y="832" width="64" height="64"/>
-  <object id="180" gid="78" x="512" y="448" width="64" height="64"/>
-  <object id="181" gid="78" x="896" y="320" width="64" height="64"/>
-  <object id="182" gid="78" x="192" y="256" width="64" height="64"/>
+  <object id="139" name="torch_flame" gid="66" x="576" y="768" width="64" height="64"/>
+  <object id="140" name="torch_flame" gid="66" x="384" y="768" width="64" height="64"/>
+  <object id="141" name="torch_flame" gid="66" x="512" y="384" width="64" height="64"/>
+  <object id="142" name="torch_flame" gid="66" x="896" y="256" width="64" height="64"/>
+  <object id="143" name="torch_flame" gid="66" x="192" y="192" width="64" height="64"/>
+  <object id="144" name="torch_flame" gid="66" x="768" y="1472" width="64" height="64"/>
+  <object id="145" name="torch_flame" gid="66" x="64" y="1472" width="64" height="64"/>
+  <object id="146" name="torch_flame" gid="66" x="256" y="1856" width="64" height="64"/>
+  <object id="147" name="torch_flame" gid="66" x="704" y="1856" width="64" height="64"/>
+  <object id="148" name="torch_flame" gid="66" x="1088" y="2112" width="64" height="64"/>
+  <object id="149" name="torch_flame" gid="66" x="1216" y="2432" width="64" height="64"/>
+  <object id="150" name="torch_flame" gid="66" x="512" y="2432" width="64" height="64"/>
+  <object id="151" name="torch_flame" gid="66" x="448" y="2816" width="64" height="64"/>
+  <object id="152" name="torch_flame" gid="66" x="384" y="3200" width="64" height="64"/>
+  <object id="153" name="torch_flame" gid="66" x="1088" y="3200" width="64" height="64"/>
+  <object id="154" name="torch_flame" gid="66" x="1152" y="2816" width="64" height="64"/>
+  <object id="155" name="torch_flame" gid="66" x="1216" y="3648" width="64" height="64"/>
+  <object id="156" name="torch_flame" gid="66" x="1216" y="4160" width="64" height="64"/>
+  <object id="157" name="torch_flame" gid="66" x="0" y="4032" width="64" height="64"/>
+  <object id="158" name="torch_flame" gid="66" x="0" y="4416" width="64" height="64"/>
+  <object id="159" name="torch_flame" gid="66" x="64" y="4928" width="64" height="64"/>
+  <object id="160" name="torch_flame" gid="66" x="1216" y="4672" width="64" height="64"/>
+  <object id="161" name="torch_base" gid="78" x="1216" y="4736" width="64" height="64"/>
+  <object id="162" name="torch_base" gid="78" x="1216" y="4224" width="64" height="64"/>
+  <object id="163" name="torch_base" gid="78" x="0" y="4480" width="64" height="64"/>
+  <object id="164" name="torch_base" gid="78" x="64" y="4992" width="64" height="64"/>
+  <object id="165" name="torch_base" gid="78" x="0" y="4096" width="64" height="64"/>
+  <object id="166" name="torch_base" gid="78" x="1216" y="3712" width="64" height="64"/>
+  <object id="167" name="torch_base" gid="78" x="1088" y="3264" width="64" height="64"/>
+  <object id="168" name="torch_base" gid="78" x="384" y="3264" width="64" height="64"/>
+  <object id="169" name="torch_base" gid="78" x="448" y="2880" width="64" height="64"/>
+  <object id="170" name="torch_base" gid="78" x="1152" y="2880" width="64" height="64"/>
+  <object id="171" name="torch_base" gid="78" x="1216" y="2496" width="64" height="64"/>
+  <object id="172" name="torch_base" gid="78" x="512" y="2496" width="64" height="64"/>
+  <object id="173" name="torch_base" gid="78" x="1088" y="2176" width="64" height="64"/>
+  <object id="174" name="torch_base" gid="78" x="256" y="1920" width="64" height="64"/>
+  <object id="175" name="torch_base" gid="78" x="704" y="1920" width="64" height="64"/>
+  <object id="176" name="torch_base" gid="78" x="64" y="1536" width="64" height="64"/>
+  <object id="177" name="torch_base" gid="78" x="768" y="1536" width="64" height="64"/>
+  <object id="178" name="torch_base" gid="78" x="576" y="832" width="64" height="64"/>
+  <object id="179" name="torch_base" gid="78" x="384" y="832" width="64" height="64"/>
+  <object id="180" name="torch_base" gid="78" x="512" y="448" width="64" height="64"/>
+  <object id="181" name="torch_base" gid="78" x="896" y="320" width="64" height="64"/>
+  <object id="182" name="torch_base" gid="78" x="192" y="256" width="64" height="64"/>
  </objectgroup>
  <layer id="2" name="Terrain" width="20" height="80">
   <data encoding="csv">
@@ -306,8 +306,6 @@
 </data>
  </layer>
  <objectgroup id="4" name="Objects">
-  <object id="10" name="ceiling_spike" x="1088.67" y="704.667" width="64" height="64"/>
-  <object id="9" name="ceiling_spike" x="1024" y="704.667" width="64" height="64"/>
   <object id="87" name="Npc" x="130.667" y="4986" width="64" height="64"/>
   <object id="97" name="Cure 1" x="272.667" y="1654.67" width="30.6667" height="29.3333"/>
   <object id="98" name="Cure 1" x="1198" y="4864" width="30.6667" height="29.3333"/>
@@ -317,14 +315,56 @@
     <property name="isOpen" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="183" name="floor_spikes" gid="476" x="640" y="448" width="64" height="64"/>
-  <object id="184" name="floor_spikes" gid="476" x="384" y="256" width="64" height="64"/>
-  <object id="185" name="floor_spikes" gid="476" x="896" y="1152" width="64" height="64"/>
-  <object id="186" name="floor_spikes" gid="476" x="960" y="1152" width="64" height="64"/>
-  <object id="187" name="floor_spikes" gid="476" x="576" y="3456" width="64" height="64"/>
-  <object id="188" name="floor_spikes" gid="476" x="832" y="3456" width="64" height="64"/>
-  <object id="189" name="floor_spikes" gid="476" x="128" y="4800" width="64" height="64"/>
-  <object id="190" name="floor_spikes" gid="476" x="0" y="2304" width="64" height="64"/>
+  <object id="183" name="spikes" gid="476" x="640" y="448" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="184" name="spikes" gid="476" x="384" y="256" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="185" name="spikes" gid="476" x="896" y="1152" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="186" name="spikes" gid="476" x="960" y="1152" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="187" name="spikes" gid="476" x="576" y="3456" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="188" name="spikes" gid="476" x="832" y="3456" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="189" name="spikes" gid="476" x="128" y="4800" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="190" name="spikes" gid="476" x="0" y="2304" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="238" name="spikes" gid="1073742300" x="1024" y="768" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="239" name="spikes" gid="1073742300" x="1088" y="768" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="193" name="Player" gid="2147484123" x="1024" y="192" width="64" height="56"/>
  </objectgroup>
  <objectgroup id="3" name="Moving Objects">
