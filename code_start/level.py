@@ -51,32 +51,38 @@ class Level:
                     case _: z = Z_LAYERS['main']
                 Sprite((x * TILE_SIZE, y * TILE_SIZE), surf, groups, z)
 
+        # bg details
+        for obj in tmx_map.get_layer_by_name('BG details'):
+            if obj.name == 'torch_flame':
+                AnimatedSprite((obj.x, obj.y), level_frames['torch_flame'], self.all_sprites, z = Z_LAYERS['bg tiles'])
+            elif obj.name == 'torch_base':
+                Sprite((obj.x, obj.y), obj.image, self.all_sprites, z = Z_LAYERS['bg tiles'])
+            
         #objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                self.player = PropellerPlayer(
-                    pos = (obj.x, obj.y), 
-                    groups = self.all_sprites, 
-                    collision_sprites = self.collision_sprites,
-                    semi_collision_sprites = self.semi_collision_sprites,
-                    frames = level_frames['propeller_player'],
-                    hitbox_config = HITBOX_CONFIGS['propeller'],
-                    data = self.data)
-            
-            # if obj.name == "Player":
-            #     if map_index == 1:
-            #         self.player = Quest2Player(
-            #             pos = (obj.x, obj.y),
-            #             groups = (self.all_sprites,),
-            #             collision_sprites = self.collision_sprites,
-            #             semi_collision_sprites = self.semi_collision_sprites,
-            #             frames = level_frames['default_player'],
-            #             hitbox_config = HITBOX_CONFIGS['default'],
-            #             data = self.data,
-            #         )
+                if map_index == 1:
+                    self.player = Quest2Player(
+                        pos = (obj.x, obj.y),
+                        groups = (self.all_sprites,),
+                        collision_sprites = self.collision_sprites,
+                        semi_collision_sprites = self.semi_collision_sprites,
+                        frames = level_frames['default_player'],
+                        hitbox_config = HITBOX_CONFIGS['default'],
+                        data = self.data,
+                    )
+                else:
+                    self.player = PropellerPlayer(
+                        pos = (obj.x, obj.y), 
+                        groups = self.all_sprites, 
+                        collision_sprites = self.collision_sprites,
+                        semi_collision_sprites = self.semi_collision_sprites,
+                        frames = level_frames['propeller_player'],
+                        hitbox_config = HITBOX_CONFIGS['propeller'],
+                        data = self.data)
             else:
-                if obj.name == 'floor_spikes':
-                    Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
+                if obj.name == 'spikes':
+                    Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites), upsidedown = obj.properties['upsidedown'],)
                 # else:
                 #     frames = level_frames[obj.name]
                 #     AnimatedSprite((obj.x, obj.y), frames, self.all_sprites)
@@ -160,15 +166,18 @@ class Level:
     def run(self, dt):
         self.display_surface.fill('black')
         self.all_sprites.update(dt)
+        # do not update and draw these, its reduncant and may be a source of some problems. all_sprites deals with it
         # self.boss_bullets.update(dt)
         # self.boss_bullets.draw(self.display_surface)
         
         hits = pygame.sprite.spritecollide(self.player, self.boss_bullets, dokill=True)
-        # for bullet in hits:
-        #     ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
-        #     self.player.take_damage(1)   # temporary damage value and method
+        for bullet in hits:
+            ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
+            self.player.take_damage(1)   # temporary damage value and method
 
-        # self.hit_collision()
-        # self.attack_collision()
+        self.hit_collision()
+        self.attack_collision()
+
+        # also don't draw these
         # self.boss_sprites.draw(self.display_surface)
         self.all_sprites.draw(self.player.hitbox_rect.center)

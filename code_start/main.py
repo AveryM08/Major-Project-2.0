@@ -29,6 +29,7 @@ class Game:
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
             'default_player': import_sub_folders('..', 'graphics', 'player', 'default'),
             'propeller_player': import_sub_folders('..', 'graphics', 'player', 'propeller'),
+            'torch_flame': import_folder('..', 'graphics', 'level', 'torch_flame'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
