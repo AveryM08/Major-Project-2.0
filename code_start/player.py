@@ -77,11 +77,11 @@ class Player(pygame.sprite.Sprite):
             self.timers['attack block'].activate()
 
     def move(self, dt):
-        #horizontal
+        # horizontal
         self.hitbox_rect.x += self.direction.x * self.speed * dt
         self.collision('horizontal')
 
-        #vertical
+        # vertical
         if not self.on_surface['floor'] and any((self.on_surface['left'], self.on_surface['right'])) and not self.timers['wall slide block'].active:
             self.direction.y = 0
             self.hitbox_rect.y += self.gravity / 5 * dt
@@ -288,41 +288,36 @@ class PropellerPlayer(Player):
 class Quest2Player(Player):
     def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):     
         super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data)
-        self.base_image = self.image
-        try:
-            self.flipped_image = pygame.transform.flip(self.base_image, True, False)
-        except Exception:
-            self.flipped_image = self.base_image
-        self.facing_right = True
+        
         self.gravity = 0
-        self.jump = False
         self.jump_height = 0
 
     def input(self):
         keys = pygame.key.get_pressed()
         input_vector = vector(0, 0)
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            input_vector.x = -1
+            input_vector.x -= 1
+            self.facing_right = False
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            input_vector.x = 1
+            input_vector.x += 1
+            self.facing_right = True
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            input_vector.y = -1
+            input_vector.y -= 1
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            input_vector.y = 1
-        if input_vector.x != 0 or input_vector.y != 0:
-            input_vector = input_vector.normalize()
-
-        self.direction = input_vector
+            input_vector.y += 1
+            
+        self.direction = input_vector.normalize() if input_vector.magnitude() > 0 else input_vector
 
     def move(self, dt):
+        # horizontal
         self.hitbox_rect.x += self.direction.x * self.speed * dt
         self.collision('horizontal')
+
+        # vertical
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
+
         self.rect.center = self.hitbox_rect.center
-        if self.direction.x < 0:
-            self.image = self.flipped_image
-            self.facing_right = False
-        elif self.direction.x > 0:
-            self.image = self.base_image
-            self.facing_right = True
+
+    def get_state(self):
+        self.state = 'idle'
