@@ -175,9 +175,8 @@ class Boss(pygame.sprite.Sprite):
         self.health = 1000
         self.stage = 0
 
-        # groups passed in by level: (all_sprites, collision_sprites, boss_bullets)
-        #remove bugs
-        self.boss_bullets = pygame.sprite.Group()
+        self.all_sprites = groups[0]
+        self.boss_bullets = groups[2]
 
     def check_stage(self):
         for stage, data in self.stage_management.items():
@@ -200,7 +199,6 @@ class Boss(pygame.sprite.Sprite):
         if now - self.last_shot > cooldown:
             self.last_shot = now
             if self.stage == 0:
-                print("single")
                 self.pattern_single()
             elif self.stage == 1:
                 self.pattern_spread()
@@ -223,8 +221,8 @@ class Boss(pygame.sprite.Sprite):
         vy = (dy / distance) * speed
         bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
         self.boss_bullets.add(bullet)
-        if getattr(self, 'all_sprites', None) is not None:
-            self.all_sprites.add(bullet)
+        self.all_sprites.add(bullet)
+
 
 
     def pattern_spread(self, num_bullets=5):
@@ -233,23 +231,22 @@ class Boss(pygame.sprite.Sprite):
         angle_increment = (end_angle - start_angle) / (num_bullets - 1)
         for i in range(num_bullets):
             angle = math.radians(start_angle + i * angle_increment)
-            vx = math.sin(angle) * 200
-            vy = math.cos(angle) * 200
+            vx = math.cos(angle) * 300
+            vy = math.sin(angle) * 300
             bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
             self.boss_bullets.add(bullet)
-            if getattr(self, 'all_sprites', None) is not None:
-                self.all_sprites.add(bullet)
+            self.all_sprites.add(bullet)
+
 
     def pattern_radial(self, num_bullets=8):
         angle_increment = 360 / num_bullets
         for i in range(num_bullets):
             angle = math.radians(i * angle_increment)
-            vx = math.sin(angle) * 200
-            vy = math.cos(angle) * 200
+            vx = math.cos(angle) * 300
+            vy = math.sin(angle) * 300
             bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
             self.boss_bullets.add(bullet)
-            if getattr(self, 'all_sprites', None) is not None:
-                self.all_sprites.add(bullet)
+            self.all_sprites.add(bullet)
 
 class BossBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, vx, vy):
@@ -258,16 +255,17 @@ class BossBullet(pygame.sprite.Sprite):
         pygame.draw.circle(surf, pygame.Color('yellow'), (4, 4), 4)
         self.image = surf
         self.rect = self.image.get_rect(center=(x, y))
-        self.vx = vx
-        self.vy = vy
-        self.rect = self.image.get_rect(center=(x, y))
+        self.mask = pygame.mask.from_surface(self.image)
         self.vx = vx
         self.vy = vy
         self.z = Z_LAYERS['main']
+        self.lifetime = 0
+        self.max_lifetime = 10  # seconds before bullet disappears
 
     def update(self, dt):
         self.rect.x += self.vx * dt
         self.rect.y += self.vy * dt
-        if (self.rect.right < 0 or self.rect.left > WINDOW_WIDTH or
-            self.rect.bottom < 0 or self.rect.top > WINDOW_HEIGHT):
+        
+        self.lifetime += dt
+        if self.lifetime > self.max_lifetime:
             self.kill()

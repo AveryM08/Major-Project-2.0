@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_s] or keys[pygame.K_DOWN]:
                 self.timers['platform skip'].activate()
 
-            if keys[pygame.K_x]:
+            if pygame.mouse.get_pressed()[0]:
                 self.attack()
 
             self.direction.x = input_vector.normalize().x if input_vector else input_vector.x
@@ -167,7 +167,7 @@ class Player(pygame.sprite.Sprite):
             self.state = 'idle'
         self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
         self.image = self.image if self.facing_right else pygame.transform.flip(self.image, True, False)
-
+        self.mask = pygame.mask.from_surface(self.image)
         if self.attacking and self.frame_index > len(self.frames[self.state]):
             self.attacking = False
 
@@ -196,13 +196,13 @@ class Player(pygame.sprite.Sprite):
 
     def take_damage(self):
         if not self.timers['hit'].active:
-            self.data['health'] -= 1
+            self.data.health -= 1
             self.timers['hit'].activate()
 
     def flicker(self):
         if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
             white_mask = pygame.mask.from_surface(self.image)
-            white_surf = white_mask.to_surface
+            white_surf = white_mask.to_surface()
             white_surf.set_colorkey('black')
             self.image = white_surf
 

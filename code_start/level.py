@@ -169,11 +169,11 @@ class Level:
         # do not update and draw these, its reduncant and may be a source of some problems. all_sprites deals with it
         # self.boss_bullets.update(dt)
         # self.boss_bullets.draw(self.display_surface)
-        
-        hits = pygame.sprite.spritecollide(self.player, self.boss_bullets, dokill=True)
-        for bullet in hits:
-            ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
-            self.player.take_damage(1)   # temporary damage value and method
+        for bullet in self.boss_bullets:
+            if pygame.sprite.spritecollide(bullet, pygame.sprite.Group(self.player), dokill=False, collided=pygame.sprite.collide_mask):
+                bullet.kill()
+                ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
+                self.player.take_damage()
 
         self.hit_collision()
         self.attack_collision()

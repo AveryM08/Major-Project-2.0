@@ -21,9 +21,11 @@ class Game:
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
             }
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
-        # self.current_stage = Level(self.tmx_maps[1], self.quest_2_frames, self.data, map_index = 1)
+        
+        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
+        self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
 
+    #animations
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
@@ -34,7 +36,8 @@ class Game:
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
-            'particle': import_sub_folders('..', 'graphics', 'effects', 'particles'),
+            'particle': import_folder('..', 'graphics', 'effects', 'particle'),
+            'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
         }
 
         self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 40)
@@ -44,7 +47,6 @@ class Game:
             'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
         self.quest_2_frames = {
-            'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
             'player': import_sub_folders('..', 'graphics', 'player', 'default')
         }
