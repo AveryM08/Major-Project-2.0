@@ -42,7 +42,8 @@ class UI:
 
     def create_hearts(self, num_hearts):
         for sprite in self.sprites:
-            sprite.kill()
+            if isinstance(sprite, Heart):
+                sprite.kill()
         for heart in range(num_hearts):
             x = 10 + heart * (self.heart_surf_width + self.heart_padding)
             y = 10
@@ -72,7 +73,7 @@ class Heart(AnimatedSprite):
 class Boss_HealthBar(AnimatedSprite):
     def __init__(self, pos, frames, groups):
         super().__init__(pos, frames, groups)
-        self.active = False
+        self.active = True
         self.stage = 0
         self.max_stage = len(frames) - 1
         self.image = self.frames[self.stage]

@@ -10,7 +10,8 @@ Z_LAYERS = {
     'bg': 0,
     'bg tiles': 1,
     'bg details': 2,
-    'main': 3
+    'main': 3,
+    'fg': 4
 }
 
 HITBOX_CONFIGS = {
