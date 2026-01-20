@@ -25,12 +25,19 @@ class UI:
 
         # boss healthbar
         self.boss_healthbar_frames = frames['boss_healthbar']
-        self.create_boss_healthbar()
+        self.boss_bar = None
 
     def create_boss_healthbar(self):
-        x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
-        y = 10
-        Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        if not self.boss_bar:
+            x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
+            y = 10
+            self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        
+        self.boss_bar.active = True
+
+    def hide_boss_healthbar(self):
+        if self.boss_bar:
+            self.boss_bar.active = False
 
     def hit_boss(self, amount = 1):
         for sprite in self.sprites:
@@ -60,7 +67,7 @@ class UI:
     def update(self, dt):
         self.coin_timer.update()
         self.sprites.update(dt)
-        #draw only active sprites
+        # draw only active sprites
         for sprite in self.sprites:
             if getattr(sprite, 'active', True):
                 self.display_surface.blit(sprite.image, sprite.rect)
@@ -73,7 +80,7 @@ class Heart(AnimatedSprite):
 class Boss_HealthBar(AnimatedSprite):
     def __init__(self, pos, frames, groups):
         super().__init__(pos, frames, groups)
-        self.active = True
+        self.active = False
         self.stage = 0
         self.max_stage = len(frames) - 1
         self.image = self.frames[self.stage]
@@ -92,8 +99,6 @@ class Boss_HealthBar(AnimatedSprite):
             self.hide()
 
     def update(self, dt):
-        if not self.active:
-            return
         self.image = self.frames[self.stage]
 
 
