@@ -17,20 +17,23 @@ class UI:
         self.coin_amount = 0
         self.coin_timer = Timer(1000)
         self.coin_surf = frames['coin']
-
-        # coins 
-        self.coin_amount = 0
-        self.coin_timer = Timer(1000)
-        self.coin_surf = frames['coin']
+        self.coin_text_surf = None
 
         # boss healthbar
         self.boss_healthbar_frames = frames['boss_healthbar']
-        self.create_boss_healthbar()
+        self.boss_bar = None
 
     def create_boss_healthbar(self):
-        x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
-        y = 10
-        Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        if not self.boss_bar:
+            x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
+            y = 10
+            self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        
+        self.boss_bar.active = True
+
+    def hide_boss_healthbar(self):
+        if self.boss_bar:
+            self.boss_bar.active = False
 
     def hit_boss(self, amount = 1):
         for sprite in self.sprites:
@@ -49,22 +52,36 @@ class UI:
             y = 10
             Heart((x,y), self.heart_frames, self.sprites)
 
-    def show_coins(self, amount):
-        self.coin_amount = amount
-        self.coin_timer.activate()
+    # def show_coins(self, amount):
+    #     self.coin_amount = amount
+    #     self.coin_timer.activate()
 
     def show_coins(self, amount):
         self.coin_amount = amount
+        # Render the text surface whenever the amount changes
+        self.coin_text_surf = self.font.render(str(self.coin_amount), True, 'white')
         self.coin_timer.activate()
+
+    def draw_coin_counter(self):
+        if self.coin_timer.active:
+            # Draw coin icon
+            coin_rect = self.coin_surf.get_rect(topright=(WINDOW_WIDTH - 50, 20))
+            self.display_surface.blit(self.coin_surf, coin_rect)
+            
+            # Draw coin text next to it
+            if self.coin_text_surf:
+                text_rect = self.coin_text_surf.get_rect(midright=(coin_rect.left - 10, coin_rect.centery))
+                self.display_surface.blit(self.coin_text_surf, text_rect)
     
     def update(self, dt):
         self.coin_timer.update()
         self.sprites.update(dt)
-        #draw only active sprites
+        # draw only active sprites
         for sprite in self.sprites:
             if getattr(sprite, 'active', True):
                 self.display_surface.blit(sprite.image, sprite.rect)
 
+        self.draw_coin_counter()
 
 class Heart(AnimatedSprite):
     def __init__(self, pos, frames, groups):
@@ -73,7 +90,7 @@ class Heart(AnimatedSprite):
 class Boss_HealthBar(AnimatedSprite):
     def __init__(self, pos, frames, groups):
         super().__init__(pos, frames, groups)
-        self.active = True
+        self.active = False
         self.stage = 0
         self.max_stage = len(frames) - 1
         self.image = self.frames[self.stage]
@@ -92,9 +109,4 @@ class Boss_HealthBar(AnimatedSprite):
             self.hide()
 
     def update(self, dt):
-        if not self.active:
-            return
         self.image = self.frames[self.stage]
-
-
-

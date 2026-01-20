@@ -2,9 +2,8 @@ from settings import *
 from level import Level
 from pytmx.util_pygame import load_pygame
 from os.path import join
-from quest2 import Boss_fight
 from data import Data
-from ui import UI
+from ui import UI, Boss_HealthBar
 from support import *
 
 class Game:
@@ -17,13 +16,20 @@ class Game:
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
+        self.data.start_level(0) 
+        
         self.tmx_maps = {
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
             }
         
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
-        self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
+        # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
+
+    def load_new_map(self, map_index):
+        # Logic to clear the old map and load the new one
+
+        self.data.start_level(map_index)
 
     #animations
     def import_assets(self):

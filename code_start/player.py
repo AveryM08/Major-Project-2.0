@@ -229,8 +229,8 @@ class Player(pygame.sprite.Sprite):
         self.platform_move(dt)
         self.check_contact()
         
-        self.flicker()
         self.animate(dt)
+        self.flicker()
 
         self.rect.center = self.hitbox_rect.center
 
