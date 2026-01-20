@@ -36,6 +36,8 @@ class Rat(pygame.sprite.Sprite):
 class Frog(pygame.sprite.Sprite):
     def __init__(self, pos, frames, groups, reverse, player):
         super().__init__(groups)
+        self.tongue_groups = (groups[0], groups[2])
+        self.remove(groups[-1]) # remove from damage_sprites group
 
         if reverse:
             self.frames = {}
@@ -102,7 +104,7 @@ class Frog(pygame.sprite.Sprite):
                 pos        = mouth_pos, 
                 direction  = self.tongue_direction, 
                 max_length = max_reach,
-                groups     = self.groups(),
+                groups     = self.tongue_groups,
                 speed = 400
             )
 
@@ -142,9 +144,8 @@ class FrogTongue(pygame.sprite.Sprite):
 
     def draw_tongue(self):
         end_x = self.start_pos.x + self.current_length * self.direction
-        end_pos = (end_x, self.start_pos.y)
 
-        width = abs(end_x - self.start_pos.x) or 1
+        width = max(abs(end_x - self.start_pos.x), 1)
         height = 4 # tongue thickness
 
         if self.direction < 0:
@@ -154,6 +155,7 @@ class FrogTongue(pygame.sprite.Sprite):
 
         self.image = pygame.Surface((width, height), pygame.SRCALPHA)
         pygame.draw.rect(self.image, (255, 100, 100), (0, 0, width, height))
+        
         self.rect = self.image.get_rect(topleft = topleft)
 
 class Boss(pygame.sprite.Sprite):

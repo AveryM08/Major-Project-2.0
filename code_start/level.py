@@ -20,7 +20,7 @@ class Level:
         else:
             bg_tile = None
 
-        #groups
+        # groups
         self.all_sprites = AllSprites(
             width = tmx_map.width, 
 			height = tmx_map.height,
@@ -36,11 +36,11 @@ class Level:
         self.boss_sprites = pygame.sprite.Group()
         self.setup(tmx_map, level_frames, self.map_index)
 
-        #frames
+        # frames
         self.particle_frames = level_frames['particle']
 
     def setup(self, tmx_map, level_frames, map_index):
-        #tiles
+        # tiles
         for layer in ['BG', 'Terrain', 'Platforms']:
             for x,y, surf in tmx_map.get_layer_by_name(layer).tiles():
                 groups = [self.all_sprites]
@@ -58,10 +58,19 @@ class Level:
             elif obj.name == 'torch_base':
                 Sprite((obj.x, obj.y), obj.image, self.all_sprites, z = Z_LAYERS['bg tiles'])
             
-        #objects
+        # objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                if map_index == 1:
+                if map_index == 0:
+                    self.player = PropellerPlayer(
+                        pos = (obj.x, obj.y), 
+                        groups = self.all_sprites, 
+                        collision_sprites = self.collision_sprites,
+                        semi_collision_sprites = self.semi_collision_sprites,
+                        frames = level_frames['propeller_player'],
+                        hitbox_config = HITBOX_CONFIGS['propeller'],
+                        data = self.data)
+                elif map_index == 1:
                     self.player = Quest2Player(
                         pos = (obj.x, obj.y),
                         groups = (self.all_sprites,),
@@ -72,17 +81,17 @@ class Level:
                         data = self.data,
                     )
                 else:
-                    self.player = PropellerPlayer(
+                    self.player = Player(
                         pos = (obj.x, obj.y), 
                         groups = self.all_sprites, 
                         collision_sprites = self.collision_sprites,
                         semi_collision_sprites = self.semi_collision_sprites,
-                        frames = level_frames['propeller_player'],
-                        hitbox_config = HITBOX_CONFIGS['propeller'],
+                        frames = level_frames['default_player'],
+                        hitbox_config = HITBOX_CONFIGS['default'],
                         data = self.data)
             else:
                 if obj.name == 'spikes':
-                    Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites), upsidedown = obj.properties['upsidedown'],)
+                    Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.damage_sprites), upsidedown = obj.properties['upsidedown'],)
                 # else:
                 #     frames = level_frames[obj.name]
                 #     AnimatedSprite((obj.x, obj.y), frames, self.all_sprites)
@@ -99,14 +108,14 @@ class Level:
                     move_dir = 'x'
                     start_pos = (obj.x, obj.y + obj.height / 2)
                     end_pos = (obj.x + obj.width, obj.y + obj.height / 2)
-                else: #vertical
+                else: # vertical
                     move_dir = 'y'
                     start_pos = (obj.x + obj.width / 2, obj.y)
                     end_pos = (obj.x + obj.width / 2, obj.y + obj.height)
                 speed = obj.properties['speed']
                 MovingSprite(frames, groups, start_pos, end_pos, move_dir, speed)
 
-        #enemies
+        # enemies
         for obj in tmx_map.get_layer_by_name("Enemies"):
             if obj.name == "Boss":
                 print("Creating boss at:", (obj.x, obj.y))
@@ -126,7 +135,7 @@ class Level:
                 Frog(
                     pos     = (obj.x, obj.y),
                     frames  = level_frames['Frog'],
-                    groups  = (self.all_sprites, self.collision_sprites),
+                    groups  = (self.all_sprites, self.collision_sprites, self.damage_sprites),
                     reverse = obj.properties['reverse'],
                     player  = self.player
                 )
@@ -137,10 +146,24 @@ class Level:
         for obj in tmx_map.get_layer_by_name('Items'):
             Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
 
+    def item_collision(self):
+        if self.item_sprites:
+            item_sprites = pygame.sprite.spritecollide(self.player, self.item_sprites, True)
+            if item_sprites:
+                item_sprites[0].activate()
+                ParticleEffectSprite((item_sprites[0].rect.center), self.particle_frames, self.all_sprites)
+
+    def boss_bullet_collision(self):
+        for bullet in self.boss_bullets:
+            if pygame.sprite.spritecollide(bullet, pygame.sprite.Group(self.player), dokill = False, collided = pygame.sprite.collide_mask):
+                bullet.kill()
+                ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
+                self.player.take_damage()
+
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
-                self.player.take_damage(1)  # temporary damage value and method
+                self.player.take_damage()
 
     def attack_collision(self):
         for target in self.boss_sprites.sprites(): # + any other attackable sprites
@@ -165,19 +188,12 @@ class Level:
 
     def run(self, dt):
         self.display_surface.fill('black')
-        self.all_sprites.update(dt)
-        # do not update and draw these, its reduncant and may be a source of some problems. all_sprites deals with it
-        # self.boss_bullets.update(dt)
-        # self.boss_bullets.draw(self.display_surface)
-        for bullet in self.boss_bullets:
-            if pygame.sprite.spritecollide(bullet, pygame.sprite.Group(self.player), dokill=False, collided=pygame.sprite.collide_mask):
-                bullet.kill()
-                ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
-                self.player.take_damage()
 
+        self.all_sprites.update(dt)
+        self.item_collision()
+        self.boss_bullet_collision()
         self.hit_collision()
         self.attack_collision()
+        self.check_constraint()
 
-        # also don't draw these
-        # self.boss_sprites.draw(self.display_surface)
         self.all_sprites.draw(self.player.hitbox_rect.center)

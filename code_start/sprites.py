@@ -23,15 +23,15 @@ class AnimatedSprite(Sprite):
         self.animate(dt)
 
 class Item(AnimatedSprite):
-	def __init__(self, item_type, pos, frames, groups, data):
-		super().__init__(pos, frames, groups)
-		self.rect.center = pos
-		self.item_type = item_type
-		self.data = data
+    def __init__(self, item_type, pos, frames, groups, data):
+        super().__init__(pos, frames, groups)
+        self.rect.center = pos
+        self.item_type = item_type
+        self.data = data
 
-	def activate(self):
-		if self.item_type == 'coin':
-			self.data.coins += 1
+    def activate(self):
+        if (self.item_type == 'coin'):
+            self.data.coins += 1
 		# if self.item_type == 'silver':
 		# 	self.data.coins += 1
 		# if self.item_type == 'diamond':
