@@ -44,7 +44,8 @@ class Player(pygame.sprite.Sprite):
             'wall jump': Timer(400),
             'wall slide block': Timer(250),
             'platform skip': Timer(100),
-            'hit': Timer(400)
+            'hit': Timer(400),
+            'attack block': Timer(500)
         }
 
     def input(self):
@@ -62,7 +63,7 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_s] or keys[pygame.K_DOWN]:
                 self.timers['platform skip'].activate()
 
-            if pygame.mouse.get_pressed()[0]:
+            if keys[pygame.K_x]:
                 self.attack()
 
             self.direction.x = input_vector.normalize().x if input_vector else input_vector.x
@@ -75,6 +76,7 @@ class Player(pygame.sprite.Sprite):
             self.attacking = True
             self.frame_index = 0
             self.timers['attack block'].activate()
+            
 
     def move(self, dt):
         # horizontal
@@ -294,6 +296,8 @@ class Quest2Player(Player):
             input_vector.y -= 1
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             input_vector.y += 1
+        if keys[pygame.K_x]:
+            self.attack()
             
         self.direction = input_vector.normalize() if input_vector.magnitude() > 0 else input_vector
 
@@ -309,4 +313,7 @@ class Quest2Player(Player):
         self.rect.center = self.hitbox_rect.center
 
     def get_state(self):
-        self.state = 'idle'
+        if self.attacking:
+            self.state = 'attack'
+        else:
+            self.state = 'idle'
