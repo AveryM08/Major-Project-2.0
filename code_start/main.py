@@ -17,19 +17,15 @@ class Game:
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
         self.data.start_level(0) 
-        
+
         self.tmx_maps = {
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
-            1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx'))
+            1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            2: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
             }
         
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
-        # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
-
-    def load_new_map(self, map_index):
-        # Logic to clear the old map and load the new one
-
-        self.data.start_level(map_index)
+        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
+        self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
 
     #animations
     def import_assets(self):
@@ -46,10 +42,10 @@ class Game:
             'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
         }
 
-        self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 40)
+        self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 35)
         self.ui_frames = {
             'heart': import_folder('..', 'graphics', 'ui', 'heart'),
-            'coin':import_image('..', 'graphics', 'ui', 'coin'),
+            'coin':import_folder('..', 'graphics', 'ui', 'coin'),
             'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
         self.quest_2_frames = {

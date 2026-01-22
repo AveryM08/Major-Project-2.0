@@ -5,7 +5,7 @@ from os.path import join
 from math import sin
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right = True):
         #general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
 
         #image
         self.frames, self.frame_index = frames, 0
-        self.state, self.facing_right = 'idle', True
+        self.state, self.facing_right = 'idle', facing_right
         self.image = self.frames[self.state][self.frame_index]
 
         #rects
@@ -207,17 +207,6 @@ class Player(pygame.sprite.Sprite):
             self.image = white_surf
 
     def update(self, dt):
-        # self.old_rect = self.hitbox_rect.copy()
-        # self.update_timers()
-
-        # self.input()
-        # self.move(dt)
-        # self.platform_move(dt)
-        # self.check_contact()
-
-        # self.get_state()
-        # self.animate(dt)
-
         self.old_rect = self.hitbox_rect.copy()
         self.update_timers()
         self.input()
@@ -235,8 +224,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = self.hitbox_rect.center
 
 class PropellerPlayer(Player):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):
-        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data)
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right):
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right)
 
         self.fall_speed = 200
 
