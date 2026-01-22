@@ -14,9 +14,9 @@ class UI:
         self.heart_padding = 5
 
         # coins 
+        self.coin_frames = frames['coin']
+        self.ui_coin = Coin((10, 45), self.coin_frames, self.sprites)
         self.coin_amount = 0
-        self.coin_timer = Timer(1000)
-        self.coin_surf = frames['coin']
         self.coin_text_surf = None
 
         # boss healthbar
@@ -52,38 +52,52 @@ class UI:
             y = 10
             Heart((x,y), self.heart_frames, self.sprites)
 
-    # def show_coins(self, amount):
-    #     self.coin_amount = amount
-    #     self.coin_timer.activate()
+    def display_coins(self):
+        coin_rect = self.ui_coin.rect
+
+        coin_middle_text_surf = self.font.render('x', False, 'white')
+        coin_text_surf = self.font.render(str(self.coin_amount), False, 'white')
+
+        # positioning text
+        middle_text_rect = coin_middle_text_surf.get_frect(midleft=(coin_rect.right + 10, coin_rect.centery)).move(0, 2)
+        text_rect = coin_text_surf.get_frect(midleft=(middle_text_rect.right + 5, middle_text_rect.centery))
+    
+        # We use coin_rect.top and coin_rect.height to ensure it never changes height
+        full_coin_bg = pygame.FRect(coin_rect.left, coin_rect.top, text_rect.right - coin_rect.left, coin_rect.height).inflate(10, 10)
+        self.draw_bar_background(full_coin_bg)
+
+        # drawing text
+        self.display_surface.blit(coin_middle_text_surf, middle_text_rect)
+        self.display_surface.blit(coin_text_surf, text_rect)
 
     def show_coins(self, amount):
         self.coin_amount = amount
-        # Render the text surface whenever the amount changes
-        self.coin_text_surf = self.font.render(str(self.coin_amount), True, 'white')
-        self.coin_timer.activate()
 
-    def draw_coin_counter(self):
-        if self.coin_timer.active:
-            # Draw coin icon
-            coin_rect = self.coin_surf.get_rect(topright=(WINDOW_WIDTH - 50, 20))
-            self.display_surface.blit(self.coin_surf, coin_rect)
-            
-            # Draw coin text next to it
-            if self.coin_text_surf:
-                text_rect = self.coin_text_surf.get_rect(midright=(coin_rect.left - 10, coin_rect.centery))
-                self.display_surface.blit(self.coin_text_surf, text_rect)
-    
+    def draw_bar_background(self, rect, color=(0, 0, 0, 120)):
+        # color format: (R, G, B, Alpha) -> 120 is semi-transparent
+        bg_surf = pygame.Surface(rect.size, pygame.SRCALPHA)
+        pygame.draw.rect(bg_surf, color, bg_surf.get_frect(), border_radius=10)
+        self.display_surface.blit(bg_surf, rect)
+        
     def update(self, dt):
-        self.coin_timer.update()
         self.sprites.update(dt)
+        self.display_coins()
+
+        heart_sprites = [s for s in self.sprites if isinstance(s, Heart)]
+        if heart_sprites:
+            hearts_rect = pygame.FRect(heart_sprites[0].rect).unionall([s.rect for s in heart_sprites])
+            self.draw_bar_background(hearts_rect.inflate(10, 10))
+        
         # draw only active sprites
         for sprite in self.sprites:
             if getattr(sprite, 'active', True):
                 self.display_surface.blit(sprite.image, sprite.rect)
 
-        self.draw_coin_counter()
-
 class Heart(AnimatedSprite):
+    def __init__(self, pos, frames, groups):
+        super().__init__(pos, frames, groups)
+
+class Coin(AnimatedSprite):
     def __init__(self, pos, frames, groups):
         super().__init__(pos, frames, groups)
 

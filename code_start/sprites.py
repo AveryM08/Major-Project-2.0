@@ -22,24 +22,28 @@ class AnimatedSprite(Sprite):
     def update(self, dt):
         self.animate(dt)
 
-class Item(AnimatedSprite):
-    def __init__(self, item_type, pos, frames, groups, data):
-        super().__init__(pos, frames, groups)
-        self.rect.center = pos
+class Item(Sprite):
+    def __init__(self, item_type, pos, surf, groups, data = None, z = Z_LAYERS['main']):
+        # Initialize the base Sprite
+        super().__init__(pos, surf, groups, z)
+        
+        self.rect = self.image.get_frect(center = pos)
+        self.old_rect = self.rect.copy()
+        
         self.item_type = item_type
         self.data = data
 
     def activate(self):
-        if (self.item_type == 'coin'):
+        if self.item_type == 'coin' and self.data:
             self.data.coins += 1
-		# if self.item_type == 'silver':
-		# 	self.data.coins += 1
-		# if self.item_type == 'diamond':
-		# 	self.data.coins += 20
-		# if self.item_type == 'skull':
-		# 	self.data.coins += 50
-		# if self.item_type == 'potion':
-		# 	self.data.health += 1
+        # if self.item_type == 'silver':
+        # 	self.data.coins += 1
+        # if self.item_type == 'diamond':
+        # 	self.data.coins += 20
+        # if self.item_type == 'skull':
+        # 	self.data.coins += 50
+        # if self.item_type == 'potion':
+        # 	self.data.health += 1
 
 class ParticleEffectSprite(AnimatedSprite):
     def __init__(self, pos, frames, groups):

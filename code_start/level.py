@@ -69,7 +69,8 @@ class Level:
                         semi_collision_sprites = self.semi_collision_sprites,
                         frames = level_frames['propeller_player'],
                         hitbox_config = HITBOX_CONFIGS['propeller'],
-                        data = self.data)
+                        data = self.data,
+                        facing_right = obj.properties['facing_right'])
                 elif map_index == 1:
                     self.player = Quest2Player(
                         pos = (obj.x, obj.y),
@@ -78,8 +79,7 @@ class Level:
                         semi_collision_sprites = self.semi_collision_sprites,
                         frames = level_frames['default_player'],
                         hitbox_config = HITBOX_CONFIGS['default'],
-                        data = self.data,
-                    )
+                        data = self.data,)
                 else:
                     self.player = Player(
                         pos = (obj.x, obj.y), 
@@ -88,7 +88,8 @@ class Level:
                         semi_collision_sprites = self.semi_collision_sprites,
                         frames = level_frames['default_player'],
                         hitbox_config = HITBOX_CONFIGS['default'],
-                        data = self.data)
+                        data = self.data,
+                        facing_right = obj.properties['facing_right'])
             else:
                 if obj.name == 'spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.damage_sprites), upsidedown = obj.properties['upsidedown'],)
@@ -144,14 +145,16 @@ class Level:
 
         # items 
         for obj in tmx_map.get_layer_by_name('Items'):
-            Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
+            # Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
+            Item(obj.name, (obj.x, obj.y), obj.image, (self.all_sprites, self.item_sprites), data = self.data)
 
     def item_collision(self):
-        if self.item_sprites:
-            item_sprites = pygame.sprite.spritecollide(self.player, self.item_sprites, True)
-            if item_sprites:
-                item_sprites[0].activate()
-                ParticleEffectSprite((item_sprites[0].rect.center), self.particle_frames, self.all_sprites)
+        for sprite in self.item_sprites:
+            if sprite.rect.colliderect(self.player.hitbox_rect):
+                sprite.activate()                
+                ParticleEffectSprite(sprite.rect.center, self.particle_frames, self.all_sprites)
+                
+                sprite.kill()
 
     def boss_bullet_collision(self):
         for bullet in self.boss_bullets:

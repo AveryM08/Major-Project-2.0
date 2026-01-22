@@ -105,7 +105,7 @@ class Frog(pygame.sprite.Sprite):
                 direction  = self.tongue_direction, 
                 max_length = max_reach,
                 groups     = self.tongue_groups,
-                speed = 400
+                speed = 500
             )
 
 class FrogTongue(pygame.sprite.Sprite):
