@@ -124,12 +124,10 @@ class Level:
                     pos = (obj.x, obj.y),
                     frames = level_frames['boss'],
                     groups = (self.all_sprites, self.collision_sprites, self.boss_bullets, self.boss_sprites),
-                    player = self.player
+                    player = self.player,
+                    data = self.data
                 )
-                try:
-                    self.data.ui.hit_boss(0) 
-                except Exception:
-                    pass
+                
             elif obj.name == 'rat':
                 Rat((obj.x, obj.y), level_frames['rat'], (self.all_sprites, self.damage_sprites, self.rat_sprites), self.collision_sprites)
             elif obj.name == 'Frog':
@@ -172,10 +170,9 @@ class Level:
         for target in self.boss_sprites.sprites(): # + any other attackable sprites
             facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
                              (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
-            if target.rect.colliderect(self.player.rect) and getattr(self.player, 'attacking', False) and facing_target:
-                target.health -= 1
-                self.data.boss_health -= 1
-                self.data.ui.hit_boss(1)
+            if target.rect.colliderect(self.player.rect) and self.player.attacking and facing_target:
+                target.take_damage()
+                self.data.ui.hit_boss()
                 self.player.attacking = False
 
     def check_constraint(self):

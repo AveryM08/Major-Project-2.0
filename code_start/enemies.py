@@ -159,41 +159,52 @@ class FrogTongue(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = topleft)
 
 class Boss(pygame.sprite.Sprite):
-    def __init__(self, pos, frames, groups, player):
+    def __init__(self, pos, frames, groups, player, data):
         super().__init__(groups)
         self.frames, self.frame_index= frames, 0
         self.image = self.frames[self.frame_index]
-        self.rect = self.image.get_rect(topleft = pos)
+        self.rect = self.image.get_rect(center = pos)
         self.old_rect = self.rect.copy()
         self.z = Z_LAYERS['main']
         
         self.last_shot = pygame.time.get_ticks()
         self.stage_management = {
-            0: {'health': 750, 'cooldown': 500},
-            1: {'health': 350, 'cooldown': 300},
+            0: {'health': 14, 'cooldown': 500},
+            1: {'health': 7, 'cooldown': 300},
             2: {'health': 0, 'cooldown': 100}
         }
+        self.data = data
         self.player = player
-        self.health = 1000
         self.stage = 0
-
+        self.health = self.data.boss_health
         self.all_sprites = groups[0]
         self.boss_bullets = groups[2]
+        self.timers = {
+            'hit': Timer(400)
+        }
 
     def check_stage(self):
         for stage, data in self.stage_management.items():
             if self.health >= data['health']:
                 if self.stage != stage:
-                    self.stage = stage
+                    self.stage = stage      
                 break
 
     def update(self, dt):
+        
         self.check_stage()
         self.handle_attack()
 
         #animation
         self.frame_index += ANIMATION_SPEED * dt
         self.image = self.frames[int(self.frame_index) % len(self.frames)]
+    
+    def take_damage(self):
+        if not self.timers['hit'].active:
+            self.data.boss_health -= 1
+            print(self.data.boss_health)
+            self.health = self.data.boss_health
+            self.timers['hit'].activate()
 
     def handle_attack(self):
         now = pygame.time.get_ticks()
