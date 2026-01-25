@@ -2,19 +2,21 @@ from settings import *
 from sprites import Sprite, AnimatedSprite, MovingSprite, Item, ParticleEffectSprite
 from player import Player, PropellerPlayer, Quest2Player
 from groups import AllSprites
-from enemies import Rat, Frog, Boss
+from enemies import Diseased_rat, Frog, Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames, data, map_index = None):
+    def __init__(self, tmx_map, level_frames, data, switch_stage):
         self.display_surface = pygame.display.get_surface()
         self.data = data
-        self.map_index = map_index
+        self.switch_stage = switch_stage
+
+        self.level_finish_rect = None
         
         # level data
         self.level_width = tmx_map.width * TILE_SIZE
         self.level_bottom = tmx_map.height * TILE_SIZE
         tmx_level_properties = tmx_map.get_layer_by_name('Data')[0].properties
-        self.level_unlock = tmx_level_properties['level_unlock']
+        # self.level_unlock = tmx_level_properties['level_unlock']
         if tmx_level_properties['bg']:
             bg_tile = level_frames['bg_tiles'][tmx_level_properties['bg']]
         else:
@@ -29,25 +31,25 @@ class Level:
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
-        self.collision_sprites = pygame.sprite.Group()
-        self.rat_sprites = pygame.sprite.Group()
+        self.diseased_rat_sprites = pygame.sprite.Group()
         self.item_sprites = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
         self.boss_sprites = pygame.sprite.Group()
-        self.setup(tmx_map, level_frames, self.map_index)
+        self.setup(tmx_map, level_frames)
 
         # frames
         self.particle_frames = level_frames['particle']
 
-    def setup(self, tmx_map, level_frames, map_index):
+    def setup(self, tmx_map, level_frames):
         # tiles
-        for layer in ['BG', 'Terrain', 'Platforms']:
+        for layer in ['BG', 'Terrain', 'FG', 'Platforms']:
             for x,y, surf in tmx_map.get_layer_by_name(layer).tiles():
                 groups = [self.all_sprites]
                 if layer == 'Terrain': groups.append(self.collision_sprites)
                 if layer == 'Platforms': groups.append(self.semi_collision_sprites)
                 match layer:
                     case 'BG': z = Z_LAYERS['bg tiles']
+                    case 'FG': z = Z_LAYERS['bg tiles']
                     case _: z = Z_LAYERS['main']
                 Sprite((x * TILE_SIZE, y * TILE_SIZE), surf, groups, z)
 
@@ -61,7 +63,7 @@ class Level:
         # objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                if map_index == 0:
+                if self.data.current_level == 1:
                     self.player = PropellerPlayer(
                         pos = (obj.x, obj.y), 
                         groups = self.all_sprites, 
@@ -71,7 +73,7 @@ class Level:
                         hitbox_config = HITBOX_CONFIGS['propeller'],
                         data = self.data,
                         facing_right = obj.properties['facing_right'])
-                elif map_index == 1:
+                elif self.data.current_level == 2:
                     self.player = Quest2Player(
                         pos = (obj.x, obj.y),
                         groups = (self.all_sprites,),
@@ -96,7 +98,9 @@ class Level:
                 # else:
                 #     frames = level_frames[obj.name]
                 #     AnimatedSprite((obj.x, obj.y), frames, self.all_sprites)
-
+            if obj.name == 'portal':
+                self.level_finish_rect = pygame.FRect((obj.x, obj.y), (obj.width, obj.height))
+            
         # moving objects
         for obj in tmx_map.get_layer_by_name("Moving Objects"):
             frames = level_frames[obj.name]
@@ -128,8 +132,9 @@ class Level:
                     data = self.data
                 )
                 
-            elif obj.name == 'rat':
-                Rat((obj.x, obj.y), level_frames['rat'], (self.all_sprites, self.damage_sprites, self.rat_sprites), self.collision_sprites)
+            elif obj.name == 'Diseased_rat':
+                all_collideables = self.collision_sprites.sprites() + self.semi_collision_sprites.sprites()
+                Diseased_rat((obj.x, obj.y), level_frames['Diseased_rat'], (self.all_sprites, self.damage_sprites, self.diseased_rat_sprites), all_collideables, obj.properties['speed'])
             elif obj.name == 'Frog':
                 Frog(
                     pos     = (obj.x, obj.y),
@@ -182,9 +187,10 @@ class Level:
         if self.player.hitbox_rect.right >= self.level_width:
             self.player.hitbox_rect.right = self.level_width
 
-        # # bottom border 
-        # if self.player.hitbox_rect.bottom > self.level_bottom:
-        #     self.switch_stage('overworld', -1)
+        # level completion
+        # if self.player.hitbox_rect.colliderect(self.level_finish_rect):
+        if self.level_finish_rect and self.player.hitbox_rect.colliderect(self.level_finish_rect):
+            self.switch_stage()
 
     def run(self, dt):
         self.display_surface.fill('black')
