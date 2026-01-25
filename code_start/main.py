@@ -16,16 +16,24 @@ class Game:
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(0) 
+        self.data.start_level(0) # This starts at level 0, edit the number while testing to start at different levels
 
         self.tmx_maps = {
-            0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
-            1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
-            2: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
+            0: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
+            1: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
+            2: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
             }
         
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
-        self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+        # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
+
+    def switch_stage(self):
+        self.data.current_level += 1
+        if self.data.current_level in self.tmx_maps:
+            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+        else:
+            print("You win!")
+            # End game screen here instead of print statement
 
     #animations
     def import_assets(self):
@@ -36,6 +44,7 @@ class Game:
             'torch_flame': import_folder('..', 'graphics', 'level', 'torch_flame'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
+            'Diseased_rat': import_folder('..', 'graphics', 'enemies', 'diseased_rat', 'idle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
             'particle': import_folder('..', 'graphics', 'effects', 'particle'),
