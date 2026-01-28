@@ -33,7 +33,7 @@ class Game:
     def switch_stage(self):
         self.data.start_level(self.data.current_level + 1)
         if self.data.current_level in self.tmx_maps:
-            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
+            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
         else:
             print("You win!")
             # End game screen here instead of print statement
@@ -75,6 +75,7 @@ class Game:
             'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
             'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
             'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
+            'resume_button': import_image('..', 'graphics', 'buttons', 'Resume Button'),
         }
 
         self.audio_files = {

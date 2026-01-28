@@ -3,14 +3,17 @@ from sprites import Sprite, AnimatedSprite, MovingSprite, Item, ParticleEffectSp
 from player import Player, PropellerPlayer, Quest2Player
 from groups import AllSprites
 from enemies import Diseased_rat, Frog, Boss
+from screen_graphics import Graphic, Button
 
 class Level:
-    def __init__(self, tmx_map, level_frames, audio_files, data, switch_stage):
+    def __init__(self, tmx_map, level_frames, screen_frames, audio_files, data, switch_stage):
         self.display_surface = pygame.display.get_surface()
         self.data = data
         self.switch_stage = switch_stage
+        self.screen_frames = screen_frames
 
         self.level_finish_rect = None
+        self.boss = None
         
         # level data
         self.level_width = tmx_map.width * TILE_SIZE
@@ -187,14 +190,20 @@ class Level:
 
 
     def attack_collision(self):
-        for target in self.boss_sprites.sprites(): # + any other attackable sprites
+        for target in (self.boss_sprites.sprites() + self.diseased_rat_sprites.sprites()): # + any other attackable sprites
             facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
                              (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
-            if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
-                self.boss.take_damage()
-                self.hit_sound.play()
-                self.data.ui.hit_boss()
-                self.player.attacking = False
+            if target == self.boss:
+                if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
+                    target.take_damage()
+                    self.hit_sound.play()
+                    self.data.ui.hit_boss()
+                    self.player.attacking = False
+            else:
+                if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False):
+                    target.take_damage()
+                    self.hit_sound.play()
+                    self.player.attacking = False
 
     def check_constraint(self):
 		# left right
@@ -218,6 +227,22 @@ class Level:
         if self.data.boss_health <= 0:
             self.switch_stage()
 
+    def pause(self):
+        background = Graphic(self.screen_frames['pause_screen'], (0, 0), 1)
+        background.draw(self.display_surface)
+
+        resume_button = Button(self.screen_frames['resume_button'], (362, 475), 4)
+        quit_button = Button(self.screen_frames['quit_button'], (550, 475), 4)
+
+        resume_button.draw(self.display_surface)
+        quit_button.draw(self.display_surface)
+
+        if resume_button.is_pressed():
+            self.data.game_state = 'running'
+        if quit_button.is_pressed():
+            pygame.quit()
+            exit()
+
     def run(self, dt):
         self.display_surface.fill('black')
         
@@ -230,3 +255,6 @@ class Level:
             self.check_constraint()
 
         self.all_sprites.draw(self.player.hitbox_rect.center)
+
+        if self.data.game_state == 'paused':
+            self.pause()
