@@ -67,7 +67,9 @@ class Game:
         }
 
         self.screen_frames = {
-            'background': import_folder('..', 'graphics', 'background'),
+            'first_screen': import_image('..', 'graphics', 'background', 'first screen'),
+            'end_screen': import_image('..', 'graphics', 'background', 'end screen'),
+            'pause_screen': import_image('..', 'graphics', 'background', 'pause screen'),
             'game_title': import_image('..', 'graphics', 'game', 'title'),
             'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
             'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
