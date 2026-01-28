@@ -190,12 +190,12 @@ class Player(pygame.sprite.Sprite):
     def get_state(self):
         if self.on_surface['floor']:
             if self.attacking:
-                self.state = 'idle' # attack
+                self.state = 'attack'
             else:
                 self.state = 'idle' if self.direction.x == 0 else 'run'
         else:
             if self.attacking:
-                self.state = 'idle' # air attack
+                self.state = 'attack' # air attack
             else:
                 if any((self.on_surface['left'], self.on_surface['right'])):
                     self.state = 'wall'
@@ -247,6 +247,8 @@ class PropellerPlayer(Player):
 
     def input(self):
         super().input()
+
+        self.attacking = False
         
         if not self.on_surface['floor']:
             keys = pygame.key.get_pressed()
@@ -260,6 +262,9 @@ class PropellerPlayer(Player):
                 self.facing_right = True
 
             self.direction.x = input_vector.normalize().x if input_vector else 0
+
+    def attack(self):
+        pass
 
     def move(self, dt):
         if self.on_surface['floor']:

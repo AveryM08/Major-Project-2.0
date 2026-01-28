@@ -1,5 +1,6 @@
 from settings import *
 from level import Level
+from screen import Screen
 from pytmx.util_pygame import load_pygame
 from os.path import join
 from data import Data
@@ -10,28 +11,33 @@ class Game:
     def __init__(self):
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Rat Adventure")
+        pygame.display.set_caption("Sewer Savior")
         self.clock = pygame.time.Clock()
         self.import_assets()
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(0)
+        self.data.start_level(1) # This starts at level 0, edit the number while testing to start at different levels
 
         self.tmx_maps = {
-            0: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
-            1: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
-            # 2: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
+            1: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
+            2: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
+            3: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            4: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, map_index = 0)
-        self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.audio_files,self.data, map_index = 1)
+        # self.current_stage = Screen(self.screen_frames, self.switch_stage)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
-    # def load_new_map(self, map_index):
-    #     # Logic to clear the old map and load the new one
-
-    #     self.data.start_level(map_index)
+    def switch_stage(self):
+        self.data.current_level += 1
+        if self.data.current_level in self.tmx_maps:
+            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+        else:
+            print("You win!")
+            # End game screen here instead of print statement
+            # self.current_stage = Screen(self.screen_frames, self.switch_stage)
 
     #animationsx
     def import_assets(self):
@@ -42,6 +48,7 @@ class Game:
             'torch_flame': import_folder('..', 'graphics', 'level', 'torch_flame'),
             'Helicopter': import_folder('..', 'graphics', 'level', 'helicopter'),
             'Wind': import_folder('..', 'graphics', 'effects', 'wind_particle'),
+            'Diseased_rat': import_folder('..', 'graphics', 'enemies', 'diseased_rat', 'idle'),
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
             'particle': import_folder('..', 'graphics', 'effects', 'particle'),
@@ -57,6 +64,15 @@ class Game:
         self.quest_2_frames = {
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
             'player': import_sub_folders('..', 'graphics', 'player', 'default')
+        }
+
+        self.screen_frames = {
+            'background': import_folder('..', 'graphics', 'background'),
+            'game_title': import_image('..', 'graphics', 'game', 'title'),
+            'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
+            'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
+            'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
+            'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
         }
 
         self.audio_files = {
@@ -78,6 +94,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
             
+            # self.current_screen.run()
             self.check_game_over()
             self.current_stage.run(dt)
             self.ui.update(dt)
