@@ -17,7 +17,7 @@ class Game:
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(1) # This starts at level 0, edit the number while testing to start at different levels
+        self.data.start_level(0) # Starts at level one to skip testing the game title screen
 
         self.tmx_maps = {
             1: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
@@ -26,14 +26,14 @@ class Game:
             4: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        # self.current_stage = Screen(self.screen_frames, self.switch_stage)
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
+        self.current_stage = Screen(self.screen_frames, self.switch_stage)
+        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
     def switch_stage(self):
-        self.data.current_level += 1
+        self.data.start_level(self.data.current_level + 1)
         if self.data.current_level in self.tmx_maps:
-            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
         else:
             print("You win!")
             # End game screen here instead of print statement
@@ -97,7 +97,8 @@ class Game:
             # self.current_screen.run()
             self.check_game_over()
             self.current_stage.run(dt)
-            self.ui.update(dt)
+            if self.data.current_level >= 1:
+                self.ui.update(dt)
 
             pygame.display.update()
 

@@ -13,7 +13,7 @@ class Data:
         self.current_level = level_number
         
         # Only show the healthbar if it's the boss level (currently level 1)
-        if self.current_level == 2:
+        if self.current_level == 3:
             self.ui.create_boss_healthbar()
         else:
             self.ui.hide_boss_healthbar() 
