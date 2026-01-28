@@ -31,8 +31,6 @@ class Screen:
         quit_button.draw(self.display_surface)
 
         if next_button.is_pressed():
-            # progress()
-            print("Next Button Pressed")
             self.switch_stage()
         if quit_button.is_pressed():
             pygame.quit()
