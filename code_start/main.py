@@ -26,7 +26,7 @@ class Game:
             4: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        self.current_stage = Screen(self.screen_frames, self.switch_stage)
+        self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
         # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
@@ -71,11 +71,11 @@ class Game:
             'end_screen': import_image('..', 'graphics', 'background', 'end screen'),
             'pause_screen': import_image('..', 'graphics', 'background', 'pause screen'),
             'game_title': import_image('..', 'graphics', 'game', 'title'),
-            'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
-            'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
-            'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
-            'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
-            'resume_button': import_image('..', 'graphics', 'buttons', 'Resume Button'),
+            'start_button': import_image('..', 'graphics', 'buttons', 'first_screen', 'Start'),
+            'green_quit_button': import_image('..', 'graphics', 'buttons', 'first_screen', 'Quit'),
+            'purple_quit_button': import_image('..', 'graphics', 'buttons', 'Quit'),
+            'back_button': import_image('..', 'graphics', 'buttons', 'Back'),
+            'resume_button': import_image('..', 'graphics', 'buttons', 'Resume'),
         }
 
         self.audio_files = {

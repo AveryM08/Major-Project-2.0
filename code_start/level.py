@@ -200,10 +200,10 @@ class Level:
                     self.data.ui.hit_boss()
                     self.player.attacking = False
             else:
-                if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False):
-                    target.take_damage()
+                if self.player.attacking and facing_target and target.rect.colliderect(self.player.hitbox_rect):
+                    ParticleEffectSprite((target.rect.center), self.particle_frames, self.all_sprites)
                     self.hit_sound.play()
-                    self.player.attacking = False
+                    target.kill()
 
     def check_constraint(self):
 		# left right
@@ -229,11 +229,10 @@ class Level:
 
     def pause(self):
         background = Graphic(self.screen_frames['pause_screen'], (0, 0), 1)
+        resume_button = Button(self.screen_frames['resume_button'], (162, 475), 6)
+        quit_button = Button(self.screen_frames['purple_quit_button'], (650, 475), 6)
+
         background.draw(self.display_surface)
-
-        resume_button = Button(self.screen_frames['resume_button'], (362, 475), 4)
-        quit_button = Button(self.screen_frames['quit_button'], (550, 475), 4)
-
         resume_button.draw(self.display_surface)
         quit_button.draw(self.display_surface)
 
