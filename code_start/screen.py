@@ -14,18 +14,17 @@ class Screen:
         self.font = pygame.font.Font(None, 60)
         self.screen_frames = screen_frames
 
-
-    def first_screen(self, screen_frames):
+    def first_screen(self):
         self.display_surface.fill((0, 0, 0))
-        background = screen_frames['first_screen']
+        background = self.screen_frames['first_screen']
         background = pygame.transform.scale(background, self.display_surface.get_size())
 
         self.display_surface.blit(background, (0, 0))
         self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
 
-        game_title = Graphic(screen_frames['game_title'], ((WINDOW_WIDTH - (screen_frames['game_title'].get_width()) * 0.4) // 2, 250), 0.4)
-        next_button = Button(screen_frames['next_button'], (362, 475), 4)
-        quit_button = Button(screen_frames['quit_button'], (550, 475), 4)
+        game_title = Graphic(self.screen_frames['game_title'], ((WINDOW_WIDTH - (self.screen_frames['game_title'].get_width()) * 0.4) // 2, 250), 0.4)
+        next_button = Button(self.screen_frames['next_button'], (362, 475), 4)
+        quit_button = Button(self.screen_frames['quit_button'], (550, 475), 4)
 
         game_title.draw(self.display_surface)
         next_button.draw(self.display_surface)
@@ -55,4 +54,4 @@ class Screen:
 
     
     def run(self, dt):
-        self.first_screen(self.screen_frames)
+        self.first_screen()
