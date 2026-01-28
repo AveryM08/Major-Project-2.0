@@ -6,8 +6,6 @@ class Screen:
         self.display_surface = pygame.display.get_surface()
         self.switch_stage = switch_stage
 
-        self.background = screen_frames['background'][0]
-        self.background = pygame.transform.scale(self.background, self.display_surface.get_size())
         self.overlay_w = 800
         self.overlay_h = 400
         self.overlay_color = (0,0,0,180)
@@ -19,7 +17,10 @@ class Screen:
 
     def first_screen(self, screen_frames):
         self.display_surface.fill((0, 0, 0))
-        self.display_surface.blit(self.background, (0, 0))
+        background = screen_frames['first_screen']
+        background = pygame.transform.scale(background, self.display_surface.get_size())
+
+        self.display_surface.blit(background, (0, 0))
         self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
 
         game_title = Graphic(screen_frames['game_title'], ((WINDOW_WIDTH - (screen_frames['game_title'].get_width()) * 0.4) // 2, 250), 0.4)
@@ -35,6 +36,22 @@ class Screen:
         if quit_button.is_pressed():
             pygame.quit()
             exit()
+
+    def end_screen(self, screen_frames):
+        self.display_surface.fill((0, 0, 0))
+        background = screen_frames['end_screen']
+        background = pygame.transform.scale(background, self.display_surface.get_size())
+
+        self.display_surface.blit(background, (0, 0))
+        self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
+
+        quit_button = Button(screen_frames['quit_button'], (550, 420), 4)
+
+        
+
+        # self.background = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+        # self.background.fill(self.overlay_color)
+        # self.display_surface.blit(self.background, (0, 0))
 
     
     def run(self, dt):
