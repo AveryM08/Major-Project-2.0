@@ -12,8 +12,6 @@ class Data:
 
     def start_level(self, level_number):
         self.current_level = level_number
-        
-        # Only show the healthbar if it's the boss level (currently level 1)
         if self.current_level == 1:
             self.ui.create_boss_healthbar()
         else:
@@ -47,4 +45,5 @@ class Data:
     @boss_health.setter
     def boss_health(self, value):
         self._boss_health = value
+        self.ui.create_boss_healthbar()
         

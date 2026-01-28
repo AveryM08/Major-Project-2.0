@@ -5,7 +5,7 @@ from os.path import join
 from math import sin
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right = True):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound,facing_right = True):
         #general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
@@ -48,6 +48,10 @@ class Player(pygame.sprite.Sprite):
             'attack block': Timer(500)
         }
 
+        #audio
+        self.attack_sound = attack_sound
+        self.jump_sound = jump_sound
+
     def input(self):
         keys = pygame.key.get_pressed()
         input_vector = vector(0,0)
@@ -76,6 +80,7 @@ class Player(pygame.sprite.Sprite):
             self.attacking = True
             self.frame_index = 0
             self.timers['attack block'].activate()
+            self.attack_sound.play()
             
 
     def move(self, dt):
@@ -98,10 +103,12 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = -self.jump_height
                 self.timers['wall slide block'].activate()
                 self.hitbox_rect.bottom -= 1
+                self.jump_sound.play()
             elif any((self.on_surface['left'], self.on_surface['right'])) and not self.timers['wall slide block'].active:
                 self.timers['wall jump'].activate()
                 self.direction.y = -self.jump_height
                 self.direction.x = 1 if self.on_surface['left'] else -1
+                self.jump_sound.play()
             self.jump = False
         
         self.collision('vertical')
@@ -131,6 +138,13 @@ class Player(pygame.sprite.Sprite):
 
     def collision(self, axis):
         for sprite in self.collision_sprites:
+            # skip collision response for boss
+            if hasattr(sprite, 'health'):
+                continue
+            
+            if not sprite.rect.colliderect(self.hitbox_rect):
+                continue
+
             if sprite.rect.colliderect(self.hitbox_rect):
                 if axis == 'horizontal':
                     # left
@@ -226,8 +240,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = self.hitbox_rect.center
 
 class PropellerPlayer(Player):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right):
-        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, facing_right)
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound, facing_right):
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound, facing_right)
 
         self.fall_speed = 200
 
@@ -277,12 +291,13 @@ class PropellerPlayer(Player):
             self.state = 'freefall'
 
 class Quest2Player(Player):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data):     
-        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data)
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound):     
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound)
         
         self.gravity = 0
         self.jump_height = 0
-
+        self.mask = pygame.mask.from_surface(self.image)
+    
     def input(self):
         keys = pygame.key.get_pressed()
         input_vector = vector(0, 0)
@@ -309,8 +324,6 @@ class Quest2Player(Player):
         # vertical
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
-
-        self.rect.center = self.hitbox_rect.center
 
     def get_state(self):
         if self.attacking:
