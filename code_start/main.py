@@ -25,6 +25,8 @@ class Game:
             3: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
+        # self.current_screen = Screen(self.screen_frames)
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
         self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
         # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
 
@@ -71,8 +73,9 @@ class Game:
                     pygame.quit()
                     sys.exit()
             
+            # self.current_screen.run()
             self.current_stage.run(dt)
-            self.ui.update(dt)
+            # self.ui.update(dt)
 
             pygame.display.update()
 
