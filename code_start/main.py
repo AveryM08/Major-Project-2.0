@@ -1,5 +1,6 @@
 from settings import *
 from level import Level
+from screen import Screen
 from pytmx.util_pygame import load_pygame
 from os.path import join
 from data import Data
@@ -9,8 +10,8 @@ from support import *
 class Game:
     def __init__(self):
         pygame.init()
-        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Rat Adventure")
+        self.display_surface = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT), pygame.RESIZABLE)
+        pygame.display.set_caption("Sewer Savior")
         self.clock = pygame.time.Clock()
         self.import_assets()
 
@@ -62,7 +63,16 @@ class Game:
         }
         self.quest_2_frames = {
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default')
+            'player': import_sub_folders('..', 'graphics', 'player', 'default') # unnessecary? idk
+        }
+
+        self.screen_frames = {
+            'background': import_folder('..', 'graphics', 'background'),
+            'game_title': import_image('..', 'graphics', 'game', 'title'),
+            'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
+            'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
+            'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
+            'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
         }
 
     def run(self):

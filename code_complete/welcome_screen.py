@@ -1,40 +1,40 @@
 import pygame
 
 class buttons:
-   def __init__(self, image_path, position, scale=1):
-       self.image = pygame.image.load(image_path).convert_alpha()
-       original_width = self.image.get_width()
-       original_height = self.image.get_height()
-       new_width = int(original_width * scale)
-       new_height = int(original_height * scale)
-       self.image = pygame.transform.scale(self.image, (new_width, new_height))
-       self.rect = self.image.get_rect(topleft=position)
-       self.pressed = False
+    def __init__(self, image_path, position, scale=1):
+        self.image = pygame.image.load(image_path).convert_alpha()
+        original_width = self.image.get_width()
+        original_height = self.image.get_height()
+        new_width = int(original_width * scale)
+        new_height = int(original_height * scale)
+        self.image = pygame.transform.scale(self.image, (new_width, new_height))
+        self.rect = self.image.get_rect(topleft=position)
+        self.pressed = False
 
 
-   def draw(self, screen):
-       screen.blit(self.image, self.rect)
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
 
 
-   def is_pressed(self):
-       mouse_pos = pygame.mouse.get_pos()
-       mouse_pressed = pygame.mouse.get_pressed()[0]
+    def is_pressed(self):
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()[0]
 
 
-       if self.rect.collidepoint(mouse_pos):
-           if mouse_pressed and not self.pressed:
-               self.pressed = True
-               return True
-       if not mouse_pressed:
-           self.pressed = False
-       return False
+        if self.rect.collidepoint(mouse_pos):
+            if mouse_pressed and not self.pressed:
+                self.pressed = True
+                return True
+        if not mouse_pressed:
+            self.pressed = False
+        return False
 
 class Player(pygame.sprite.Sprite):
-   def __init__(self, image, username):
-       super().__init__()
-       self.image = image
-       self.username = username
-       self.rect = self.image.get_rect()
+    def __init__(self, image, username):
+        super().__init__()
+        self.image = image
+        self.username = username
+        self.rect = self.image.get_rect()
 
 pygame.init()
 window = pygame.display.set_mode((1024, 768))
@@ -50,57 +50,62 @@ font = pygame.font.Font(None, 60)
 player_selected = False 
 
 def show_error_popup(message):
-   font = pygame.font.Font(None, 38)
-   error_w, error_h = 500, 200
-   error_pos = ((1024 - error_w) // 2, (768 - error_h) // 2)
-   back_button = buttons('graphics/buttons/Back Button.png', (error_pos[0] + error_w - 140, error_pos[1] + error_h - 80), 4)
+    font = pygame.font.Font(None, 38)
+    error_w, error_h = 500, 200
+    error_pos = ((1024 - error_w) // 2, (768 - error_h) // 2)
+    back_button = buttons('graphics/buttons/Back Button.png', (error_pos[0] + error_w - 140, error_pos[1] + error_h - 80), 4)
 
-   clock_local = pygame.time.Clock()
-   while True:
-       for event in pygame.event.get():
-           if event.type == pygame.QUIT:
-               pygame.quit()
-               exit()
+    clock_local = pygame.time.Clock()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
 
-       window.blit(background, (0, 0))
-       pygame.draw.rect(window, (0,0,0), (error_pos[0], error_pos[1], error_w, error_h))
-       message_surf = font.render(message, True, (255, 255, 255))
-       window.blit(message_surf, (error_pos[0] + 80, error_pos[1] + 80))
+        window.blit(background, (0, 0))
+        pygame.draw.rect(window, (0,0,0), (error_pos[0], error_pos[1], error_w, error_h))
+        message_surf = font.render(message, True, (255, 255, 255))
+        window.blit(message_surf, (error_pos[0] + 80, error_pos[1] + 80))
 
 
-       back_button.draw(window)
-       if back_button.is_pressed():
-           return
-       pygame.display.flip()
-       clock_local.tick(60)
+        back_button.draw(window)
+        if back_button.is_pressed():
+            return
+        pygame.display.flip()
+        clock_local.tick(60)
 
 def main():
-   global username
-   clock = pygame.time.Clock()
-   username = ""
+    global username
+    clock = pygame.time.Clock()
+    username = ""
 
-   while True:
-       for event in pygame.event.get():
-           if event.type == pygame.QUIT:
-               pygame.quit()
-               exit()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
 
-       window.fill((0, 0, 0))
-       window.blit(background, (0, 0))
-       window.blit(overlay_surface, ((1024 - overlay_w) // 2, (768 - overlay_h) // 2))
-       next_button = buttons('graphics/buttons/Next Button.png', (362, 420), 4)
-       quit_button = buttons('graphics/buttons/Quit Button.png', (550, 420), 4)
-       next_button.draw(window)
-       quit_button.draw(window)
+        window.fill((0, 0, 0))
+        window.blit(background, (0, 0))
+        window.blit(overlay_surface, ((1024 - overlay_w) // 2, (768 - overlay_h) // 2))
 
-       if next_button.is_pressed():
-           progress()
-       if quit_button.is_pressed():
-           pygame.quit()
-           exit()
+        game_title = pygame.image.load('graphics/game/Sewer-Savior-1-27-2026.png').convert_alpha()
+        game_title = pygame.transform.scale(game_title, ((int(game_title.get_width()) * 0.25, int(game_title.get_height()) * 0.25)))
+        window.blit(game_title, ((1024 - game_title.get_width()) // 2, 250))
 
-       pygame.display.flip()
-       clock.tick(60)
+        next_button = buttons('graphics/buttons/Next Button.png', (362, 420), 4)
+        quit_button = buttons('graphics/buttons/Quit Button.png', (550, 420), 4)
+        next_button.draw(window)
+        quit_button.draw(window)
+
+        if next_button.is_pressed():
+            progress()
+        if quit_button.is_pressed():
+            pygame.quit()
+            exit()
+
+        pygame.display.flip()
+        clock.tick(60)
 
 def progress():
     clock = pygame.time.Clock()
