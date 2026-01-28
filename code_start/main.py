@@ -22,6 +22,7 @@ class Game:
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             2: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            3: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
         self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)

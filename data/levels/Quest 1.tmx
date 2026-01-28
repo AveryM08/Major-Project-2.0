@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="294">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="82" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="299">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled player.tsx"/>
  <tileset firstgid="476" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="477" source="../tilesets/frog.tsx"/>
  <tileset firstgid="478" source="../tilesets/coin.tsx"/>
- <layer id="1" name="BG" width="20" height="80">
+ <layer id="1" name="BG" width="20" height="82">
   <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -91,57 +93,59 @@
 </data>
  </layer>
  <objectgroup id="8" name="BG details">
-  <object id="139" name="torch_flame" gid="66" x="576" y="768" width="64" height="64"/>
-  <object id="140" name="torch_flame" gid="66" x="384" y="768" width="64" height="64"/>
-  <object id="141" name="torch_flame" gid="66" x="512" y="384" width="64" height="64"/>
-  <object id="142" name="torch_flame" gid="66" x="896" y="256" width="64" height="64"/>
-  <object id="143" name="torch_flame" gid="66" x="192" y="192" width="64" height="64"/>
-  <object id="144" name="torch_flame" gid="66" x="768" y="1472" width="64" height="64"/>
-  <object id="145" name="torch_flame" gid="66" x="64" y="1472" width="64" height="64"/>
-  <object id="146" name="torch_flame" gid="66" x="256" y="1856" width="64" height="64"/>
-  <object id="147" name="torch_flame" gid="66" x="704" y="1856" width="64" height="64"/>
-  <object id="148" name="torch_flame" gid="66" x="1088" y="2112" width="64" height="64"/>
-  <object id="149" name="torch_flame" gid="66" x="1216" y="2432" width="64" height="64"/>
-  <object id="150" name="torch_flame" gid="66" x="512" y="2432" width="64" height="64"/>
-  <object id="151" name="torch_flame" gid="66" x="448" y="2816" width="64" height="64"/>
-  <object id="152" name="torch_flame" gid="66" x="384" y="3200" width="64" height="64"/>
-  <object id="153" name="torch_flame" gid="66" x="1088" y="3200" width="64" height="64"/>
-  <object id="154" name="torch_flame" gid="66" x="1152" y="2816" width="64" height="64"/>
-  <object id="155" name="torch_flame" gid="66" x="1216" y="3648" width="64" height="64"/>
-  <object id="156" name="torch_flame" gid="66" x="1216" y="4160" width="64" height="64"/>
-  <object id="157" name="torch_flame" gid="66" x="0" y="4032" width="64" height="64"/>
-  <object id="158" name="torch_flame" gid="66" x="0" y="4416" width="64" height="64"/>
-  <object id="159" name="torch_flame" gid="66" x="64" y="4928" width="64" height="64"/>
-  <object id="160" name="torch_flame" gid="66" x="1216" y="4672" width="64" height="64"/>
-  <object id="161" name="torch_base" gid="78" x="1216" y="4736" width="64" height="64"/>
-  <object id="162" name="torch_base" gid="78" x="1216" y="4224" width="64" height="64"/>
-  <object id="163" name="torch_base" gid="78" x="0" y="4480" width="64" height="64"/>
-  <object id="164" name="torch_base" gid="78" x="64" y="4992" width="64" height="64"/>
-  <object id="165" name="torch_base" gid="78" x="0" y="4096" width="64" height="64"/>
-  <object id="166" name="torch_base" gid="78" x="1216" y="3712" width="64" height="64"/>
-  <object id="167" name="torch_base" gid="78" x="1088" y="3264" width="64" height="64"/>
-  <object id="168" name="torch_base" gid="78" x="384" y="3264" width="64" height="64"/>
-  <object id="169" name="torch_base" gid="78" x="448" y="2880" width="64" height="64"/>
-  <object id="170" name="torch_base" gid="78" x="1152" y="2880" width="64" height="64"/>
-  <object id="171" name="torch_base" gid="78" x="1216" y="2496" width="64" height="64"/>
-  <object id="172" name="torch_base" gid="78" x="512" y="2496" width="64" height="64"/>
-  <object id="173" name="torch_base" gid="78" x="1088" y="2176" width="64" height="64"/>
-  <object id="174" name="torch_base" gid="78" x="256" y="1920" width="64" height="64"/>
-  <object id="175" name="torch_base" gid="78" x="704" y="1920" width="64" height="64"/>
-  <object id="176" name="torch_base" gid="78" x="64" y="1536" width="64" height="64"/>
-  <object id="177" name="torch_base" gid="78" x="768" y="1536" width="64" height="64"/>
-  <object id="178" name="torch_base" gid="78" x="576" y="832" width="64" height="64"/>
-  <object id="179" name="torch_base" gid="78" x="384" y="832" width="64" height="64"/>
-  <object id="180" name="torch_base" gid="78" x="512" y="448" width="64" height="64"/>
-  <object id="181" name="torch_base" gid="78" x="896" y="320" width="64" height="64"/>
-  <object id="182" name="torch_base" gid="78" x="192" y="256" width="64" height="64"/>
+  <object id="139" name="torch_flame" gid="66" x="576" y="896" width="64" height="64"/>
+  <object id="140" name="torch_flame" gid="66" x="384" y="896" width="64" height="64"/>
+  <object id="141" name="torch_flame" gid="66" x="512" y="512" width="64" height="64"/>
+  <object id="142" name="torch_flame" gid="66" x="896" y="384" width="64" height="64"/>
+  <object id="143" name="torch_flame" gid="66" x="192" y="320" width="64" height="64"/>
+  <object id="144" name="torch_flame" gid="66" x="768" y="1600" width="64" height="64"/>
+  <object id="145" name="torch_flame" gid="66" x="64" y="1600" width="64" height="64"/>
+  <object id="146" name="torch_flame" gid="66" x="256" y="1984" width="64" height="64"/>
+  <object id="147" name="torch_flame" gid="66" x="704" y="1984" width="64" height="64"/>
+  <object id="148" name="torch_flame" gid="66" x="1088" y="2240" width="64" height="64"/>
+  <object id="149" name="torch_flame" gid="66" x="1216" y="2560" width="64" height="64"/>
+  <object id="150" name="torch_flame" gid="66" x="512" y="2560" width="64" height="64"/>
+  <object id="151" name="torch_flame" gid="66" x="448" y="2944" width="64" height="64"/>
+  <object id="152" name="torch_flame" gid="66" x="384" y="3328" width="64" height="64"/>
+  <object id="153" name="torch_flame" gid="66" x="1088" y="3328" width="64" height="64"/>
+  <object id="154" name="torch_flame" gid="66" x="1152" y="2944" width="64" height="64"/>
+  <object id="155" name="torch_flame" gid="66" x="1216" y="3776" width="64" height="64"/>
+  <object id="156" name="torch_flame" gid="66" x="1216" y="4288" width="64" height="64"/>
+  <object id="157" name="torch_flame" gid="66" x="0" y="4160" width="64" height="64"/>
+  <object id="158" name="torch_flame" gid="66" x="0" y="4544" width="64" height="64"/>
+  <object id="159" name="torch_flame" gid="66" x="64" y="5056" width="64" height="64"/>
+  <object id="160" name="torch_flame" gid="66" x="1216" y="4800" width="64" height="64"/>
+  <object id="161" name="torch_base" gid="78" x="1216" y="4864" width="64" height="64"/>
+  <object id="162" name="torch_base" gid="78" x="1216" y="4352" width="64" height="64"/>
+  <object id="163" name="torch_base" gid="78" x="0" y="4608" width="64" height="64"/>
+  <object id="164" name="torch_base" gid="78" x="64" y="5120" width="64" height="64"/>
+  <object id="165" name="torch_base" gid="78" x="0" y="4224" width="64" height="64"/>
+  <object id="166" name="torch_base" gid="78" x="1216" y="3840" width="64" height="64"/>
+  <object id="167" name="torch_base" gid="78" x="1088" y="3392" width="64" height="64"/>
+  <object id="168" name="torch_base" gid="78" x="384" y="3392" width="64" height="64"/>
+  <object id="169" name="torch_base" gid="78" x="448" y="3008" width="64" height="64"/>
+  <object id="170" name="torch_base" gid="78" x="1152" y="3008" width="64" height="64"/>
+  <object id="171" name="torch_base" gid="78" x="1216" y="2624" width="64" height="64"/>
+  <object id="172" name="torch_base" gid="78" x="512" y="2624" width="64" height="64"/>
+  <object id="173" name="torch_base" gid="78" x="1088" y="2304" width="64" height="64"/>
+  <object id="174" name="torch_base" gid="78" x="256" y="2048" width="64" height="64"/>
+  <object id="175" name="torch_base" gid="78" x="704" y="2048" width="64" height="64"/>
+  <object id="176" name="torch_base" gid="78" x="64" y="1664" width="64" height="64"/>
+  <object id="177" name="torch_base" gid="78" x="768" y="1664" width="64" height="64"/>
+  <object id="178" name="torch_base" gid="78" x="576" y="960" width="64" height="64"/>
+  <object id="179" name="torch_base" gid="78" x="384" y="960" width="64" height="64"/>
+  <object id="180" name="torch_base" gid="78" x="512" y="576" width="64" height="64"/>
+  <object id="181" name="torch_base" gid="78" x="896" y="448" width="64" height="64"/>
+  <object id="182" name="torch_base" gid="78" x="192" y="384" width="64" height="64"/>
  </objectgroup>
- <layer id="2" name="Terrain" width="20" height="80">
+ <layer id="2" name="Terrain" width="20" height="82">
   <data encoding="csv">
-1073741870,1073741860,1073741859,1073741860,1073741871,1073741860,1073741872,1073741860,1073741871,391,392,393,1073741872,1073741858,1073741859,1073741869,1073741870,1073741870,1073741872,1073741859,
+0,0,0,0,0,0,0,0,0,388,389,389,394,393,0,32,3,2147483680,1610612768,1,
+0,0,0,0,0,0,0,0,0,391,392,392,393,0,0,0,0,0,0,1073741826,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-386,386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-389,389,390,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,386,386,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,397,387,0,0,0,0,0,0,0,0,0,0,0,0,385,386,386,386,386,
 392,392,393,0,0,0,401,0,0,0,0,0,0,0,0,388,389,389,389,389,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,395,389,389,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,392,392,
@@ -217,11 +221,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,430,431,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,433,434,
-165,431,431,432,0,0,0,0,0,0,0,430,431,432,0,0,430,431,443,434
+165,166,446,447,0,0,0,0,0,0,0,430,431,432,0,0,430,431,443,434
 </data>
  </layer>
- <layer id="7" name="Platforms" width="20" height="80">
+ <layer id="7" name="Platforms" width="20" height="82">
   <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -304,10 +310,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="12" name="FG" width="20" height="80">
+ <layer id="12" name="FG" width="20" height="82">
   <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1073741871,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,2147483796,0,0,3221225520,1073741860,3221225507,0,
+0,0,0,0,0,0,0,0,0,0,149,148,0,0,0,0,0,0,0,3221225508,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,149,148,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -389,143 +397,143 @@
 </data>
  </layer>
  <objectgroup id="4" name="Objects">
-  <object id="97" name="Cure 1" x="272.667" y="1654.67" width="30.6667" height="29.3333"/>
-  <object id="98" name="Cure 1" x="1198" y="4864" width="30.6667" height="29.3333"/>
-  <object id="114" name="Cure 1" x="1219.33" y="1092" width="30.6667" height="29.3333"/>
-  <object id="277" name="spikes" gid="476" x="256" y="5120" width="64" height="64">
+  <object id="97" name="Cure 1" x="272.667" y="1782.67" width="30.6667" height="29.3333"/>
+  <object id="98" name="Cure 1" x="1198" y="4992" width="30.6667" height="29.3333"/>
+  <object id="114" name="Cure 1" x="1219.33" y="1220" width="30.6667" height="29.3333"/>
+  <object id="277" name="spikes" gid="476" x="256" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="278" name="spikes" gid="476" x="320" y="5120" width="64" height="64">
+  <object id="278" name="spikes" gid="476" x="320" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="279" name="spikes" gid="476" x="384" y="5120" width="64" height="64">
+  <object id="279" name="spikes" gid="476" x="384" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="280" name="spikes" gid="476" x="448" y="5120" width="64" height="64">
+  <object id="280" name="spikes" gid="476" x="448" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="281" name="spikes" gid="476" x="512" y="5120" width="64" height="64">
+  <object id="281" name="spikes" gid="476" x="512" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="282" name="spikes" gid="476" x="576" y="5120" width="64" height="64">
+  <object id="282" name="spikes" gid="476" x="576" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="283" name="spikes" gid="476" x="640" y="5120" width="64" height="64">
+  <object id="283" name="spikes" gid="476" x="640" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="285" name="spikes" gid="476" x="896" y="5120" width="64" height="64">
+  <object id="285" name="spikes" gid="476" x="896" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="286" name="spikes" gid="476" x="960" y="5120" width="64" height="64">
+  <object id="286" name="spikes" gid="476" x="960" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="183" name="spikes" gid="476" x="640" y="448" width="64" height="64">
+  <object id="183" name="spikes" gid="476" x="640" y="576" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="184" name="spikes" gid="476" x="384" y="256" width="64" height="64">
+  <object id="184" name="spikes" gid="476" x="384" y="384" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="185" name="spikes" gid="476" x="896" y="1152" width="64" height="64">
+  <object id="185" name="spikes" gid="476" x="896" y="1280" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="186" name="spikes" gid="476" x="960" y="1152" width="64" height="64">
+  <object id="186" name="spikes" gid="476" x="960" y="1280" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="187" name="spikes" gid="476" x="576" y="3456" width="64" height="64">
+  <object id="187" name="spikes" gid="476" x="576" y="3584" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="188" name="spikes" gid="476" x="832" y="3456" width="64" height="64">
+  <object id="188" name="spikes" gid="476" x="832" y="3584" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="189" name="spikes" gid="476" x="128" y="4800" width="64" height="64">
+  <object id="189" name="spikes" gid="476" x="128" y="4928" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="190" name="spikes" gid="476" x="0" y="2304" width="64" height="64">
+  <object id="190" name="spikes" gid="476" x="0" y="2432" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="238" name="spikes" gid="1073742300" x="1024" y="768" width="64" height="64">
+  <object id="238" name="spikes" gid="1073742300" x="1024" y="896" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="239" name="spikes" gid="1073742300" x="1088" y="768" width="64" height="64">
+  <object id="239" name="spikes" gid="1073742300" x="1088" y="896" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="193" name="Player" gid="2147484123" x="1024" y="192" width="64" height="56">
+  <object id="193" name="Player" gid="2147484123" x="1024" y="320" width="64" height="56">
    <properties>
     <property name="facing_right" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="276" name="portal" x="0" y="4928" width="64" height="128"/>
+  <object id="276" name="portal" x="32" y="5168" width="64" height="16"/>
  </objectgroup>
  <objectgroup id="3" name="Moving Objects">
-  <object id="64" name="Helicopter" x="128.667" y="3778" width="1023" height="16">
+  <object id="64" name="Helicopter" x="128.667" y="3906" width="1023" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
    </properties>
   </object>
-  <object id="65" name="Helicopter" x="129.5" y="4201" width="1023" height="16">
+  <object id="65" name="Helicopter" x="129.5" y="4329" width="1023" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
    </properties>
   </object>
-  <object id="66" name="Helicopter" x="258.5" y="5032" width="445" height="16">
+  <object id="66" name="Helicopter" x="258.5" y="5160" width="445" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
    </properties>
   </object>
-  <object id="67" name="Helicopter" x="257.5" y="4718" width="1023" height="16">
+  <object id="67" name="Helicopter" x="257.5" y="4846" width="1023" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
    </properties>
   </object>
-  <object id="81" name="Helicopter" x="129.5" y="4541" width="1023" height="16">
+  <object id="81" name="Helicopter" x="129.5" y="4669" width="1023" height="16">
    <properties>
     <property name="Terrain" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
    </properties>
   </object>
-  <object id="133" name="Helicopter" x="497.5" y="261" width="413" height="16">
+  <object id="133" name="Helicopter" x="497.5" y="389" width="413" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
     <property name="speed" type="int" value="100"/>
@@ -533,134 +541,135 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="Items">
-  <object id="221" name="coin" gid="478" x="512" y="704" width="30" height="30"/>
-  <object id="222" name="coin" gid="478" x="271.5" y="1505.5" width="30" height="30"/>
-  <object id="223" name="coin" gid="478" x="478.25" y="1301.75" width="30" height="30"/>
-  <object id="224" name="coin" gid="478" x="67.5" y="86.75" width="30" height="30"/>
-  <object id="225" name="coin" gid="478" x="989.25" y="1621.5" width="30" height="30"/>
-  <object id="226" name="coin" gid="478" x="1126.25" y="2660.5" width="30" height="30"/>
-  <object id="227" name="coin" gid="478" x="643.25" y="2838.25" width="30" height="30"/>
-  <object id="228" name="coin" gid="478" x="298.25" y="4688.25" width="30" height="30"/>
-  <object id="229" name="coin" gid="478" x="1036.75" y="4687.5" width="30" height="30"/>
-  <object id="230" name="coin" gid="478" x="743.25" y="5020.25" width="30" height="30"/>
-  <object id="231" name="coin" gid="478" x="722.75" y="3435.75" width="30" height="30"/>
-  <object id="232" name="coin" gid="478" x="266.75" y="3234.5" width="30" height="30"/>
-  <object id="233" name="coin" gid="478" x="272" y="2837" width="30" height="30"/>
-  <object id="234" name="coin" gid="478" x="354.5" y="2464.25" width="30" height="30"/>
-  <object id="235" name="coin" gid="478" x="998.5" y="2455" width="30" height="30"/>
+  <object id="221" name="coin" gid="478" x="500" y="794.667" width="30" height="30"/>
+  <object id="222" name="coin" gid="478" x="271.5" y="1633.5" width="30" height="30"/>
+  <object id="223" name="coin" gid="478" x="478.25" y="1429.75" width="30" height="30"/>
+  <object id="224" name="coin" gid="478" x="43.5" y="208.083" width="30" height="30"/>
+  <object id="225" name="coin" gid="478" x="989.25" y="1749.5" width="30" height="30"/>
+  <object id="226" name="coin" gid="478" x="1126.25" y="2788.5" width="30" height="30"/>
+  <object id="227" name="coin" gid="478" x="643.25" y="2966.25" width="30" height="30"/>
+  <object id="228" name="coin" gid="478" x="298.25" y="4816.25" width="30" height="30"/>
+  <object id="229" name="coin" gid="478" x="1036.75" y="4815.5" width="30" height="30"/>
+  <object id="230" name="coin" gid="478" x="743.25" y="5148.25" width="30" height="30"/>
+  <object id="231" name="coin" gid="478" x="722.75" y="3563.75" width="30" height="30"/>
+  <object id="232" name="coin" gid="478" x="266.75" y="3362.5" width="30" height="30"/>
+  <object id="233" name="coin" gid="478" x="272" y="2965" width="30" height="30"/>
+  <object id="234" name="coin" gid="478" x="354.5" y="2592.25" width="30" height="30"/>
+  <object id="235" name="coin" gid="478" x="998.5" y="2583" width="30" height="30"/>
+  <object id="298" name="coin" gid="478" x="1007.67" y="1037" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="9" name="Enemies">
-  <object id="196" name="Frog" gid="2147484125" x="1216" y="896" width="64" height="40">
+  <object id="196" name="Frog" gid="2147484125" x="1216" y="1024" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="197" name="Frog" gid="2147484125" x="1216" y="1344" width="64" height="40">
+  <object id="197" name="Frog" gid="2147484125" x="1216" y="1472" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="198" name="Frog" gid="2147484125" x="1216" y="1536" width="64" height="40">
+  <object id="198" name="Frog" gid="2147484125" x="1216" y="1664" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="199" name="Frog" gid="2147484125" x="1216" y="1920" width="64" height="40">
+  <object id="199" name="Frog" gid="2147484125" x="1216" y="2048" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="200" name="Frog" gid="2147484125" x="1152" y="2304" width="64" height="40">
+  <object id="200" name="Frog" gid="2147484125" x="1152" y="2432" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="201" name="Frog" gid="2147484125" x="1024" y="3072" width="64" height="40">
+  <object id="201" name="Frog" gid="2147484125" x="1024" y="3200" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="202" name="Frog" gid="2147484125" x="512" y="2304" width="64" height="40">
+  <object id="202" name="Frog" gid="2147484125" x="512" y="2432" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="203" name="Frog" gid="2147484125" x="384" y="3072" width="64" height="40">
+  <object id="203" name="Frog" gid="2147484125" x="384" y="3200" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="204" name="Frog" gid="2147484125" x="384" y="3456" width="64" height="40">
+  <object id="204" name="Frog" gid="2147484125" x="384" y="3584" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="205" name="Frog" gid="2147484125" x="1152" y="3904" width="64" height="40">
+  <object id="205" name="Frog" gid="2147484125" x="1152" y="4032" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="206" name="Frog" gid="2147484125" x="1152" y="4352" width="64" height="40">
+  <object id="206" name="Frog" gid="2147484125" x="1152" y="4480" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="207" name="Frog" gid="2147484125" x="1088" y="5056" width="64" height="40">
+  <object id="207" name="Frog" gid="2147484125" x="1088" y="5184" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="208" name="Frog" gid="2147484125" x="384" y="1088" width="64" height="40">
+  <object id="208" name="Frog" gid="2147484125" x="384" y="1216" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="209" name="Frog" gid="477" x="0" y="448" width="64" height="40">
+  <object id="209" name="Frog" gid="477" x="0" y="576" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="210" name="Frog" gid="477" x="0" y="768" width="64" height="40">
+  <object id="210" name="Frog" gid="477" x="0" y="896" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="211" name="Frog" gid="477" x="0" y="1344" width="64" height="40">
+  <object id="211" name="Frog" gid="477" x="0" y="1472" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="212" name="Frog" gid="477" x="384" y="1728" width="64" height="40">
+  <object id="212" name="Frog" gid="477" x="384" y="1856" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="213" name="Frog" gid="477" x="576" y="2304" width="64" height="40">
+  <object id="213" name="Frog" gid="477" x="576" y="2432" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="214" name="Frog" gid="477" x="512" y="2688" width="64" height="40">
+  <object id="214" name="Frog" gid="477" x="512" y="2816" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="215" name="Frog" gid="477" x="448" y="3072" width="64" height="40">
+  <object id="215" name="Frog" gid="477" x="448" y="3200" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="216" name="Frog" gid="477" x="64" y="3712" width="64" height="40">
+  <object id="216" name="Frog" gid="477" x="64" y="3840" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="217" name="Frog" gid="477" x="0" y="4160" width="64" height="40">
+  <object id="217" name="Frog" gid="477" x="0" y="4288" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="218" name="Frog" gid="477" x="64" y="4544" width="64" height="40">
+  <object id="218" name="Frog" gid="477" x="64" y="4672" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="false"/>
    </properties>
@@ -670,9 +679,6 @@
   <object id="237" name="Data" x="0" y="0" width="64" height="64">
    <properties>
     <property name="bg" value=""/>
-    <property name="bottom_limit" type="int" value="0"/>
-    <property name="death_border_bottom" type="int" value="0"/>
-    <property name="top_limit" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

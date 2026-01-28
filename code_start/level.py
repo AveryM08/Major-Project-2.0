@@ -26,8 +26,7 @@ class Level:
         self.all_sprites = AllSprites(
             width = tmx_map.width, 
 			height = tmx_map.height,
-			bg_tile = bg_tile, 
-			top_limit = tmx_level_properties['top_limit'],)
+			bg_tile = bg_tile)
         self.collision_sprites = pygame.sprite.Group()
         self.semi_collision_sprites = pygame.sprite.Group()
         self.damage_sprites = pygame.sprite.Group()
@@ -57,7 +56,7 @@ class Level:
         for obj in tmx_map.get_layer_by_name('BG details'):
             if obj.name == 'torch_flame':
                 AnimatedSprite((obj.x, obj.y), level_frames['torch_flame'], self.all_sprites, z = Z_LAYERS['bg tiles'])
-            elif obj.name == 'torch_base':
+            elif obj.name == 'torch_base' or obj.name == 'chain':
                 Sprite((obj.x, obj.y), obj.image, self.all_sprites, z = Z_LAYERS['bg tiles'])
             
         # objects
@@ -106,9 +105,7 @@ class Level:
             frames = level_frames[obj.name]
             groups = (self.all_sprites, self.semi_collision_sprites) # if obj.properties['Platform'] else (self.all_sprites, self.damage_sprites)
             
-            if obj.name == "Wind":
-                pass
-            elif obj.name == 'Helicopter':
+            if obj.name == 'Helicopter':
                 if obj.width > obj.height:
                     move_dir = 'x'
                     start_pos = (obj.x, obj.y + obj.height / 2)
@@ -148,8 +145,7 @@ class Level:
 
         # items 
         for obj in tmx_map.get_layer_by_name('Items'):
-            # Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name], (self.all_sprites, self.item_sprites), self.data)
-            Item(obj.name, (obj.x, obj.y), obj.image, (self.all_sprites, self.item_sprites), data = self.data)
+            Item(obj.name, (obj.x, obj.y), obj.image, (self.all_sprites, self.item_sprites), self.data)
 
     def item_collision(self):
         for sprite in self.item_sprites:
@@ -186,6 +182,13 @@ class Level:
             self.player.hitbox_rect.left = 0
         if self.player.hitbox_rect.right >= self.level_width:
             self.player.hitbox_rect.right = self.level_width
+
+        # top bottom
+        if self.player.hitbox_rect.top <= 0:
+            self.player.hitbox_rect.top = 0
+        if self.player.hitbox_rect.bottom > self.level_bottom:
+            self.player.hitbox_rect.bottom = self.level_bottom
+            # self.player.on_ground = True
 
         # level completion
         # if self.player.hitbox_rect.colliderect(self.level_finish_rect):
