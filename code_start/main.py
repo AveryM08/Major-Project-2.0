@@ -23,11 +23,12 @@ class Game:
             0: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
             1: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             2: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            3: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        self.current_screen = Screen(self.screen_frames)
-        # self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+        # self.current_screen = Screen(self.screen_frames)
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
         # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
 
     def switch_stage(self):
@@ -82,8 +83,8 @@ class Game:
                     pygame.quit()
                     sys.exit()
             
-            self.current_screen.run()
-            # self.current_stage.run(dt)
+            # self.current_screen.run()
+            self.current_stage.run(dt)
             # self.ui.update(dt)
 
             pygame.display.update()

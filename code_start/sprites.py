@@ -27,7 +27,7 @@ class Item(Sprite):
         # Initialize the base Sprite
         super().__init__(pos, surf, groups, z)
         
-        self.rect = self.image.get_frect(center = pos)
+        self.rect = self.image.get_frect(topleft = pos)
         self.old_rect = self.rect.copy()
         
         self.item_type = item_type
