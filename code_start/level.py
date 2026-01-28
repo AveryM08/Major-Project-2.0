@@ -5,7 +5,7 @@ from groups import AllSprites
 from enemies import Diseased_rat, Frog, Boss
 
 class Level:
-    def __init__(self, tmx_map, level_frames, data, switch_stage):
+    def __init__(self, tmx_map, level_frames, audio_files, data, switch_stage):
         self.display_surface = pygame.display.get_surface()
         self.data = data
         self.switch_stage = switch_stage
@@ -34,12 +34,18 @@ class Level:
         self.item_sprites = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
         self.boss_sprites = pygame.sprite.Group()
-        self.setup(tmx_map, level_frames)
+        self.setup(tmx_map, level_frames, audio_files)
 
         # frames
         self.particle_frames = level_frames['particle']
 
-    def setup(self, tmx_map, level_frames):
+        #audio
+        self.coin_sound = audio_files['coin']
+        #self.coin_sound.set_volume(0.3) # Adjust volume as needed, 1 = 100% volume
+        self.damage_sound = audio_files['damage']
+        self.hit_sound = audio_files['hit']
+
+    def setup(self, tmx_map, level_frames, audio_files):
         # tiles
         for layer in ['BG', 'Terrain', 'FG', 'Platforms']:
             for x,y, surf in tmx_map.get_layer_by_name(layer).tiles():
@@ -71,7 +77,10 @@ class Level:
                         frames = level_frames['propeller_player'],
                         hitbox_config = HITBOX_CONFIGS['propeller'],
                         data = self.data,
-                        facing_right = obj.properties['facing_right'])
+                        attack_sound = audio_files['attack'],
+                        jump_sound = audio_files['jump'],
+                        facing_right = obj.properties['facing_right'],
+                        )
                 elif self.data.current_level == 3:
                     self.player = Quest2Player(
                         pos = (obj.x, obj.y),
@@ -80,7 +89,10 @@ class Level:
                         semi_collision_sprites = self.semi_collision_sprites,
                         frames = level_frames['default_player'],
                         hitbox_config = HITBOX_CONFIGS['default'],
-                        data = self.data,)
+                        attack_sound = audio_files['attack'],
+                        jump_sound = audio_files['jump'],
+                        data = self.data,
+                        )
                 else:
                     self.player = Player(
                         pos = (obj.x, obj.y), 
@@ -90,7 +102,10 @@ class Level:
                         frames = level_frames['default_player'],
                         hitbox_config = HITBOX_CONFIGS['default'],
                         data = self.data,
-                        facing_right = obj.properties['facing_right'])
+                        attack_sound = audio_files['attack'],
+                        jump_sound = audio_files['jump'],
+                        facing_right = obj.properties['facing_right'],
+                        )
             else:
                 if obj.name == 'spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.damage_sprites), upsidedown = obj.properties['upsidedown'],)
@@ -120,11 +135,11 @@ class Level:
         # enemies
         for obj in tmx_map.get_layer_by_name("Enemies"):
             if obj.name == "Boss":
-                print("Creating boss at:", (obj.x, obj.y))
                 self.boss = Boss(
                     pos = (obj.x, obj.y),
                     frames = level_frames['boss'],
-                    groups = (self.all_sprites, self.collision_sprites, self.boss_bullets, self.boss_sprites),
+                    groups = (self.all_sprites, self.collision_sprites, self.boss_sprites),
+                    boss_bullets = self.boss_bullets,
                     player = self.player,
                     data = self.data
                 )
@@ -152,7 +167,7 @@ class Level:
             if sprite.rect.colliderect(self.player.hitbox_rect):
                 sprite.activate()                
                 ParticleEffectSprite(sprite.rect.center, self.particle_frames, self.all_sprites)
-                
+                self.coin_sound.play()
                 sprite.kill()
 
     def boss_bullet_collision(self):
@@ -161,18 +176,23 @@ class Level:
                 bullet.kill()
                 ParticleEffectSprite((bullet.rect.center), self.particle_frames, self.all_sprites)
                 self.player.take_damage()
+                self.damage_sound.play()
 
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
                 self.player.take_damage()
+                self.damage_sound.play()
+
+
 
     def attack_collision(self):
         for target in self.boss_sprites.sprites(): # + any other attackable sprites
             facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
                              (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
-            if target.rect.colliderect(self.player.rect) and self.player.attacking and facing_target:
-                target.take_damage()
+            if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
+                self.boss.take_damage()
+                self.hit_sound.play()
                 self.data.ui.hit_boss()
                 self.player.attacking = False
 

@@ -46,4 +46,5 @@ class Data:
     @boss_health.setter
     def boss_health(self, value):
         self._boss_health = value
+        self.ui.create_boss_healthbar()
         

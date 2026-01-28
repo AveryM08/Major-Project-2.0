@@ -2,7 +2,9 @@ from settings import *
 from random import choice
 from timer import Timer
 import math
+import random
 from data import Data
+from math import sin
 
 class Diseased_rat(pygame.sprite.Sprite):
     def __init__(self, pos, frames, groups, collision_sprites, speed = 200):
@@ -177,12 +179,13 @@ class FrogTongue(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = topleft)
 
 class Boss(pygame.sprite.Sprite):
-    def __init__(self, pos, frames, groups, player, data):
+    def __init__(self, pos, frames, groups, boss_bullets, player, data):
         super().__init__(groups)
         self.frames, self.frame_index= frames, 0
         self.image = self.frames[self.frame_index]
         self.rect = self.image.get_rect(center = pos)
         self.old_rect = self.rect.copy()
+        self.mask = pygame.mask.from_surface(self.image)
         self.z = Z_LAYERS['main']
         
         self.last_shot = pygame.time.get_ticks()
@@ -196,10 +199,12 @@ class Boss(pygame.sprite.Sprite):
         self.stage = 0
         self.health = self.data.boss_health
         self.all_sprites = groups[0]
-        self.boss_bullets = groups[2]
+        self.boss_bullets = boss_bullets
         self.timers = {
             'hit': Timer(400)
         }
+        self.angle_offset = 0 
+        self.grid_rotation = 0
 
     def check_stage(self):
         for stage, data in self.stage_management.items():
@@ -207,22 +212,39 @@ class Boss(pygame.sprite.Sprite):
                 if self.stage != stage:
                     self.stage = stage      
                 break
+    
+    def update_timers(self):
+        for timer in self.timers.values():
+            timer.update()
 
     def update(self, dt):
-        
+        self.old_rect = self.rect.copy()
+        self.update_timers()
         self.check_stage()
         self.handle_attack()
 
         #animation
         self.frame_index += ANIMATION_SPEED * dt
         self.image = self.frames[int(self.frame_index) % len(self.frames)]
+        self.rect = self.image.get_rect(center = self.rect.center)
+        self.mask = pygame.mask.from_surface(self.image)
+
+        self.flicker()
+
+    def flicker(self):
+        if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
+            white_mask = pygame.mask.from_surface(self.image)
+            white_surf = white_mask.to_surface()
+            white_surf.set_colorkey('black')
+            self.image = white_surf
     
     def take_damage(self):
         if not self.timers['hit'].active:
             self.data.boss_health -= 1
-            print(self.data.boss_health)
             self.health = self.data.boss_health
             self.timers['hit'].activate()
+            if self.health <= 0:
+                self.kill()
 
     def handle_attack(self):
         now = pygame.time.get_ticks()
@@ -230,54 +252,62 @@ class Boss(pygame.sprite.Sprite):
         if now - self.last_shot > cooldown:
             self.last_shot = now
             if self.stage == 0:
-                self.pattern_single()
+                self.pattern_one()
             elif self.stage == 1:
-                self.pattern_spread()
+                self.pattern_two()
             elif self.stage == 2:
-                self.pattern_radial()
+                self.pattern_three()
+
+    def pattern_one(self):
+        self.angle_offset += 10 
+        for i in range(4):
+            angle_deg = (i * (360 / 4)) + self.angle_offset
+            angle_rad = math.radians(angle_deg)
+            
+            vx = math.cos(angle_rad) * 250
+            vy = math.sin(angle_rad) * 250
+            
+            bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
+            self.boss_bullets.add(bullet)
+            self.all_sprites.add(bullet)
     
-    def pattern_single(self):
-        try:
-            target_x, target_y = self.player.hitbox_rect.center
-        except Exception:
-            target_x, target_y = self.player.rect.center
+    def pattern_two(self):
+        self.grid_rotation += 15
+        base_angles = [0, 90, 180, 270]
+        speed = 350
+        
+        for base_angle in base_angles:
+            angle_rad = math.radians(base_angle + self.grid_rotation)
+            
+            vx = math.cos(angle_rad) * speed
+            vy = math.sin(angle_rad) * speed
+            
+            for offset in [-40, 0, 40]:
+                off_x = -math.sin(angle_rad) * offset
+                off_y = math.cos(angle_rad) * offset
+                
+                spawn_x = self.rect.centerx + off_x
+                spawn_y = self.rect.centery + off_y
+                
+                bullet = BossBullet(spawn_x, spawn_y, vx, vy)
+                self.boss_bullets.add(bullet)
+                self.all_sprites.add(bullet)
 
-        dx = target_x - self.rect.centerx
-        dy = target_y - self.rect.centery
-        distance = math.hypot(dx, dy)
-        if distance == 0:
-            return
-        speed = 400.0 
-        vx = (dx / distance) * speed
-        vy = (dy / distance) * speed
-        bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
-        self.boss_bullets.add(bullet)
-        self.all_sprites.add(bullet)
-
-
-
-    def pattern_spread(self, num_bullets=5):
-        start_angle = -60
-        end_angle = 60
-        angle_increment = (end_angle - start_angle) / (num_bullets - 1)
-        for i in range(num_bullets):
-            angle = math.radians(start_angle + i * angle_increment)
-            vx = math.cos(angle) * 300
-            vy = math.sin(angle) * 300
-            bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
+    def pattern_three(self):
+        for _ in range(2):
+            angle = math.radians(random.uniform(-30, 30))
+            target_pos = pygame.math.Vector2(self.player.rect.center)
+    
+            base_dir = (target_pos - pygame.math.Vector2(self.rect.center)).normalize()
+            vx = (base_dir.x * math.cos(angle) - base_dir.y * math.sin(angle))
+            vy = (base_dir.x * math.sin(angle) + base_dir.y * math.cos(angle))
+            
+            speed = random.uniform(100, 250)
+            
+            bullet = BossBullet(self.rect.centerx, self.rect.centery, vx * speed, vy * speed)
             self.boss_bullets.add(bullet)
             self.all_sprites.add(bullet)
 
-
-    def pattern_radial(self, num_bullets=8):
-        angle_increment = 360 / num_bullets
-        for i in range(num_bullets):
-            angle = math.radians(i * angle_increment)
-            vx = math.cos(angle) * 300
-            vy = math.sin(angle) * 300
-            bullet = BossBullet(self.rect.centerx, self.rect.centery, vx, vy)
-            self.boss_bullets.add(bullet)
-            self.all_sprites.add(bullet)
 
 class BossBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, vx, vy):
@@ -287,15 +317,22 @@ class BossBullet(pygame.sprite.Sprite):
         self.image = surf
         self.rect = self.image.get_rect(center=(x, y))
         self.mask = pygame.mask.from_surface(self.image)
+        self.pos = pygame.math.Vector2(x, y)
         self.vx = vx
         self.vy = vy
         self.z = Z_LAYERS['main']
         self.lifetime = 0
-        self.max_lifetime = 10  # seconds before bullet disappears
+        self.max_lifetime = 10
 
     def update(self, dt):
-        self.rect.x += self.vx * dt
-        self.rect.y += self.vy * dt
+        self.pos.x += self.vx * dt
+        self.pos.y += self.vy * dt
+
+        self.rect.centerx = round(self.pos.x)
+        self.rect.centery = round(self.pos.y)
+
+        #self.rect.x += self.vx * dt
+        #self.rect.y += self.vy * dt
         
         self.lifetime += dt
         if self.lifetime > self.max_lifetime:

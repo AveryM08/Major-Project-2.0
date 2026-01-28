@@ -27,7 +27,8 @@ class Game:
             }
         
         # self.current_stage = Screen(self.screen_frames, self.switch_stage)
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
+        self.bg_audio.play(-1)
 
     def switch_stage(self):
         self.data.current_level += 1
@@ -38,7 +39,7 @@ class Game:
             # End game screen here instead of print statement
             # self.current_stage = Screen(self.screen_frames, self.switch_stage)
 
-    #animations
+    #animationsx
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
@@ -62,7 +63,7 @@ class Game:
         }
         self.quest_2_frames = {
             'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default') # unnessecary? idk
+            'player': import_sub_folders('..', 'graphics', 'player', 'default')
         }
 
         self.screen_frames = {
@@ -74,6 +75,17 @@ class Game:
             'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
         }
 
+        self.audio_files = {
+            'jump': pygame.mixer.Sound(join('..', 'audio', 'jump.wav')),
+            'coin': pygame.mixer.Sound(join('..', 'audio', 'coin.wav')),
+            'hit': pygame.mixer.Sound(join('..', 'audio', 'hit.wav')),
+            'attack': pygame.mixer.Sound(join('..', 'audio', 'attack.wav')),
+            'damage': pygame.mixer.Sound(join('..', 'audio', 'damage.wav')),
+        }
+
+        self.bg_audio = pygame.mixer.Sound(join('..', 'audio', 'background.mp3'))
+        self.bg_audio.set_volume(0.3)
+
     def run(self):
         while True:
             dt = self.clock.tick() / 1000
@@ -83,10 +95,16 @@ class Game:
                     sys.exit()
             
             # self.current_screen.run()
+            self.check_game_over()
             self.current_stage.run(dt)
-            # self.ui.update(dt)
+            self.ui.update(dt)
 
             pygame.display.update()
+
+    def check_game_over(self):
+        if self.data.health <= 0:
+            pygame.quit()
+            sys.exit()
 
 if __name__ == "__main__":
     game = Game()
