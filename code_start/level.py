@@ -214,6 +214,9 @@ class Level:
         # if self.player.hitbox_rect.colliderect(self.level_finish_rect):
         if self.level_finish_rect and self.player.hitbox_rect.colliderect(self.level_finish_rect):
             self.switch_stage()
+            
+        if self.data.boss_health <= 0:
+            self.switch_stage()
 
     def run(self, dt):
         self.display_surface.fill('black')
