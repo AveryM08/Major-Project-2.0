@@ -39,7 +39,7 @@ class Game:
             # End game screen here instead of print statement
             # self.current_stage = Screen(self.screen_frames, self.switch_stage)
 
-    #animationsx
+    # animations
     def import_assets(self):
         self.level_frames = {
             'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
@@ -93,6 +93,10 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.data.game_state = 'paused' if self.data.game_state == 'running' else 'running'
             
             # self.current_screen.run()
             self.check_game_over()

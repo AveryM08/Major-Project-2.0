@@ -8,6 +8,7 @@ class Data:
         self.ui.create_boss_healthbar()
 
         self.current_level = 0
+        self.game_state = 'running'  # Possible states: 'running', 'paused', 'game_over'
 
     def start_level(self, level_number):
         self.current_level = level_number
