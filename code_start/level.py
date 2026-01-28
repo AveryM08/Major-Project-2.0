@@ -217,12 +217,13 @@ class Level:
 
     def run(self, dt):
         self.display_surface.fill('black')
-
-        self.all_sprites.update(dt)
-        self.item_collision()
-        self.boss_bullet_collision()
-        self.hit_collision()
-        self.attack_collision()
-        self.check_constraint()
+        
+        if self.data.game_state == 'running':
+            self.all_sprites.update(dt)
+            self.item_collision()
+            self.boss_bullet_collision()
+            self.hit_collision()
+            self.attack_collision()
+            self.check_constraint()
 
         self.all_sprites.draw(self.player.hitbox_rect.center)
