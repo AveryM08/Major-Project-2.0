@@ -2,8 +2,10 @@ from settings import *
 from screen_graphics import Graphic, Button
 
 class Screen:
-    def __init__(self, screen_frames):
+    def __init__(self, screen_frames, switch_stage):
         self.display_surface = pygame.display.get_surface()
+        self.switch_stage = switch_stage
+
         self.background = screen_frames['background'][0]
         self.background = pygame.transform.scale(self.background, self.display_surface.get_size())
         self.overlay_w = 800
@@ -18,9 +20,9 @@ class Screen:
     def first_screen(self, screen_frames):
         self.display_surface.fill((0, 0, 0))
         self.display_surface.blit(self.background, (0, 0))
-        self.display_surface.blit(self.overlay_surface, ((MENU_WIDTH - self.overlay_w) // 2, (MENU_HEIGHT - self.overlay_h) // 2))
+        self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
 
-        game_title = Graphic(screen_frames['game_title'], ((MENU_WIDTH - (screen_frames['game_title'].get_width()) * 0.25) // 2, 250), 0.25)
+        game_title = Graphic(screen_frames['game_title'], ((WINDOW_WIDTH - (screen_frames['game_title'].get_width()) * 0.25) // 2, 250), 0.25)
         next_button = Button(screen_frames['next_button'], (362, 420), 4)
         quit_button = Button(screen_frames['quit_button'], (550, 420), 4)
 
@@ -31,10 +33,11 @@ class Screen:
         if next_button.is_pressed():
             # progress()
             print("Next Button Pressed")
+            self.switch_stage()
         if quit_button.is_pressed():
             pygame.quit()
             exit()
 
     
-    def run(self):
+    def run(self, dt):
         self.first_screen(self.screen_frames)
