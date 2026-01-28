@@ -10,26 +10,24 @@ from support import *
 class Game:
     def __init__(self):
         pygame.init()
-        self.display_surface = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT), pygame.RESIZABLE)
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Sewer Savior")
         self.clock = pygame.time.Clock()
         self.import_assets()
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(0) # This starts at level 0, edit the number while testing to start at different levels
+        self.data.start_level(1) # This starts at level 0, edit the number while testing to start at different levels
 
         self.tmx_maps = {
-            0: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
-            1: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
-            2: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
-            3: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
+            1: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
+            2: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
+            3: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            4: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        # self.current_screen = Screen(self.screen_frames)
-        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
+        # self.current_stage = Screen(self.screen_frames, self.switch_stage)
         self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.data, self.switch_stage)
-        # self.current_stage = Level(self.tmx_maps[1], self.level_frames, self.data, map_index = 1)
 
     def switch_stage(self):
         self.data.current_level += 1
@@ -38,6 +36,7 @@ class Game:
         else:
             print("You win!")
             # End game screen here instead of print statement
+            # self.current_stage = Screen(self.screen_frames, self.switch_stage)
 
     #animations
     def import_assets(self):

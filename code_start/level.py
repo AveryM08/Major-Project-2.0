@@ -62,7 +62,7 @@ class Level:
         # objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                if self.data.current_level == 1:
+                if self.data.current_level == 2:
                     self.player = PropellerPlayer(
                         pos = (obj.x, obj.y), 
                         groups = self.all_sprites, 
@@ -72,7 +72,7 @@ class Level:
                         hitbox_config = HITBOX_CONFIGS['propeller'],
                         data = self.data,
                         facing_right = obj.properties['facing_right'])
-                elif self.data.current_level == 2:
+                elif self.data.current_level == 3:
                     self.player = Quest2Player(
                         pos = (obj.x, obj.y),
                         groups = (self.all_sprites,),
