@@ -37,6 +37,25 @@ class Screen:
             pygame.quit()
             exit()
 
+    #cant test since dont know how to implement game over screen
+    # def game_over_screen(self):
+    #     self.display_surface.fill((0, 0, 0))
+    #     background = self.screen_frames['game_over_screen']
+    #     background = pygame.transform.scale(background, self.display_surface.get_size())
+
+    #     self.display_surface.blit(background, (0, 0))
+    #     self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
+
+    #     game_over_text = Graphic(self.screen_frames['lose_text'], ((WINDOW_WIDTH - (self.screen_frames['lose_text'].get_width()) * 0.4) // 2, 250), 0.4)
+    #     quit_button = Button(self.screen_frames['quit_button'], ((WINDOW_WIDTH - (self.screen_frames['quit_button'].get_width() * 8))//2, 375), 8)
+
+    #     game_over_text.draw(self.display_surface)
+    #     quit_button.draw(self.display_surface)
+
+    #     if quit_button.is_pressed():
+    #         pygame.quit()
+    #         exit()
+
     def end_screen(self, screen_frames):
         self.display_surface.fill((0, 0, 0))
         background = screen_frames['end_screen']
@@ -46,7 +65,7 @@ class Screen:
         self.display_surface.blit(self.overlay_surface, ((WINDOW_WIDTH - self.overlay_w) // 2, (WINDOW_HEIGHT - self.overlay_h) // 2))
 
         win_text = Graphic(screen_frames['win_text'], ((WINDOW_WIDTH - (screen_frames['win_text'].get_width()) * 0.4) // 2, 250), 0.4)
-        quit_button = Button(screen_frames['quit_button'], ((WINDOW_WIDTH - (screen_frames['quit_button'].get_width()))//2, 475), 8)
+        quit_button = Button(screen_frames['quit_button'], ((WINDOW_WIDTH - (screen_frames['quit_button'].get_width() * 8))//2, 375), 8)
 
         win_text.draw(self.display_surface)
         quit_button.draw(self.display_surface)
@@ -54,10 +73,6 @@ class Screen:
         if quit_button.is_pressed():
             pygame.quit()
             exit()
-
-        # self.background = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
-        # self.background.fill(self.overlay_color)
-        # self.display_surface.blit(self.background, (0, 0))
 
     
     def run(self, dt):
