@@ -8,13 +8,13 @@ class Data:
         self.ui.create_boss_healthbar()
 
         self.current_level = 0
-        self.game_state = 'running'  # Possible states: 'running', 'paused', 'game_over'
+        self.game_state = 'running'  # Possible states: 'running', 'paused', 'game_over', 'game_win'
 
     def start_level(self, level_number):
         self.current_level = level_number
         
-        # Only show the healthbar if it's the boss level (currently level 1)
-        if self.current_level == 3:
+        # Only show the healthbar if it's the boss level (level 3)
+        if self.current_level == 3 and self.game_state == 'running':
             self.ui.create_boss_healthbar()
         else:
             self.ui.hide_boss_healthbar() 

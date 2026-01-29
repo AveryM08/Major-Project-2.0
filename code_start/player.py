@@ -333,5 +333,6 @@ class Quest2Player(Player):
     def get_state(self):
         if self.attacking:
             self.state = 'attack'
-        else:
+        #idle state only after attack animation is complete
+        elif self.state != 'attack':
             self.state = 'idle'
