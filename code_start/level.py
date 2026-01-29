@@ -112,9 +112,6 @@ class Level:
             else:
                 if obj.name == 'spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.damage_sprites), upsidedown = obj.properties['upsidedown'],)
-                # else:
-                #     frames = level_frames[obj.name]
-                #     AnimatedSprite((obj.x, obj.y), frames, self.all_sprites)
             if obj.name == 'portal':
                 self.level_finish_rect = pygame.FRect((obj.x, obj.y), (obj.width, obj.height))
             
@@ -184,28 +181,37 @@ class Level:
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
-                self.player.take_damage()
-                self.damage_sound.play()
+                if hasattr(sprite, 'mask') and sprite.mask:
+                    offset = (self.player.hitbox_rect.x - sprite.rect.x, self.player.hitbox_rect.y - sprite.rect.y)
 
-
+                    if sprite.mask.overlap(pygame.mask.Mask(self.player.hitbox_rect.size, True), offset):
+                        self.player.take_damage()
+                        self.damage_sound.play()
+                
+                else:
+                    self.player.take_damage()
+                    self.damage_sound.play()
 
     def attack_collision(self):
-        for target in (self.boss_sprites.sprites() + self.diseased_rat_sprites.sprites()): # + any other attackable sprites
-            facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
-                             (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
-            if target == self.boss:
-                if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
-                # if self.player.attacking and facing_target and target.rect.colliderect(self.player.hitbox_rect):
-                    target.take_damage()
-                    self.hit_sound.play()
-                    self.data.ui.hit_boss()
-                    # self.player.attacking = False
-            else:
-                if self.player.attacking and facing_target and target.rect.colliderect(self.player.hitbox_rect):
-                    target.speed = 0
-                    ParticleEffectSprite((target.rect.center), self.particle_frames, self.all_sprites)
-                    self.hit_sound.play()
-                    target.kill()
+        if self.player.attacking:
+            
+            targets = (self.boss_sprites.sprites() + self.diseased_rat_sprites.sprites())
+            for target in targets:
+                facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
+                                (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
+                if target == self.boss:
+                    # if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
+                    if self.player.attacking and facing_target and pygame.sprite.collide_mask(self.player, target):
+                        target.take_damage()
+                        self.hit_sound.play()
+                        self.data.ui.hit_boss()
+                        self.player.attacking = False
+                else:
+                    if self.player.attacking and facing_target and pygame.sprite.collide_mask(self.player, target):
+                        target.speed = 0
+                        ParticleEffectSprite((target.rect.center), self.particle_frames, self.all_sprites)
+                        self.hit_sound.play()
+                        target.kill()
 
     def check_constraint(self):
 		# left right
@@ -220,6 +226,8 @@ class Level:
         if self.player.hitbox_rect.bottom > self.level_bottom:
             self.player.take_damage()
             self.damage_sound.play()
+            self.data.game_state = 'game_over'
+            self.switch_stage()
 
         # death
         # if self.data.health <= 0:
@@ -262,8 +270,8 @@ class Level:
             self.all_sprites.update(dt)
             self.item_collision()
             self.boss_bullet_collision()
-            self.hit_collision()
             self.attack_collision()
+            self.hit_collision()
             self.check_constraint()
 
         self.all_sprites.draw(self.player.hitbox_rect.center)
