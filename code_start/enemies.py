@@ -12,7 +12,6 @@ class Diseased_rat(pygame.sprite.Sprite):
         self.frames, self.frame_index = frames, 0
         self.image = self.frames[self.frame_index]
         self.rect = self.image.get_frect(topleft = pos)
-        self.hitbox_rect = self.rect.inflate(-40, 0)
         self.z = Z_LAYERS['main']
 
         self.direction = choice((-1, 1))
@@ -33,6 +32,7 @@ class Diseased_rat(pygame.sprite.Sprite):
         self.frame_index += ANIMATION_SPEED * dt
         self.image = self.frames[int(self.frame_index % len(self.frames))]
         self.image = pygame.transform.flip(self.image, True, False) if self.direction < 0 else self.image
+        self.mask = pygame.mask.from_surface(self.image)
 
         # move 
         self.rect.x += self.direction * self.speed * dt
@@ -217,20 +217,6 @@ class Boss(pygame.sprite.Sprite):
         for timer in self.timers.values():
             timer.update()
 
-    def update(self, dt):
-        self.old_rect = self.rect.copy()
-        self.update_timers()
-        self.check_stage()
-        self.handle_attack()
-
-        #animation
-        self.frame_index += ANIMATION_SPEED * dt
-        self.image = self.frames[int(self.frame_index) % len(self.frames)]
-        self.rect = self.image.get_rect(center = self.rect.center)
-        self.mask = pygame.mask.from_surface(self.image)
-
-        self.flicker()
-
     def flicker(self):
         if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
             white_mask = pygame.mask.from_surface(self.image)
@@ -308,6 +294,19 @@ class Boss(pygame.sprite.Sprite):
             self.boss_bullets.add(bullet)
             self.all_sprites.add(bullet)
 
+    def update(self, dt):
+        self.old_rect = self.rect.copy()
+        self.update_timers()
+        self.check_stage()
+        self.handle_attack()
+
+        # animation
+        self.frame_index += ANIMATION_SPEED * dt
+        self.image = self.frames[int(self.frame_index) % len(self.frames)]
+        self.rect = self.image.get_rect(center = self.rect.center)
+        self.mask = pygame.mask.from_surface(self.image)
+
+        self.flicker()
 
 class BossBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, vx, vy):
@@ -330,9 +329,6 @@ class BossBullet(pygame.sprite.Sprite):
 
         self.rect.centerx = round(self.pos.x)
         self.rect.centery = round(self.pos.y)
-
-        #self.rect.x += self.vx * dt
-        #self.rect.y += self.vy * dt
         
         self.lifetime += dt
         if self.lifetime > self.max_lifetime:

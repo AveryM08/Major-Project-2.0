@@ -9,6 +9,8 @@ class Sprite(pygame.sprite.Sprite):
         self.z = z
         self.upsidedown = upsidedown
 
+        self.mask = pygame.mask.from_surface(self.image)
+
 class AnimatedSprite(Sprite):
     def __init__(self, pos, frames, groups, z = Z_LAYERS['main'], animation_speed = ANIMATION_SPEED):
         self.frames, self.frame_index = frames, 0

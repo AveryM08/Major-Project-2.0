@@ -178,7 +178,8 @@ class Player(pygame.sprite.Sprite):
             timer.update()
 
     def animate(self, dt):
-        self.frame_index += ANIMATION_SPEED * dt
+        speed_multiplier = 1.75 if self.attacking else 1
+        self.frame_index += ANIMATION_SPEED * dt * speed_multiplier
         if self.state == 'attack' and self.frame_index >= len(self.frames[self.state]):
             self.state = 'idle'
         self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
