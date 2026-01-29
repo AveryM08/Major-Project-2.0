@@ -26,18 +26,23 @@ class Game:
             }
         
         # self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames,    self.audio_files, self.data, self.switch_stage)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
     def switch_stage(self):
-        self.data.start_level(self.data.current_level + 1)
-        if self.data.current_level in self.tmx_maps:
-            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
-        else:
-            print("You win!")
+        if self.data.game_state == 'game_over' or self.data.game_state == 'game_win':
+            self.data.start_level(0)
             self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
-            # End game screen here instead of print statement
-            # self.current_stage = Screen(self.screen_frames, self.switch_stage)
+        
+        else:
+            self.data.health = 5  # Reset health when starting a new level
+            if self.data.game_state == 'restarting':
+                self.data.coins = 0  # Reset coins when restarting level
+                self.data.start_level(self.data.current_level)
+                self.data.game_state = 'running'
+            else: # advance to next level
+                self.data.start_level(self.data.current_level + 1)
+            self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
 
     # animations
     def import_assets(self):
@@ -55,31 +60,42 @@ class Game:
             'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
         }
 
-        self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 35)
         self.ui_frames = {
             'heart': import_folder('..', 'graphics', 'ui', 'heart'),
             'coin':import_folder('..', 'graphics', 'ui', 'coin'),
             'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
-        self.quest_2_frames = {
-            'particle': import_sub_folders('..', 'graphics', 'effects', 'particle'),
-            'player': import_sub_folders('..', 'graphics', 'player', 'default')
+        
+        self.screen_frames = {
+            'first_screen': {
+                'background': import_image('..', 'graphics', 'screen', 'first', 'background'),
+                'text': import_image('..', 'graphics', 'screen', 'first', 'text'),
+                'start_button': import_image('..', 'graphics', 'screen', 'first', 'button', 'Start'),
+                'quit_button': import_image('..', 'graphics', 'screen', 'first', 'button', 'Quit'),
+            },
+
+            'pause_screen': {
+                'overlay': import_image('..', 'graphics', 'screen', 'pause', 'overlay'),
+                'resume_button': import_image('..', 'graphics', 'screen', 'pause', 'button', 'Resume'),
+                'restart_button': import_image('..', 'graphics', 'screen', 'pause', 'button', 'Restart'),
+                'quit_button': import_image('..', 'graphics', 'screen', 'pause', 'button', 'Quit'),
+            },
+
+            'win_screen': {
+                'background': import_image('..', 'graphics', 'screen', 'win', 'background'),
+                'text': import_image('..', 'graphics', 'screen', 'win', 'text'),
+                'quit_button': import_image('..', 'graphics', 'screen', 'win', 'button', 'Quit'),
+            },
+
+            'game_over_screen': {
+                'background': import_image('..', 'graphics', 'screen', 'game_over', 'background'),
+                'text': import_image('..', 'graphics', 'screen', 'game_over', 'text'),
+                'restart_button': import_image('..', 'graphics', 'screen', 'game_over', 'button', 'Restart'),
+                'quit_button': import_image('..', 'graphics', 'screen', 'game_over', 'button', 'Quit'),
+            }
         }
 
-        self.screen_frames = {
-            'first_screen': import_image('..', 'graphics', 'background', 'first screen'),
-            'end_screen': import_image('..', 'graphics', 'background', 'end screen'),
-            'pause_screen': import_image('..', 'graphics', 'background', 'pause screen'),
-            'game_over_screen': import_image('..', 'graphics', 'background', 'game over screen'),
-            'game_title': import_image('..', 'graphics', 'game', 'title'),
-            'win_text': import_image('..', 'graphics', 'game', 'win text'),
-            'lose_text': import_image('..', 'graphics', 'game', 'game over'),
-            'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
-            'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
-            'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
-            'back_button': import_image('..', 'graphics', 'buttons', 'Back Button'),
-            'resume_button': import_image('..', 'graphics', 'buttons', 'Resume Button'),
-        }
+        self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 35)
 
         self.audio_files = {
             'jump': pygame.mixer.Sound(join('..', 'audio', 'jump.wav')),
@@ -104,19 +120,15 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.data.game_state = 'paused' if self.data.game_state == 'running' else 'running'
             
-            # self.current_screen.run()
-            self.check_game_over()
-            self.current_stage.run(dt)
-            if self.data.current_level >= 1:
+            if self.data.current_level == 0:
+                self.current_stage.run()
+            else:
+                self.current_stage.run(dt)
+            
+            if self.data.current_level >= 1 and self.data.game_state == 'running' or self.data.game_state == 'paused':
                 self.ui.update(dt)
 
             pygame.display.update()
-
-    def check_game_over(self):
-        if self.data.health <= 0:
-            # pygame.quit()
-            # sys.exit()
-            pass
 
 if __name__ == "__main__":
     game = Game()

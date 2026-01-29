@@ -10,7 +10,7 @@ class Level:
         self.display_surface = pygame.display.get_surface()
         self.data = data
         self.switch_stage = switch_stage
-        self.screen_frames = screen_frames
+        self.screen_frames = screen_frames['pause_screen']
 
         self.level_finish_rect = None
         self.boss = None
@@ -195,15 +195,17 @@ class Level:
                              (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
             if target == self.boss:
                 if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
+                # if self.player.attacking and facing_target and target.rect.colliderect(self.player.hitbox_rect):
                     target.take_damage()
                     self.hit_sound.play()
                     self.data.ui.hit_boss()
-                    self.player.attacking = False
+                    # self.player.attacking = False
             else:
-                if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False):
-                    target.take_damage()
+                if self.player.attacking and facing_target and target.rect.colliderect(self.player.hitbox_rect):
+                    target.speed = 0
+                    ParticleEffectSprite((target.rect.center), self.particle_frames, self.all_sprites)
                     self.hit_sound.play()
-                    self.player.attacking = False
+                    target.kill()
 
     def check_constraint(self):
 		# left right
@@ -216,8 +218,13 @@ class Level:
         if self.player.hitbox_rect.top <= 0:
             self.player.hitbox_rect.top = 0
         if self.player.hitbox_rect.bottom > self.level_bottom:
-            self.player.hitbox_rect.bottom = self.level_bottom
-            # self.player.on_ground = True
+            self.player.take_damage()
+            self.damage_sound.play()
+
+        # death
+        # if self.data.health <= 0:
+        #     self.data.game_state = 'game_over'
+        #     self.switch_stage()
 
         # level completion
         # if self.player.hitbox_rect.colliderect(self.level_finish_rect):
@@ -225,20 +232,25 @@ class Level:
             self.switch_stage()
             
         if self.data.boss_health <= 0:
+            self.data.game_state = 'game_win'
             self.switch_stage()
 
     def pause(self):
-        background = Graphic(self.screen_frames['pause_screen'], (0, 0), 1)
-        background.draw(self.display_surface)
+        overlay = Graphic(self.screen_frames['overlay'], (0, 0), 1)
+        resume_button = Button(self.screen_frames['resume_button'], ((WINDOW_WIDTH - (self.screen_frames['resume_button'].get_width()) * 5) // 2, 390), 5)
+        restart_button = Button(self.screen_frames['restart_button'], ((WINDOW_WIDTH - (self.screen_frames['restart_button'].get_width()) * 5) // 2, 475), 5)
+        quit_button = Button(self.screen_frames['quit_button'], ((WINDOW_WIDTH - (self.screen_frames['quit_button'].get_width()) * 5) // 2, 560), 5)
 
-        resume_button = Button(self.screen_frames['resume_button'], (362, 475), 4)
-        quit_button = Button(self.screen_frames['quit_button'], (550, 475), 4)
-
+        overlay.draw(self.display_surface)
         resume_button.draw(self.display_surface)
+        restart_button.draw(self.display_surface)
         quit_button.draw(self.display_surface)
 
         if resume_button.is_pressed():
             self.data.game_state = 'running'
+        if restart_button.is_pressed():
+            self.data.game_state = 'restarting'
+            self.switch_stage()
         if quit_button.is_pressed():
             pygame.quit()
             exit()

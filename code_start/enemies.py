@@ -19,15 +19,15 @@ class Diseased_rat(pygame.sprite.Sprite):
         self.collision_rects = [sprite.rect for sprite in collision_sprites]
         self.speed = speed
 
-        self.hit_timer = Timer(250)
+        self.direction_timer = Timer(250)
 
     def reverse(self):
-        if not self.hit_timer.active:
+        if not self.direction_timer.active:
             self.direction *= -1
-            self.hit_timer.activate()
+            self.direction_timer.activate()
 
     def update(self, dt):
-        self.hit_timer.update()
+        self.direction_timer.update()
 
         # animate
         self.frame_index += ANIMATION_SPEED * dt
