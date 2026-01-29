@@ -272,9 +272,9 @@ class Boss(pygame.sprite.Sprite):
             self.all_sprites.add(bullet)
     
     def pattern_two(self):
-        self.grid_rotation += 15
+        self.grid_rotation += 10
         base_angles = [0, 90, 180, 270]
-        speed = 350
+        speed = 150
         
         for base_angle in base_angles:
             angle_rad = math.radians(base_angle + self.grid_rotation)
@@ -294,7 +294,7 @@ class Boss(pygame.sprite.Sprite):
                 self.all_sprites.add(bullet)
 
     def pattern_three(self):
-        for _ in range(2):
+        for _ in range(1):
             angle = math.radians(random.uniform(-30, 30))
             target_pos = pygame.math.Vector2(self.player.rect.center)
     
@@ -302,7 +302,7 @@ class Boss(pygame.sprite.Sprite):
             vx = (base_dir.x * math.cos(angle) - base_dir.y * math.sin(angle))
             vy = (base_dir.x * math.sin(angle) + base_dir.y * math.cos(angle))
             
-            speed = random.uniform(100, 250)
+            speed = random.uniform(100, 150)
             
             bullet = BossBullet(self.rect.centerx, self.rect.centery, vx * speed, vy * speed)
             self.boss_bullets.add(bullet)

@@ -17,17 +17,16 @@ class Game:
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(0) # Starts at level one to skip testing the game title screen
+        self.data.start_level(3) # Starts at level one to skip testing the game title screen
 
         self.tmx_maps = {
             1: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
             2: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
             3: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
-            4: load_pygame(join('..', 'data', 'levels', 'Start.tmx')),
             }
         
-        self.current_stage = Screen(self.screen_frames, self.switch_stage)
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.audio_files, self.data, self.switch_stage)
+        # self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
+        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames,    self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
     def switch_stage(self):
@@ -36,6 +35,7 @@ class Game:
             self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
         else:
             print("You win!")
+            self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
             # End game screen here instead of print statement
             # self.current_stage = Screen(self.screen_frames, self.switch_stage)
 
@@ -70,7 +70,10 @@ class Game:
             'first_screen': import_image('..', 'graphics', 'background', 'first screen'),
             'end_screen': import_image('..', 'graphics', 'background', 'end screen'),
             'pause_screen': import_image('..', 'graphics', 'background', 'pause screen'),
+            'game_over_screen': import_image('..', 'graphics', 'background', 'game over screen'),
             'game_title': import_image('..', 'graphics', 'game', 'title'),
+            'win_text': import_image('..', 'graphics', 'game', 'win text'),
+            'lose_text': import_image('..', 'graphics', 'game', 'game over'),
             'next_button': import_image('..', 'graphics', 'buttons', 'Next Button'),
             'quit_button': import_image('..', 'graphics', 'buttons', 'Quit Button'),
             'start_button': import_image('..', 'graphics', 'buttons', 'Start Button'),
@@ -111,8 +114,9 @@ class Game:
 
     def check_game_over(self):
         if self.data.health <= 0:
-            pygame.quit()
-            sys.exit()
+            # pygame.quit()
+            # sys.exit()
+            pass
 
 if __name__ == "__main__":
     game = Game()
