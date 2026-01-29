@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="5">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="7">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/Purple tile.tsx"/>
+ <tileset firstgid="386" source="boss.tsx"/>
+ <tileset firstgid="387" source="../tilesets/scaled player.tsx"/>
  <layer id="4" name="BG" width="30" height="30">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -52,8 +54,8 @@
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
-385,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
-385,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
+385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
+385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
 385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,385,
@@ -140,12 +142,16 @@
 </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Player" x="928" y="1438" width="64" height="64"/>
+  <object id="6" name="Player" gid="387" x="928" y="1438" width="64" height="56">
+   <properties>
+    <property name="facing_right" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Moving Objects"/>
  <objectgroup id="10" name="Items"/>
  <objectgroup id="3" name="Enemies">
-  <object id="3" name="Boss" x="930.297" y="898.144" width="64" height="64"/>
+  <object id="5" name="Boss" gid="386" x="744" y="1004" width="432" height="288"/>
  </objectgroup>
  <objectgroup id="9" name="Data">
   <object id="4" x="0" y="0" width="64" height="64">

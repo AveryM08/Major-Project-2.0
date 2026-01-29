@@ -137,7 +137,7 @@ class Level:
             if obj.name == "Boss":
                 self.boss = Boss(
                     pos = (obj.x, obj.y),
-                    frames = level_frames['boss'],
+                    surf = level_frames['boss'],
                     groups = (self.all_sprites, self.collision_sprites, self.boss_sprites),
                     boss_bullets = self.boss_bullets,
                     player = self.player,
@@ -275,6 +275,10 @@ class Level:
             self.check_constraint()
 
         self.all_sprites.draw(self.player.hitbox_rect.center)
+        # Draw Player Hitbox
+        pygame.draw.rect(self.display_surface, "red", self.player.hitbox_rect, 2)
+        # Draw Boss Hitbox
+        pygame.draw.rect(self.display_surface, "blue", self.boss.rect, 2)
 
         if self.data.game_state == 'paused':
             self.pause()

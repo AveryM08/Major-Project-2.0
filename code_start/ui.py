@@ -38,7 +38,7 @@ class UI:
     def hit_boss(self, amount = 1):
         for sprite in self.sprites:
             if isinstance(sprite, Boss_HealthBar):
-                #update and show new boss healthbar
+                # update and show new boss healthbar
                 sprite.show()
                 if amount > 0:
                     sprite.hit(amount)

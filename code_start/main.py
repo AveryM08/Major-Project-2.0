@@ -57,7 +57,7 @@ class Game:
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
             'particle': import_folder('..', 'graphics', 'effects', 'particle'),
-            'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
+            'boss': import_image('..', 'graphics', 'enemies', 'boss'),
         }
 
         self.ui_frames = {

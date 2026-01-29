@@ -12,6 +12,7 @@ class Diseased_rat(pygame.sprite.Sprite):
         self.frames, self.frame_index = frames, 0
         self.image = self.frames[self.frame_index]
         self.rect = self.image.get_frect(topleft = pos)
+        self.mask = pygame.mask.from_surface(self.image)
         self.z = Z_LAYERS['main']
 
         self.direction = choice((-1, 1))
@@ -179,11 +180,11 @@ class FrogTongue(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = topleft)
 
 class Boss(pygame.sprite.Sprite):
-    def __init__(self, pos, frames, groups, boss_bullets, player, data):
+    def __init__(self, pos, surf, groups, boss_bullets, player, data):
         super().__init__(groups)
-        self.frames, self.frame_index= frames, 0
-        self.image = self.frames[self.frame_index]
-        self.rect = self.image.get_rect(center = pos)
+        self.original_image = surf
+        self.image = self.original_image
+        self.rect = self.image.get_rect(topleft = pos)
         self.old_rect = self.rect.copy()
         self.mask = pygame.mask.from_surface(self.image)
         self.z = Z_LAYERS['main']
@@ -194,12 +195,14 @@ class Boss(pygame.sprite.Sprite):
             1: {'health': 7, 'cooldown': 300},
             2: {'health': 0, 'cooldown': 100}
         }
+
         self.data = data
         self.player = player
         self.stage = 0
         self.health = self.data.boss_health
         self.all_sprites = groups[0]
         self.boss_bullets = boss_bullets
+
         self.timers = {
             'hit': Timer(400)
         }
@@ -218,6 +221,8 @@ class Boss(pygame.sprite.Sprite):
             timer.update()
 
     def flicker(self):
+        self.image = self.original_image
+
         if self.timers['hit'].active and sin(pygame.time.get_ticks() * 150) >= 0:
             white_mask = pygame.mask.from_surface(self.image)
             white_surf = white_mask.to_surface()
@@ -282,9 +287,9 @@ class Boss(pygame.sprite.Sprite):
     def pattern_three(self):
         for _ in range(1):
             angle = math.radians(random.uniform(-30, 30))
-            target_pos = pygame.math.Vector2(self.player.rect.center)
-    
-            base_dir = (target_pos - pygame.math.Vector2(self.rect.center)).normalize()
+            target_pos = vector(self.player.rect.center)
+
+            base_dir = (target_pos - vector(self.rect.center)).normalize()
             vx = (base_dir.x * math.cos(angle) - base_dir.y * math.sin(angle))
             vy = (base_dir.x * math.sin(angle) + base_dir.y * math.cos(angle))
             
@@ -299,14 +304,9 @@ class Boss(pygame.sprite.Sprite):
         self.update_timers()
         self.check_stage()
         self.handle_attack()
-
-        # animation
-        self.frame_index += ANIMATION_SPEED * dt
-        self.image = self.frames[int(self.frame_index) % len(self.frames)]
-        self.rect = self.image.get_rect(center = self.rect.center)
-        self.mask = pygame.mask.from_surface(self.image)
-
         self.flicker()
+
+        self.mask = pygame.mask.from_surface(self.image)
 
 class BossBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, vx, vy):
@@ -316,7 +316,7 @@ class BossBullet(pygame.sprite.Sprite):
         self.image = surf
         self.rect = self.image.get_rect(center=(x, y))
         self.mask = pygame.mask.from_surface(self.image)
-        self.pos = pygame.math.Vector2(x, y)
+        self.pos = vector(x, y)
         self.vx = vx
         self.vy = vy
         self.z = Z_LAYERS['main']
