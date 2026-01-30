@@ -6,18 +6,18 @@ from math import sin
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound,facing_right = True):
-        #general setup
+        # general setup
         super().__init__(groups)
         self.z = Z_LAYERS['main']
         self.hitbox_config = hitbox_config
         self.data = data
 
-        #image
+        # image
         self.frames, self.frame_index = frames, 0
         self.state, self.facing_right = 'idle', facing_right
         self.image = self.frames[self.state][self.frame_index]
 
-        #rects
+        # rects
         self.rect = self.image.get_frect(midbottom = pos)
         self.hitbox_rect = self.rect.inflate(self.hitbox_config[self.state])
         self.hitbox_rect.midbottom = pos
@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
             'attack block': Timer(500)
         }
 
-        #audio
+        # audio
         self.attack_sound = attack_sound
         self.jump_sound = jump_sound
 
@@ -136,10 +136,8 @@ class Player(pygame.sprite.Sprite):
             if sprite.rect.colliderect(floor_rect):
                 self.platform = sprite
 
-
     def collision(self, axis):
         for sprite in self.collision_sprites:
-            # ADD THIS GUARD: Skip sprites with health in the standard rect-collision loop
             if hasattr(sprite, 'health'): continue 
 
         # for sprite in self.collision_sprites:
@@ -294,9 +292,9 @@ class PropellerPlayer(Player):
         if not self.on_surface['floor']:
             self.state = 'freefall'
 
-class Quest2Player(Player):
-    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound):     
-        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound)
+class BossFightPlayer(Player):
+    def __init__(self, pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound, facing_right):     
+        super().__init__(pos, groups, collision_sprites, semi_collision_sprites, frames, hitbox_config, data, attack_sound, jump_sound, facing_right)
         
         self.gravity = 0
         self.jump_height = 0
@@ -328,64 +326,6 @@ class Quest2Player(Player):
         # vertical
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
-
-    # def collision(self, axis):
-    #     for sprite in self.collision_sprites:
-    #         if self.hitbox_rect.colliderect(sprite.rect):
-    #             if hasattr(sprite, 'health'):
-    #                 offset = (sprite.rect.x - self.hitbox_rect.x, sprite.rect.y - self.hitbox_rect.y)
-
-    #                 if self.mask.overlap(sprite.mask, offset):
-    #                     if axis == 'horizontal':
-    #                         # left
-    #                         if self.hitbox_rect.left <= sprite.rect.right and self.old_rect.left >= sprite.old_rect.right:
-    #                             self.hitbox_rect.left = sprite.rect.right
-    #                         # right
-    #                         elif self.hitbox_rect.right >= sprite.rect.left and self.old_rect.right <= sprite.old_rect.left:
-    #                             self.hitbox_rect.right = sprite.rect.left
-    #                     else: #vertical
-    #                         # top
-    #                         if self.hitbox_rect.top <= sprite.rect.bottom and self.old_rect.top >= sprite.old_rect.bottom:
-    #                             self.hitbox_rect.top = sprite.rect.bottom
-    #                         # bottom
-    #                         elif self.hitbox_rect.bottom >= sprite.rect.top and self.old_rect.bottom <= sprite.old_rect.top:
-    #                             self.hitbox_rect.bottom = sprite.rect.top
-    #                         self.direction.y = 0
-
-    #                 return
-
-    #         # else:
-    #     super().collision(axis)
-
-    def collision(self, axis):
-        # 1. Pixel-Perfect check for Boss/Enemies
-        for sprite in self.collision_sprites:
-            if hasattr(sprite, 'health'):
-                if self.hitbox_rect.colliderect(sprite.rect):
-                    # Must use self.rect.topleft for mask offset math
-                    offset = (sprite.rect.x - self.rect.x, sprite.rect.y - self.rect.y)
-                    
-                    if self.mask.overlap(sprite.mask, offset):
-                        if axis == 'horizontal':
-                            if self.hitbox_rect.right >= sprite.rect.left and self.old_rect.right <= sprite.old_rect.left:
-                                self.hitbox_rect.right = sprite.rect.left
-                            elif self.hitbox_rect.left <= sprite.rect.right and self.old_rect.left >= sprite.old_rect.right:
-                                self.hitbox_rect.left = sprite.rect.right
-                        else:
-                            if self.hitbox_rect.bottom >= sprite.rect.top and self.old_rect.bottom <= sprite.old_rect.top:
-                                self.hitbox_rect.bottom = sprite.rect.top
-                            elif self.hitbox_rect.top <= sprite.rect.bottom and self.old_rect.top >= sprite.old_rect.bottom:
-                                self.hitbox_rect.top = sprite.rect.bottom
-                        return # Solid pixel hit, stop checking others
-
-        # 2. Environment check (Walls)
-        # Call the parent Player.collision which handles standard rect-based walls
-        # We only get here if we didn't return from a pixel-hit above
-        super().collision(axis)
-
-
-
-
 
     def get_state(self):
         if self.attacking:

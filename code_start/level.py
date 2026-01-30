@@ -1,9 +1,28 @@
 from settings import *
 from sprites import Sprite, AnimatedSprite, MovingSprite, Item, ParticleEffectSprite
-from player import Player, PropellerPlayer, Quest2Player
+from player import Player, PropellerPlayer, BossFightPlayer
 from groups import AllSprites
 from enemies import Diseased_rat, Frog, Boss
 from screen_graphics import Graphic, Button
+
+# Player configurations
+PLAYER_TYPES = {
+    'default': {
+        'class': Player,
+        'frames': 'default_player',
+        'hitbox': 'default'
+    },
+    'propeller': {
+        'class': PropellerPlayer,
+        'frames': 'propeller_player',
+        'hitbox': 'propeller'
+    },
+    'boss_fight': {
+        'class': BossFightPlayer,
+        'frames': 'default_player',
+        'hitbox': 'default'
+    }
+}
 
 class Level:
     def __init__(self, tmx_map, level_frames, screen_frames, audio_files, data, switch_stage):
@@ -42,9 +61,9 @@ class Level:
         # frames
         self.particle_frames = level_frames['particle']
 
-        #audio
+        # audio
         self.coin_sound = audio_files['coin']
-        #self.coin_sound.set_volume(0.3) # Adjust volume as needed, 1 = 100% volume
+        # self.coin_sound.set_volume(0.3) # Adjust volume as needed, 1 = 100% volume
         self.damage_sound = audio_files['damage']
         self.hit_sound = audio_files['hit']
 
@@ -71,44 +90,22 @@ class Level:
         # objects
         for obj in tmx_map.get_layer_by_name("Objects"):
             if obj.name == 'Player':
-                if self.data.current_level == 2:
-                    self.player = PropellerPlayer(
-                        pos = (obj.x, obj.y), 
-                        groups = self.all_sprites, 
-                        collision_sprites = self.collision_sprites,
-                        semi_collision_sprites = self.semi_collision_sprites,
-                        frames = level_frames['propeller_player'],
-                        hitbox_config = HITBOX_CONFIGS['propeller'],
-                        data = self.data,
-                        attack_sound = audio_files['attack'],
-                        jump_sound = audio_files['jump'],
-                        facing_right = obj.properties['facing_right'],
-                        )
-                elif self.data.current_level == 3:
-                    self.player = Quest2Player(
-                        pos = (obj.x, obj.y),
-                        groups = (self.all_sprites,),
-                        collision_sprites = self.collision_sprites,
-                        semi_collision_sprites = self.semi_collision_sprites,
-                        frames = level_frames['default_player'],
-                        hitbox_config = HITBOX_CONFIGS['default'],
-                        attack_sound = audio_files['attack'],
-                        jump_sound = audio_files['jump'],
-                        data = self.data,
-                        )
-                else:
-                    self.player = Player(
-                        pos = (obj.x, obj.y), 
-                        groups = self.all_sprites, 
-                        collision_sprites = self.collision_sprites,
-                        semi_collision_sprites = self.semi_collision_sprites,
-                        frames = level_frames['default_player'],
-                        hitbox_config = HITBOX_CONFIGS['default'],
-                        data = self.data,
-                        attack_sound = audio_files['attack'],
-                        jump_sound = audio_files['jump'],
-                        facing_right = obj.properties['facing_right'],
-                        )
+                p_type = obj.type if obj.type else 'default'
+                config = PLAYER_TYPES.get(p_type, PLAYER_TYPES['default'])
+                player_class = config['class']
+
+                self.player = player_class(
+                    pos = (obj.x, obj.y), 
+                    groups = self.all_sprites, 
+                    collision_sprites = self.collision_sprites,
+                    semi_collision_sprites = self.semi_collision_sprites,
+                    frames = level_frames[config['frames']],
+                    hitbox_config = HITBOX_CONFIGS[config['hitbox']],
+                    data = self.data,
+                    attack_sound = audio_files['attack'],
+                    jump_sound = audio_files['jump'],
+                    facing_right = obj.properties.get('facing_right', False),
+                    )
             else:
                 if obj.name == 'spikes':
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.damage_sprites), upsidedown = obj.properties['upsidedown'],)
@@ -118,8 +115,7 @@ class Level:
         # moving objects
         for obj in tmx_map.get_layer_by_name("Moving Objects"):
             frames = level_frames[obj.name]
-            groups = (self.all_sprites, self.semi_collision_sprites) # if obj.properties['Platform'] else (self.all_sprites, self.damage_sprites)
-            
+            groups = (self.all_sprites, self.semi_collision_sprites)
             if obj.name == 'Helicopter':
                 if obj.width > obj.height:
                     move_dir = 'x'
@@ -147,6 +143,7 @@ class Level:
             elif obj.name == 'Diseased_rat':
                 all_collideables = self.collision_sprites.sprites() + self.semi_collision_sprites.sprites()
                 Diseased_rat((obj.x, obj.y), level_frames['Diseased_rat'], (self.all_sprites, self.damage_sprites, self.diseased_rat_sprites), all_collideables, obj.properties['speed'])
+            
             elif obj.name == 'Frog':
                 Frog(
                     pos     = (obj.x, obj.y),
@@ -155,8 +152,6 @@ class Level:
                     reverse = obj.properties['reverse'],
                     player  = self.player
                 )
-            else:
-                pass
 
         # items 
         for obj in tmx_map.get_layer_by_name('Items'):
@@ -235,7 +230,6 @@ class Level:
         #     self.switch_stage()
 
         # level completion
-        # if self.player.hitbox_rect.colliderect(self.level_finish_rect):
         if self.level_finish_rect and self.player.hitbox_rect.colliderect(self.level_finish_rect):
             self.switch_stage()
             
@@ -275,10 +269,6 @@ class Level:
             self.check_constraint()
 
         self.all_sprites.draw(self.player.hitbox_rect.center)
-        # Draw Player Hitbox
-        pygame.draw.rect(self.display_surface, "red", self.player.hitbox_rect, 2)
-        # Draw Boss Hitbox
-        pygame.draw.rect(self.display_surface, "blue", self.boss.rect, 2)
 
         if self.data.game_state == 'paused':
             self.pause()

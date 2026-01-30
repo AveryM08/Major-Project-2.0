@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="82" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="301">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="82" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="319">
  <tileset firstgid="1" source="../tilesets/MP2 Tileset_scaled_64x.tsx"/>
  <tileset firstgid="385" source="../tilesets/MP2 Ground Tileset.tsx"/>
  <tileset firstgid="475" source="../tilesets/scaled player.tsx"/>
  <tileset firstgid="476" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="477" source="../tilesets/frog.tsx"/>
  <tileset firstgid="478" source="../tilesets/coin.tsx"/>
+ <tileset firstgid="479" source="../tilesets/scaled diseased rat.tsx"/>
  <layer id="1" name="BG" width="20" height="82">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -100,13 +101,13 @@
   <object id="143" name="torch_flame" gid="66" x="192" y="320" width="64" height="64"/>
   <object id="144" name="torch_flame" gid="66" x="768" y="1600" width="64" height="64"/>
   <object id="145" name="torch_flame" gid="66" x="64" y="1600" width="64" height="64"/>
-  <object id="146" name="torch_flame" gid="66" x="256" y="1984" width="64" height="64"/>
+  <object id="146" name="torch_flame" gid="66" x="210.667" y="2085.33" width="64" height="64"/>
   <object id="147" name="torch_flame" gid="66" x="704" y="1984" width="64" height="64"/>
   <object id="148" name="torch_flame" gid="66" x="1088" y="2240" width="64" height="64"/>
   <object id="149" name="torch_flame" gid="66" x="1216" y="2560" width="64" height="64"/>
-  <object id="150" name="torch_flame" gid="66" x="512" y="2560" width="64" height="64"/>
+  <object id="150" name="torch_flame" gid="66" x="256" y="2496" width="64" height="64"/>
   <object id="151" name="torch_flame" gid="66" x="448" y="2944" width="64" height="64"/>
-  <object id="152" name="torch_flame" gid="66" x="384" y="3328" width="64" height="64"/>
+  <object id="152" name="torch_flame" gid="66" x="64" y="3136" width="64" height="64"/>
   <object id="153" name="torch_flame" gid="66" x="1088" y="3328" width="64" height="64"/>
   <object id="154" name="torch_flame" gid="66" x="1152" y="2944" width="64" height="64"/>
   <object id="155" name="torch_flame" gid="66" x="1216" y="3776" width="64" height="64"/>
@@ -122,13 +123,13 @@
   <object id="165" name="torch_base" gid="78" x="0" y="4224" width="64" height="64"/>
   <object id="166" name="torch_base" gid="78" x="1216" y="3840" width="64" height="64"/>
   <object id="167" name="torch_base" gid="78" x="1088" y="3392" width="64" height="64"/>
-  <object id="168" name="torch_base" gid="78" x="384" y="3392" width="64" height="64"/>
+  <object id="168" name="torch_base" gid="78" x="64" y="3200" width="64" height="64"/>
   <object id="169" name="torch_base" gid="78" x="448" y="3008" width="64" height="64"/>
   <object id="170" name="torch_base" gid="78" x="1152" y="3008" width="64" height="64"/>
   <object id="171" name="torch_base" gid="78" x="1216" y="2624" width="64" height="64"/>
-  <object id="172" name="torch_base" gid="78" x="512" y="2624" width="64" height="64"/>
+  <object id="172" name="torch_base" gid="78" x="256" y="2560" width="64" height="64"/>
   <object id="173" name="torch_base" gid="78" x="1088" y="2304" width="64" height="64"/>
-  <object id="174" name="torch_base" gid="78" x="256" y="2048" width="64" height="64"/>
+  <object id="174" name="torch_base" gid="78" x="210.667" y="2149.33" width="64" height="64"/>
   <object id="175" name="torch_base" gid="78" x="704" y="2048" width="64" height="64"/>
   <object id="176" name="torch_base" gid="78" x="64" y="1664" width="64" height="64"/>
   <object id="177" name="torch_base" gid="78" x="768" y="1664" width="64" height="64"/>
@@ -137,6 +138,10 @@
   <object id="180" name="torch_base" gid="78" x="512" y="576" width="64" height="64"/>
   <object id="181" name="torch_base" gid="78" x="896" y="448" width="64" height="64"/>
   <object id="182" name="torch_base" gid="78" x="192" y="384" width="64" height="64"/>
+  <object id="308" name="torch_flame" gid="66" x="256" y="3520" width="64" height="64"/>
+  <object id="309" name="torch_base" gid="78" x="256" y="3584" width="64" height="64"/>
+  <object id="314" name="torch_flame" gid="66" x="650.667" y="3801.33" width="64" height="64"/>
+  <object id="315" name="torch_base" gid="78" x="650.667" y="3865.33" width="64" height="64"/>
  </objectgroup>
  <layer id="2" name="Terrain" width="20" height="82">
   <data encoding="csv">
@@ -203,19 +208,19 @@
 386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 392,393,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,38,
+0,0,0,0,0,0,0,0,0,430,431,431,431,431,431,432,0,0,13,14,
+0,0,0,0,0,0,0,0,0,436,437,437,437,437,437,438,0,0,37,38,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-393,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,
+393,0,0,430,431,431,431,431,432,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,433,434,434,434,434,435,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,436,437,437,437,437,438,0,0,0,0,0,0,0,0,0,13,14,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,26,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,38,
 386,387,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,430,431,431,431,431,432,0,0,0,
+389,390,0,0,0,0,0,0,0,0,0,436,437,437,437,437,438,0,0,0,
 389,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 392,393,401,0,0,401,401,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -397,9 +402,6 @@
 </data>
  </layer>
  <objectgroup id="4" name="Objects">
-  <object id="97" name="Cure 1" x="272.667" y="1782.67" width="30.6667" height="29.3333"/>
-  <object id="98" name="Cure 1" x="1198" y="4992" width="30.6667" height="29.3333"/>
-  <object id="114" name="Cure 1" x="1219.33" y="1220" width="30.6667" height="29.3333"/>
   <object id="277" name="spikes" gid="476" x="256" y="5248" width="64" height="64">
    <properties>
     <property name="upsidedown" type="bool" value="false"/>
@@ -495,61 +497,64 @@
     <property name="upsidedown" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="193" name="Player" gid="2147484123" x="1024" y="320" width="64" height="56">
+  <object id="193" name="Player" type="propeller" gid="2147484123" x="1024" y="320" width="64" height="56">
    <properties>
     <property name="facing_right" type="bool" value="false"/>
    </properties>
   </object>
   <object id="276" name="portal" x="32" y="5168" width="64" height="16"/>
- </objectgroup>
- <objectgroup id="3" name="Moving Objects">
-  <object id="64" name="Helicopter" x="128.667" y="3906" width="1023" height="16">
+  <object id="311" name="spikes" gid="476" x="1216" y="5056" width="64" height="64">
    <properties>
-    <property name="Platform" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
+    <property name="upsidedown" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="65" name="Helicopter" x="129.5" y="4329" width="1023" height="16">
+  <object id="312" name="spikes" gid="476" x="1216" y="4480" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="313" name="spikes" gid="476" x="0" y="4672" width="64" height="64">
+   <properties>
+    <property name="upsidedown" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Moving Objects">
+  <object id="64" name="Helicopter" x="236.667" y="3863.33" width="408.333" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
+    <property name="speed" type="int" value="150"/>
+   </properties>
+  </object>
+  <object id="65" name="Helicopter" x="725.5" y="4487.67" width="308.333" height="16">
+   <properties>
+    <property name="Platform" type="bool" value="true"/>
+    <property name="speed" type="int" value="175"/>
    </properties>
   </object>
   <object id="66" name="Helicopter" x="258.5" y="5160" width="445" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="67" name="Helicopter" x="257.5" y="4846" width="1023" height="16">
-   <properties>
-    <property name="Platform" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="81" name="Helicopter" x="129.5" y="4669" width="1023" height="16">
-   <properties>
-    <property name="Terrain" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
+    <property name="speed" type="int" value="200"/>
    </properties>
   </object>
   <object id="133" name="Helicopter" x="497.5" y="389" width="413" height="16">
    <properties>
     <property name="Platform" type="bool" value="true"/>
-    <property name="speed" type="int" value="100"/>
+    <property name="speed" type="int" value="125"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="10" name="Items">
   <object id="221" name="coin" gid="478" x="500" y="794.667" width="30" height="30"/>
-  <object id="222" name="coin" gid="478" x="271.5" y="1633.5" width="30" height="30"/>
+  <object id="222" name="coin" gid="478" x="1202.17" y="1232.17" width="30" height="30"/>
   <object id="223" name="coin" gid="478" x="478.25" y="1429.75" width="30" height="30"/>
   <object id="224" name="coin" gid="478" x="43.5" y="208.083" width="30" height="30"/>
   <object id="225" name="coin" gid="478" x="989.25" y="1749.5" width="30" height="30"/>
   <object id="226" name="coin" gid="478" x="1126.25" y="2788.5" width="30" height="30"/>
   <object id="227" name="coin" gid="478" x="643.25" y="2966.25" width="30" height="30"/>
   <object id="228" name="coin" gid="478" x="298.25" y="4816.25" width="30" height="30"/>
-  <object id="229" name="coin" gid="478" x="1036.75" y="4815.5" width="30" height="30"/>
+  <object id="229" name="coin" gid="478" x="1000.75" y="4646.17" width="30" height="30"/>
   <object id="230" name="coin" gid="478" x="743.25" y="5148.25" width="30" height="30"/>
   <object id="231" name="coin" gid="478" x="722.75" y="3563.75" width="30" height="30"/>
   <object id="232" name="coin" gid="478" x="266.75" y="3362.5" width="30" height="30"/>
@@ -558,6 +563,9 @@
   <object id="235" name="coin" gid="478" x="998.5" y="2583" width="30" height="30"/>
   <object id="298" name="coin" gid="478" x="1007.67" y="1037" width="30" height="30"/>
   <object id="300" name="coin" gid="478" x="1193" y="753" width="30" height="30"/>
+  <object id="301" name="coin" gid="478" x="243.667" y="1807.67" width="30" height="30"/>
+  <object id="302" name="coin" gid="478" x="235.667" y="4287.67" width="30" height="30"/>
+  <object id="303" name="coin" gid="478" x="987.667" y="3337" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="9" name="Enemies">
   <object id="196" name="Frog" gid="2147484125" x="1216" y="1024" width="64" height="40">
@@ -678,6 +686,26 @@
   <object id="299" name="Frog" gid="2147484125" x="448" y="2816" width="64" height="40">
    <properties>
     <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="310" name="Frog" gid="2147484125" x="1152" y="5056" width="64" height="40">
+   <properties>
+    <property name="reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="316" name="Diseased_rat" gid="2147484127" x="832" y="4032" width="116" height="48">
+   <properties>
+    <property name="speed" type="int" value="125"/>
+   </properties>
+  </object>
+  <object id="317" name="Diseased_rat" gid="479" x="256" y="4352" width="116" height="48">
+   <properties>
+    <property name="speed" type="int" value="125"/>
+   </properties>
+  </object>
+  <object id="318" name="Diseased_rat" gid="2147484127" x="960" y="4736" width="116" height="48">
+   <properties>
+    <property name="speed" type="int" value="125"/>
    </properties>
   </object>
  </objectgroup>

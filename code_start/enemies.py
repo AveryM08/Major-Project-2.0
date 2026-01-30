@@ -52,7 +52,7 @@ class Frog(pygame.sprite.Sprite):
     def __init__(self, pos, frames, groups, reverse, player):
         super().__init__(groups)
         self.tongue_groups = (groups[0], groups[2])
-        self.remove(groups[-1]) # remove from damage_sprites group
+        self.remove(groups[-1]) # remove from damage_sprites group (only the tongue does damage)
 
         if reverse:
             self.frames = {}
