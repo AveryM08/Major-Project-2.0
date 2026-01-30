@@ -17,29 +17,32 @@ class Game:
 
         self.ui = UI(self.font, self.ui_frames)
         self.data = Data(self.ui)
-        self.data.start_level(3) # Starts at level one to skip testing the game title screen
+        self.data.start_level(0)
 
         self.tmx_maps = {
-            1: load_pygame(join('..', 'data', 'levels', 'Quest 1 - Copy.tmx')),
-            2: load_pygame(join('..', 'data', 'levels', 'Quest 1.tmx')),
-            3: load_pygame(join('..', 'data', 'levels', 'Quest 2.tmx')),
+            1: load_pygame(join('..', 'data', 'levels', '1.tmx')),
+            2: load_pygame(join('..', 'data', 'levels', '2.tmx')),
+            3: load_pygame(join('..', 'data', 'levels', '3.tmx')),
+            4: load_pygame(join('..', 'data', 'levels', 'boss_fight.tmx'))
             }
         
-        # self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
-        self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
+        self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
+        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
     def switch_stage(self):
         if self.data.game_state == 'game_over' or self.data.game_state == 'game_win':
+            self.data.coins = 0  # Reset coins when starting a new game
             self.data.start_level(0)
             self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
         
         else:
-            self.data.health = 5  # Reset health when starting a new level
+            self.data.health = 5  # Reset health when starting a new level/game
             if self.data.game_state == 'restarting':
                 self.data.coins = 0  # Reset coins when restarting level
-                self.data.start_level(self.data.current_level)
+                self.data.boss_health = 21 # Reset boss health when restarting level (if applicable)
                 self.data.game_state = 'running'
+                self.data.start_level(self.data.current_level)
             else: # advance to next level
                 self.data.start_level(self.data.current_level + 1)
             self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
@@ -47,7 +50,6 @@ class Game:
     # animations
     def import_assets(self):
         self.level_frames = {
-            'cooking_pot': import_folder('..', 'graphics', 'icons', 'cooking_pot'),
             'default_player': import_sub_folders('..', 'graphics', 'player', 'default'),
             'propeller_player': import_sub_folders('..', 'graphics', 'player', 'propeller'),
             'torch_flame': import_folder('..', 'graphics', 'level', 'torch_flame'),
@@ -57,13 +59,7 @@ class Game:
             'Frog': import_sub_folders('..', 'graphics', 'enemies', 'frog'),
             'items': import_sub_folders('..', 'graphics', 'items'),
             'particle': import_folder('..', 'graphics', 'effects', 'particle'),
-            'boss': import_folder('..', 'graphics', 'enemies', 'boss'),
-        }
-
-        self.ui_frames = {
-            'heart': import_folder('..', 'graphics', 'ui', 'heart'),
-            'coin':import_folder('..', 'graphics', 'ui', 'coin'),
-            'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
+            'boss': import_image('..', 'graphics', 'enemies', 'boss'),
         }
         
         self.screen_frames = {
@@ -93,6 +89,12 @@ class Game:
                 'restart_button': import_image('..', 'graphics', 'screen', 'game_over', 'button', 'Restart'),
                 'quit_button': import_image('..', 'graphics', 'screen', 'game_over', 'button', 'Quit'),
             }
+        }
+
+        self.ui_frames = {
+            'heart': import_folder('..', 'graphics', 'ui', 'heart'),
+            'coin':import_folder('..', 'graphics', 'ui', 'coin'),
+            'boss_healthbar': import_folder('..', 'graphics', 'ui', 'boss_healthbar'),
         }
 
         self.font = pygame.font.Font(join('..', 'graphics','ui','runescape_uf.ttf'), 35)

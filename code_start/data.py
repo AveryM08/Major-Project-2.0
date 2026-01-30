@@ -8,13 +8,13 @@ class Data:
         self.ui.create_boss_healthbar()
 
         self.current_level = 0
-        self.game_state = 'running'  # Possible states: 'running', 'paused', 'game_over', 'game_win'
+        self.game_state = 'running'
 
     def start_level(self, level_number):
         self.current_level = level_number
         
-        # Only show the healthbar if it's the boss level (level 3)
-        if self.current_level == 3 and self.game_state == 'running':
+        # Only show the healthbar if it's the boss level (level 4)
+        if self.current_level == 4 and self.game_state == 'running':
             self.ui.create_boss_healthbar()
         else:
             self.ui.hide_boss_healthbar() 
@@ -26,8 +26,8 @@ class Data:
     @coins.setter
     def coins(self, value):
         self._coins = value
-        if self.coins >= 10:
-            self.coins -= 10
+        if self.coins >= 15:
+            self.coins -= 15
             self.health += 1
         self.ui.show_coins(self.coins)
 

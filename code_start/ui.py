@@ -23,27 +23,6 @@ class UI:
         self.boss_healthbar_frames = frames['boss_healthbar']
         self.boss_bar = None
 
-    def create_boss_healthbar(self):
-        if not self.boss_bar:
-            x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
-            y = 10
-            self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
-        
-        self.boss_bar.active = True
-
-    def hide_boss_healthbar(self):
-        if self.boss_bar:
-            self.boss_bar.active = False
-
-    def hit_boss(self, amount = 1):
-        for sprite in self.sprites:
-            if isinstance(sprite, Boss_HealthBar):
-                #update and show new boss healthbar
-                sprite.show()
-                if amount > 0:
-                    sprite.hit(amount)
-                return
-
     def create_hearts(self, num_hearts):
         for sprite in self.sprites:
             if isinstance(sprite, Heart):
@@ -63,7 +42,6 @@ class UI:
         middle_text_rect = coin_middle_text_surf.get_frect(midleft=(coin_rect.right + 10, coin_rect.centery)).move(0, 2)
         text_rect = coin_text_surf.get_frect(midleft=(middle_text_rect.right + 5, middle_text_rect.centery))
     
-        # We use coin_rect.top and coin_rect.height to ensure it never changes height
         full_coin_bg = pygame.FRect(coin_rect.left, coin_rect.top, text_rect.right - coin_rect.left, coin_rect.height).inflate(10, 10)
         self.draw_bar_background(full_coin_bg)
 
@@ -75,10 +53,32 @@ class UI:
         self.coin_amount = amount
 
     def draw_bar_background(self, rect, color=(0, 0, 0, 120)):
-        # color format: (R, G, B, Alpha) -> 120 is semi-transparent
         bg_surf = pygame.Surface(rect.size, pygame.SRCALPHA)
         pygame.draw.rect(bg_surf, color, bg_surf.get_frect(), border_radius=10)
         self.display_surface.blit(bg_surf, rect)
+
+    def create_boss_healthbar(self):
+        if self.boss_bar:
+            self.boss_bar.kill() 
+            self.boss_bar = None
+
+        x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
+        y = 10
+        self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        self.boss_bar.active = True
+
+    def hide_boss_healthbar(self):
+        if self.boss_bar:
+            self.boss_bar.active = False
+
+    def hit_boss(self, amount = 1):
+        for sprite in self.sprites:
+            if isinstance(sprite, Boss_HealthBar):
+                # update and show new boss healthbar
+                sprite.show()
+                if amount > 0:
+                    sprite.hit(amount)
+                return
         
     def update(self, dt):
         self.sprites.update(dt)

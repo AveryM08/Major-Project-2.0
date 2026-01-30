@@ -19,7 +19,7 @@ HITBOX_CONFIGS = {
         'idle': (-180, 0), # 10 pxl wide
         'run': (-124, 0), # 24 pxl wide, then -6 on top
         'wall': (-176, 0), # 11 pxl wide
-        'attack': (-160, 0) # 
+        # 'attack': (-160, 0) # 
     },
     'propeller': {
         'idle': (-180, -72), # 14 pxl tall
