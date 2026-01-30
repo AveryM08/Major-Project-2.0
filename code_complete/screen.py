@@ -47,7 +47,7 @@ class Screen:
         quit_button.draw(self.display_surface)
         
         if restart_button.is_pressed():
-            self.data.game_state = 'running'
+            self.data.game_state = 'restarting'
             self.switch_stage()
         if quit_button.is_pressed():
             pygame.quit()

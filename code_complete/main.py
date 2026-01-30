@@ -30,9 +30,11 @@ class Game:
         self.bg_audio.play(-1)
 
     def switch_stage(self):
-        if self.data.game_state == 'game_over' or self.data.game_state == 'game_win':
-            self.data.coins = 0  # Reset coins when starting a new game
+        if self.data.game_state == 'game_win':
             self.data.start_level(0)
+            self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
+
+        elif self.data.game_state == 'game_over':
             self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
         
         else:
@@ -120,7 +122,7 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.data.game_state = 'paused' if self.data.game_state == 'running' else 'running'
             
-            if self.data.current_level == 0:
+            if self.data.current_level == 0 or self.data.game_state == 'game_over':
                 self.current_stage.run()
             else:
                 self.current_stage.run(dt)
