@@ -41,6 +41,9 @@ class Game:
             self.data.health = 5  # Reset health when starting a new level/game
             if self.data.game_state == 'restarting':
                 self.data.coins = 0  # Reset coins when restarting level
+                if self.ui.boss_bar.active:
+                    self.data._boss_health = 21
+                    self.ui.boss_bar.stage = 0
                 self.data.game_state = 'running'
                 self.data.start_level(self.data.current_level)
             else: # advance to next level

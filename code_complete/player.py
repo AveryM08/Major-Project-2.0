@@ -137,26 +137,24 @@ class Player(pygame.sprite.Sprite):
 
     def collision(self, axis):
         for sprite in self.collision_sprites:
-            if hasattr(sprite, 'health'): continue 
-
-        # for sprite in self.collision_sprites:
-            if sprite.rect.colliderect(self.hitbox_rect):
+            # Use the hitbox if it exists, otherwise use the normal rect (for tiles)
+            target_rect = sprite.hitbox_rect if hasattr(sprite, 'hitbox_rect') else sprite.rect
+        
+            if target_rect.colliderect(self.hitbox_rect):
                 if axis == 'horizontal':
-                    # left
-                    if self.hitbox_rect.left <= sprite.rect.right and int(self.old_rect.left) >= int(sprite.old_rect.right):
-                        self.hitbox_rect.left = sprite.rect.right
-                    # right
-                    if self.hitbox_rect.right >= sprite.rect.left and int(self.old_rect.right) <= int(sprite.old_rect.left):
-                        self.hitbox_rect.right = sprite.rect.left
+                    if self.hitbox_rect.left <= target_rect.right and int(self.old_rect.left) >= int(sprite.old_rect.right):
+                        self.hitbox_rect.left = target_rect.right
+                    if self.hitbox_rect.right >= target_rect.left and int(self.old_rect.right) <= int(sprite.old_rect.left):
+                        self.hitbox_rect.right = target_rect.left
                 else: #vertical
                     # top
-                    if self.hitbox_rect.top <= sprite.rect.bottom and int(self.old_rect.top) >= int(sprite.old_rect.bottom):
-                        self.hitbox_rect.top = sprite.rect.bottom
+                    if self.hitbox_rect.top <= target_rect.bottom and int(self.old_rect.top) >= int(sprite.old_rect.bottom):
+                        self.hitbox_rect.top = target_rect.bottom
                         if hasattr(sprite, 'moving'):
                             self.hitbox_rect.top += 6
                     # bottom
-                    if self.hitbox_rect.bottom >= sprite.rect.top and int(self.old_rect.bottom) <= int(sprite.old_rect.top):
-                        self.hitbox_rect.bottom = sprite.rect.top
+                    if self.hitbox_rect.bottom >= target_rect.top and int(self.old_rect.bottom) <= int(sprite.old_rect.top):
+                        self.hitbox_rect.bottom = target_rect.top
                     self.direction.y = 0
 
     def semi_collision(self):

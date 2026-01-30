@@ -173,6 +173,13 @@ class Level:
                 self.player.take_damage()
                 self.damage_sound.play()
 
+            for sprite in self.collision_sprites:
+                if sprite not in self.boss_sprites:
+                    if bullet.rect.colliderect(sprite.rect):
+                        bullet.kill()
+                        ParticleEffectSprite(bullet.rect.center, self.particle_frames, self.all_sprites)
+                        break 
+
     def hit_collision(self):
         for sprite in self.damage_sprites:
             if sprite.rect.colliderect(self.player.hitbox_rect):
@@ -244,8 +251,7 @@ class Level:
 
         overlay.draw(self.display_surface)
         resume_button.draw(self.display_surface)
-        if self.data.current_level != 4:
-            restart_button.draw(self.display_surface)
+        restart_button.draw(self.display_surface)
         quit_button.draw(self.display_surface)
 
         if resume_button.is_pressed():

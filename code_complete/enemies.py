@@ -184,7 +184,8 @@ class Boss(pygame.sprite.Sprite):
         self.original_image = surf
         self.image = self.original_image
         self.rect = self.image.get_rect(topleft = pos)
-        self.old_rect = self.rect.copy()
+        self.hitbox_rect = self.rect.inflate(-176, -80) 
+        self.old_rect = self.hitbox_rect.copy()
         self.mask = pygame.mask.from_surface(self.image)
         self.z = Z_LAYERS['main']
         
@@ -299,7 +300,7 @@ class Boss(pygame.sprite.Sprite):
             self.all_sprites.add(bullet)
 
     def update(self, dt):
-        self.old_rect = self.rect.copy()
+        self.old_rect = self.hitbox_rect.copy()
         self.update_timers()
         self.check_stage()
         self.handle_attack()
