@@ -195,7 +195,6 @@ class Level:
                 facing_target = ((self.player.rect.centerx < target.rect.centerx and self.player.facing_right) or
                                 (self.player.rect.centerx > target.rect.centerx and not self.player.facing_right))
                 if target == self.boss:
-                    # if self.player.attacking and facing_target and pygame.sprite.spritecollide(self.player, pygame.sprite.Group(target), dokill = False, collided = pygame.sprite.collide_mask):
                     if self.player.attacking and facing_target and pygame.sprite.collide_mask(self.player, target):
                         target.take_damage()
                         self.hit_sound.play()
@@ -225,9 +224,9 @@ class Level:
             self.switch_stage()
 
         # death
-        # if self.data.health <= 0:
-        #     self.data.game_state = 'game_over'
-        #     self.switch_stage()
+        if self.data.health <= 0:
+            self.data.game_state = 'game_over'
+            self.switch_stage()
 
         # level completion
         if self.level_finish_rect and self.player.hitbox_rect.colliderect(self.level_finish_rect):
@@ -245,7 +244,8 @@ class Level:
 
         overlay.draw(self.display_surface)
         resume_button.draw(self.display_surface)
-        restart_button.draw(self.display_surface)
+        if self.data.current_level != 4:
+            restart_button.draw(self.display_surface)
         quit_button.draw(self.display_surface)
 
         if resume_button.is_pressed():

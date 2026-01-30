@@ -203,7 +203,6 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Poison"/>
  <objectgroup id="11" name="Data">
   <object id="237" name="Data" x="0" y="0" width="64" height="64">
    <properties>
