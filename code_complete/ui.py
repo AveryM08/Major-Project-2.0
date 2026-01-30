@@ -1,6 +1,5 @@
 from settings import *
 from sprites import AnimatedSprite
-from timer import Timer
 
 class UI:
     def __init__(self, font, frames):
@@ -58,13 +57,11 @@ class UI:
         self.display_surface.blit(bg_surf, rect)
 
     def create_boss_healthbar(self):
-        if self.boss_bar:
-            self.boss_bar.kill() 
-            self.boss_bar = None
-
-        x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
-        y = 10
-        self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        if not self.boss_bar:
+            x = WINDOW_WIDTH / 2 - self.boss_healthbar_frames[0].get_width() / 2
+            y = 10
+            self.boss_bar = Boss_HealthBar((x,y), self.boss_healthbar_frames, self.sprites)
+        
         self.boss_bar.active = True
 
     def hide_boss_healthbar(self):

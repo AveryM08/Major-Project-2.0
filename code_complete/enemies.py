@@ -3,7 +3,6 @@ from random import choice
 from timer import Timer
 import math
 import random
-from data import Data
 from math import sin
 
 class Diseased_rat(pygame.sprite.Sprite):

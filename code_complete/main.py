@@ -4,7 +4,7 @@ from screen import Screen
 from pytmx.util_pygame import load_pygame
 from os.path import join
 from data import Data
-from ui import UI, Boss_HealthBar
+from ui import UI
 from support import *
 
 class Game:
@@ -27,7 +27,6 @@ class Game:
             }
         
         self.current_stage = Screen(self.screen_frames, self.data, self.switch_stage)
-        # self.current_stage = Level(self.tmx_maps[self.data.current_level], self.level_frames, self.screen_frames, self.audio_files, self.data, self.switch_stage)
         self.bg_audio.play(-1)
 
     def switch_stage(self):
@@ -40,7 +39,6 @@ class Game:
             self.data.health = 5  # Reset health when starting a new level/game
             if self.data.game_state == 'restarting':
                 self.data.coins = 0  # Reset coins when restarting level
-                self.data.boss_health = 21 # Reset boss health when restarting level (if applicable)
                 self.data.game_state = 'running'
                 self.data.start_level(self.data.current_level)
             else: # advance to next level
